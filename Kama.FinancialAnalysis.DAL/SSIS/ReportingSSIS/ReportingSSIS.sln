@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "ReportingSSIS", "ReportingSSIS.dtproj", "{CD16EBC3-473D-47A0-9F94-C3605D316CEB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD16EBC3-473D-47A0-9F94-C3605D316CEB}.Development|Default.ActiveCfg = Development
+		{CD16EBC3-473D-47A0-9F94-C3605D316CEB}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {61B67C96-864C-42F7-BFCC-0EDF4F667F0E}
+	EndGlobalSection
+EndGlobal

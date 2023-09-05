@@ -1,0 +1,78 @@
+﻿
+<script src="~/Scripts/luxon.js"></script>
+<script src="~/Scripts/chartV3.0.1.js"></script>
+<script src="~/Scripts/chartjs-adapter-luxon.js"></script>
+<script src="~/Scripts/aaaindex1.js"></script>
+
+<div class="row">
+    @*<div class="col-md-12">
+            <h2>Getting started</h2>
+            <div>
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>*@
+
+    <div class="col-md-12">
+        <div style="margin: 14px 0 0 0;">
+            <input type="checkbox" value="" id="nyopen" onclick="isNykOpen = !isNykOpen;destroyChart()">
+            <label style=" padding: 0px 10px; color: #3dff00 " for="nyopen">
+                ny open
+            </label>
+            <input type="checkbox" value="" id="nyclose" onclick="isNykClose = !isNykClose;destroyChart()">
+            <label style=" padding: 0px 10px; color: #00ffde " for="nyclose">
+                ny close
+            </label>
+            <input type="checkbox" value="" id="ldopen" onclick="isLndOpen = !isLndOpen;destroyChart()">
+            <label style=" padding: 0px 10px; color: #0006ff " for="ldopen">
+                ld open
+            </label>
+            <input type="checkbox" value="" id="ldclose" onclick="isLndClose = !isLndClose;destroyChart()">
+            <label style=" padding: 0px 10px; color: #ff0000" for="ldclose">
+                ld close
+            </label>
+
+            <input style="margin: 0 0 0 50px" type="checkbox" value="" id="isMovingAverages" checked onclick="isMovingAverages = !isMovingAverages;destroyChart()">
+            <label style=" padding: 0px 10px; color: #ffe200" for="isMovingAverages">
+                M5
+            </label>
+            <label style=" padding: 0px 10px; color: #3dff00" for="isMovingAverages">
+                M10
+            </label>
+            <label style=" padding: 0px 10px; color: #00ffde" for="isMovingAverages">
+                M20
+            </label>
+            <label style=" padding: 0px 10px; color: #0006ff" for="isMovingAverages">
+                M30
+            </label>
+            <label style="padding: 0px 10px; color: #ff0000 " for="isMovingAverages">
+                H1
+            </label>
+        </div>
+
+        <div id="chrtCenter" style="width: 100%; overflow-x: auto;  scroll-snap-align: center; overflow-y: hidden">
+            <div style="width: 20000px;">
+                <canvas id="chartViwe" width="0"></canvas>
+            </div>
+            <div style="width: 20000px;">
+                <canvas id="chartViwe2" width="0"></canvas>
+            </div>
+        </div>
+
+        <div>
+            <label style=" padding: 0px 10px; color: #ffe200">M10</label>
+            <label style=" padding: 0px 10px; color: #3dff00">M30</label>
+            <label style=" padding: 0px 10px; color: #00ffde">H1</label>
+            <label style=" padding: 0px 10px; color: #0006ff">H12</label>
+            <label style=" padding: 0px 10px; color: #ff0000">D1</label>
+        </div>
+
+        <div style="margin: 30px  0;">
+            <button type="button" class="btn btn-primary" onclick="GetData(1)">قبلی</button>
+            <span id="PageIndex"></span>
+            <button type="button" class="btn btn-primary" onclick="GetData(-1)">بعدی</button>
+        </div>
+    </div>
+
+
+    <script src="~/Scripts/PriceView/index.js"></script>
+</div>

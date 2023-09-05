@@ -1,0 +1,7 @@
+D:\prj\aro\Kama.Aro.Salary\Kama.Aro.Salary.API\bin\Kama.Aro.Salary.Infrastructure.DAL.dll
+D:\prj\aro\Kama.Aro.Salary\Kama.Aro.Salary.API\bin\Kama.Aro.Salary.Infrastructure.DAL.pdb
+D:\prj\aro\Kama.Aro.Salary\Kama.Aro.Salary.Infrastructure.DAL\obj\Debug\Kama.Aro.Salary.Infrastructure.DAL.csproj.AssemblyReference.cache
+D:\prj\aro\Kama.Aro.Salary\Kama.Aro.Salary.Infrastructure.DAL\obj\Debug\Kama.Aro.Salary.Infrastructure.DAL.csproj.CoreCompileInputs.cache
+D:\prj\aro\Kama.Aro.Salary\Kama.Aro.Salary.Infrastructure.DAL\obj\Debug\Kama.Aro.Salary.Infrastructure.DAL.csproj.CopyComplete
+D:\prj\aro\Kama.Aro.Salary\Kama.Aro.Salary.Infrastructure.DAL\obj\Debug\Kama.Aro.Salary.Infrastructure.DAL.dll
+D:\prj\aro\Kama.Aro.Salary\Kama.Aro.Salary.Infrastructure.DAL\obj\Debug\Kama.Aro.Salary.Infrastructure.DAL.pdb

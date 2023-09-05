@@ -1,0 +1,7 @@
+D:\prj\forex\Kama.FinancialAnalysis\Kama.FinancialAnalysis\bin\Kama.FinancialAnalysis.Domain.dll
+D:\prj\forex\Kama.FinancialAnalysis\Kama.FinancialAnalysis\bin\Kama.FinancialAnalysis.Domain.pdb
+D:\prj\forex\Kama.FinancialAnalysis\Kama.FinancialAnalysis.Domain\obj\Debug\2.Kama.FinancialAnalysis.Domain.csproj.AssemblyReference.cache
+D:\prj\forex\Kama.FinancialAnalysis\Kama.FinancialAnalysis.Domain\obj\Debug\2.Kama.FinancialAnalysis.Domain.csproj.CoreCompileInputs.cache
+D:\prj\forex\Kama.FinancialAnalysis\Kama.FinancialAnalysis.Domain\obj\Debug\2.Kama.FinancialAnalysis.Domain.csproj.CopyComplete
+D:\prj\forex\Kama.FinancialAnalysis\Kama.FinancialAnalysis.Domain\obj\Debug\Kama.FinancialAnalysis.Domain.dll
+D:\prj\forex\Kama.FinancialAnalysis\Kama.FinancialAnalysis.Domain\obj\Debug\Kama.FinancialAnalysis.Domain.pdb

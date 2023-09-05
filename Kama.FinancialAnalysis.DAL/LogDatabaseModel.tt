@@ -1,0 +1,14 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="$(SolutionDir)Kama.Aro.Salary.API\bin\Kama.DatabaseModel.dll" #>
+<#@ assembly name="$(SolutionDir)Kama.Aro.Salary.API\bin\Kama.Aro.Salary.Core.Model.dll" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Kama.DatabaseModel" #>
+<#@ import namespace="Kama.Aro.Salary.Core.Model" #>
+<#@ output extension=".cs" #>
+<#
+	var generator = new Kama.DatabaseModel.Generator(@"Data Source=94.139.162.23\sql2019,1433;Initial Catalog=Kama.Aro.Salary.Extention;User ID=kama; Password=kama@@1389", "dbo");
+#>
+<#=generator.Generate(" Kama.FinancialAnalysis.DAL")#>

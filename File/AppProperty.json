@@ -1,0 +1,13 @@
+{
+  "ConnectionString": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Kama.FinancialAnalysis;User ID =kama; Password=kama@@1389",
+  "PythonExePath": "C:\\Users\\kaveh\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+
+  "FileDirectory": "D:\\prj\\forex\\Kama.FinancialAnalysis\\File\\",
+  "PythonScriptDirectory": "PythonScript\\",
+  "HistoryDirectory": "PythonScript\\history\\",
+
+
+  "PriceMinutelyFile": "PriceMinutelyFile_",
+  "PriceDailyFile": "PriceDailyFile_"
+
+}
