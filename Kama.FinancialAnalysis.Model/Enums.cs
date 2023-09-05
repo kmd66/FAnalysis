@@ -12,4 +12,9 @@ public enum SymbolType:byte
     gbpusd = 7,
     usdcad = 8,
     usdsek = 9,
+
+
+    nd100m = 10,
+
+    DYX = 11,
 }
