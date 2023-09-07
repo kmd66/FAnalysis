@@ -35,7 +35,7 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result<PriceMinutely>> AddListAsync(List<PriceMinutely> model, SymbolType type)
+        public async Task<Result<PriceMinutely>> AddListAsync(List<PriceMinutely> model, SymbolType type, bool index = true)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace Kama.FinancialAnalysis.DAL
                     _type: (byte)type
                     )).ToActionResult<PriceMinutely>();
 
-                if (result.Success && type == SymbolType.eurusd)
+                if (index && result.Success && type == SymbolType.eurusd)
                 {
                     await new DAL.MovingAverageDataSource().AddListAsync(model.Select(x => x.ID).ToList());
                     if (model.Count <= 10)

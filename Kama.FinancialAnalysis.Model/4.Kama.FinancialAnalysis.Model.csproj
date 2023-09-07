@@ -52,6 +52,7 @@
     <Compile Include="BaseModel\dbBase\StandardDeviation.cs" />
     <Compile Include="BaseModel\dbBase\WorkingHours.cs" />
     <Compile Include="BaseModel\dbBase\MovingAverage.cs" />
+    <Compile Include="BaseModel\PriceMinutely\Price.cs" />
     <Compile Include="BaseModel\PriceView\PriceViewVM.cs" />
     <Compile Include="BaseModel\PriceView\PriceView.cs" />
     <Compile Include="ListVM.cs" />
