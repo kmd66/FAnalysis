@@ -108,6 +108,7 @@
     <Content Include="DatabaseScript\Functions\fnTimeStamp.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\fnAddMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spAddAllMovingAverage.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\PriceMinutelyIndex\fnAddDxy.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutely\spGetPriceMinutelys.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutely\spAddPriceMinutelys.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutely\spAddPriceMinutely.sql" />
@@ -116,9 +117,13 @@
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetStandardDeviations.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetMovingAverages.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetPriceViewBases.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\fnGetStandardDeviation2.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\fnGetStandardDeviation.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spAddAllStandardDeviation.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spAddStandardDeviation.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\PriceMinutelyIndex\spAddAllDxy.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\PriceMinutelyIndex\spGeEmptyWorkingHours.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\PriceMinutelyIndex\spGetLastWorkingHourAsync.sql" />
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\spAddWorkingHours.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spAddMovingAverages.sql" />
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\spGetLastWorkingHourAsync.sql" />

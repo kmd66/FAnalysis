@@ -87,6 +87,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper\DataCollection\DataCollectionHistoryCsv.cs" />
     <Compile Include="Helper\DataCollection\DataCollectionHistory.cs" />
     <Compile Include="Helper\DataCollection\DataCollectionDaily.cs" />
     <Compile Include="Helper\DataCollection\DataCollectionMinutely.cs" />

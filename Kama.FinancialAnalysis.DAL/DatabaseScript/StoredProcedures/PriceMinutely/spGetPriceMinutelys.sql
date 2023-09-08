@@ -21,7 +21,7 @@ BEGIN
 
 	IF @PageIndex = 0 
 	BEGIN
-		SET @pagesize = 100
+		SET @pagesize = 100000000
 		SET @PageIndex = 1
 	END
 
