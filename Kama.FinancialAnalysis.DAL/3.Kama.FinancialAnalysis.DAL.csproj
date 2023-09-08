@@ -36,13 +36,13 @@
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.90\lib\net461\Dapper.dll</HintPath>
     </Reference>
-    <Reference Include="Kama.AppCore, Version=1.1.0.34802, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Kama.AppCore, Version=1.1.0.27123, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Kama.Aro.Salary.API\bin\Kama.AppCore.dll</HintPath>
+      <HintPath>..\Kama.FinancialAnalysis\bin\Kama.AppCore.dll</HintPath>
     </Reference>
-    <Reference Include="Kama.DatabaseModel, Version=1.1.0.24738, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Kama.DatabaseModel, Version=1.1.0.27124, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Kama.Aro.Salary.API\bin\Kama.DatabaseModel.dll</HintPath>
+      <HintPath>..\Kama.FinancialAnalysis\bin\Kama.DatabaseModel.dll</HintPath>
     </Reference>
     <Reference Include="Kama.FinancialAnalysis.Dependency, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
