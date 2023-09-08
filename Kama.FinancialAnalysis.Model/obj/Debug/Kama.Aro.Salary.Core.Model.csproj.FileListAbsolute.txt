@@ -1,7 +1,0 @@
-D:\prj\aro\Kama.Aro.Salary\Kama.Aro.Salary.API\bin\Kama.Aro.Salary.Core.Model.dll
-D:\prj\aro\Kama.Aro.Salary\Kama.Aro.Salary.API\bin\Kama.Aro.Salary.Core.Model.pdb
-D:\prj\aro\Kama.Aro.Salary\Kama.Aro.Salary.Core.Model\obj\Debug\Kama.Aro.Salary.Core.Model.csproj.AssemblyReference.cache
-D:\prj\aro\Kama.Aro.Salary\Kama.Aro.Salary.Core.Model\obj\Debug\Kama.Aro.Salary.Core.Model.csproj.CoreCompileInputs.cache
-D:\prj\aro\Kama.Aro.Salary\Kama.Aro.Salary.Core.Model\obj\Debug\Kama.Aro.Salary.Core.Model.csproj.CopyComplete
-D:\prj\aro\Kama.Aro.Salary\Kama.Aro.Salary.Core.Model\obj\Debug\Kama.Aro.Salary.Core.Model.dll
-D:\prj\aro\Kama.Aro.Salary\Kama.Aro.Salary.Core.Model\obj\Debug\Kama.Aro.Salary.Core.Model.pdb

@@ -1,4 +1,5 @@
-﻿using Kama.FinancialAnalysis.Domain;
+﻿using Kama.FinancialAnalysis.DAL;
+using Kama.FinancialAnalysis.Domain;
 using Kama.FinancialAnalysis.Model;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,9 @@ namespace Kama.FinancialAnalysis
             //---------------------
 
             AppProperty.SetInstance(System.Configuration.ConfigurationManager.AppSettings["AppPropertyPath"]);
-            
+
+
+
             //timer();
 
             addDateFromCsvFli();
@@ -51,6 +54,10 @@ namespace Kama.FinancialAnalysis
         }
         protected async void addDateFromCsvFli()
         {
+            var T = await new PriceMinutelyDataSource().ListAsync(
+                new ListVM { PageIndex = 0, PageSize = 0 },
+                SymbolType.eurusd
+                );
             //await new DataCollectionHistoryCsv().DoWork(SymbolType.eurusd, "D:\\prj\\forex\\csvFiles\\1_2019_2023-9-5_EurUsd.csv");
             //new DataCollectionHistoryCsv().DoWork(SymbolType.xauusd, "D:\\prj\\forex\\csvFiles\\2_2019_2023-9-5_XauUsd.csv");
             //await new DataCollectionHistoryCsv().DoWork(SymbolType.usdchf, "D:\\prj\\forex\\csvFiles\\3_2019_2021-12-11_usdchf.csv");

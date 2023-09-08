@@ -1,7 +1,0 @@
-D:\prj\forex\Kama.FinancialAnalysis\Kama.FinancialAnalysis.DAL\obj\Debug\3.Kama.FinancialAnalysis.DAL.csproj.AssemblyReference.cache
-D:\prj\forex\Kama.FinancialAnalysis\Kama.FinancialAnalysis.DAL\obj\Debug\3.Kama.FinancialAnalysis.DAL.csproj.CoreCompileInputs.cache
-D:\prj\forex\Kama.FinancialAnalysis\Kama.FinancialAnalysis\bin\Kama.FinancialAnalysis.DAL.dll
-D:\prj\forex\Kama.FinancialAnalysis\Kama.FinancialAnalysis\bin\Kama.FinancialAnalysis.DAL.pdb
-D:\prj\forex\Kama.FinancialAnalysis\Kama.FinancialAnalysis.DAL\obj\Debug\3.Kama.FinancialAnalysis.DAL.csproj.CopyComplete
-D:\prj\forex\Kama.FinancialAnalysis\Kama.FinancialAnalysis.DAL\obj\Debug\Kama.FinancialAnalysis.DAL.dll
-D:\prj\forex\Kama.FinancialAnalysis\Kama.FinancialAnalysis.DAL\obj\Debug\Kama.FinancialAnalysis.DAL.pdb
