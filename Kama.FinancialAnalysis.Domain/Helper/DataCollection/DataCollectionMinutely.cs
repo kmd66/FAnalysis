@@ -65,7 +65,7 @@ namespace Kama.FinancialAnalysis.Domain
             {
                 string readText = File.ReadAllText(_priceMinutelyFile);
                 var list = PriceMinutely.ListFromJson(readText, _symbol);
-                new DAL.PriceMinutelyDataSource().AddListAsync(list, _symbol);
+                await new PriceMinutelyIndexService().AddListAsync(list, _symbol);
             }
         }
     }

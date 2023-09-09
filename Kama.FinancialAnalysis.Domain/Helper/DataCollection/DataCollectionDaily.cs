@@ -2,6 +2,8 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Kama.FinancialAnalysis.Domain
 {
@@ -19,7 +21,7 @@ namespace Kama.FinancialAnalysis.Domain
             _script = $"{AppProperty.Instance.PythonScriptDirectory}getData.py";
             _lenDate = lenDate;
         }
-        public void DoWork()
+        public async Task DoWork()
         {
             var psi = new ProcessStartInfo();
             psi.FileName =AppProperty.Instance.PythonExePath;
@@ -42,7 +44,7 @@ namespace Kama.FinancialAnalysis.Domain
             {
                 string readText = File.ReadAllText(_priceDailyFile);
                 var list = PriceMinutely.ListFromJson(readText, _symbol);
-                 new DAL.PriceMinutelyDataSource().AddListAsync(list, _symbol);
+                await new PriceMinutelyIndexService().AddListAsync(list, _symbol);
             }
         }
     }

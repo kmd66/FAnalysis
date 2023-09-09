@@ -35,14 +35,14 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result<PriceMinutely>> AddListAsync(List<PriceMinutely> model, SymbolType type)
+        public async Task<Result> AddListAsync(List<PriceMinutely> model, SymbolType type)
         {
             try
             {
                 var result = (await pbl.AddPriceMinutelysAsync(
                     _json: new Dependency.ObjectSerializer().Serialize(model),
                     _type: (byte)type
-                    )).ToActionResult<PriceMinutely>();
+                    )).ToActionResult();
 
                 //if (index && result.Success && type == SymbolType.eurusd)
                 //{

@@ -7,6 +7,7 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,7 +16,22 @@ namespace Kama.FinancialAnalysis.Domain
 {
     public class PriceMinutelyIndexService
     {
-        public async Task<Result> AddAll()
+        public async Task<Result> AddListAsync(List<PriceMinutely> model, SymbolType type)
+        {
+            var dataSource = await new DAL.PriceMinutelyDataSource().AddListAsync(model, type);
+            if (dataSource.Success)
+            {
+                var dbList = DbIndex.GetByType(type);
+                dbList.AddRange(model);
+                dbList = dbList.GroupBy(p => p.ID).Select(grp => grp.First()).OrderByDescending(x => x.ID).ToList();
+            }
+
+
+            return dataSource;
+        }
+
+        #region Dyx
+        public async Task<Result> AddAllDyx()
         {
             List<PriceMinutely> temporaryList = new List<PriceMinutely>();
             int i = 0;
@@ -27,10 +43,10 @@ namespace Kama.FinancialAnalysis.Domain
                            where pl == null
                            select p).ToList();
 
-            return await AddReng(addList);
+            return await AddRengDyx(addList);
         }
 
-        public async Task<Result> AddReng(List<PriceMinutely> l)
+        public async Task<Result> AddRengDyx(List<PriceMinutely> l)
         {
             var dataSource = new DAL.PriceMinutelyDataSource();
             List<List<PriceMinutely>> insertList = new List<List<PriceMinutely>>();
@@ -53,7 +69,7 @@ namespace Kama.FinancialAnalysis.Domain
                     i = 0;
                     temporaryList = new List<PriceMinutely>();
                 }
-                temporaryList.Add(Computing(eurUsd));
+                temporaryList.Add(ComputingDyx(eurUsd));
             }
 
             if (temporaryList.Count > 0)
@@ -63,11 +79,11 @@ namespace Kama.FinancialAnalysis.Domain
                 await dataSource.AddListAsync(insert, SymbolType.DYX);
 
             DbIndex.Dyx.AddRange(addList);
-            DbIndex.Dyx = DbIndex.Dyx.OrderByDescending(x => x.ID).ToList();
+            DbIndex.Dyx = DbIndex.Dyx.GroupBy(p => p.ID).Select(grp => grp.First()).OrderByDescending(x => x.ID).ToList();
 
             return Result.Successful();
         }
-        public PriceMinutely Computing(PriceMinutely eurUsd)
+        public PriceMinutely ComputingDyx(PriceMinutely eurUsd)
         {
 
             var usdchf = DbIndex.UsdChf.FirstOrDefault(x => x.Date == eurUsd.Date);
@@ -97,5 +113,6 @@ namespace Kama.FinancialAnalysis.Domain
             };
 
         }
+        #endregion
     }
 }

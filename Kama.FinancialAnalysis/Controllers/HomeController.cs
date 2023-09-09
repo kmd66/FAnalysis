@@ -15,6 +15,9 @@ namespace Kama.FinancialAnalysis.Controllers
         public async Task<ActionResult> Index()
         {
             await addDbIndex();
+            //await addAllIndexs();
+            await timer();
+
             ViewBag.Message = "اطلاعات دریافت شد";
 
             return View();
@@ -70,22 +73,24 @@ namespace Kama.FinancialAnalysis.Controllers
             if (!Nd100m.Success) System.Environment.Exit(500);
             DbIndex.Nd100m = Nd100m.Data.ToList();
 
+        }
+        private async Task addAllIndexs()
+        {
 
             //await new MovingAverageService().AddReng(DbIndex.EeurUsd);
             //await new MovingAverageService().AddReng(DbIndex.XauUsd);
             //await new MovingAverageService().AddReng(DbIndex.UsdChf);
             //await new MovingAverageService().AddReng(DbIndex.EurJpy);
 
-            await new StandardDeviationService().AddReng(DbIndex.EeurUsd);
-            await new StandardDeviationService().AddReng(DbIndex.XauUsd);
-            await new StandardDeviationService().AddReng(DbIndex.UsdChf);
-            await new StandardDeviationService().AddReng(DbIndex.EurJpy);
+            //await new StandardDeviationService().AddReng(DbIndex.EeurUsd);
+            //await new StandardDeviationService().AddReng(DbIndex.XauUsd);
+            //await new StandardDeviationService().AddReng(DbIndex.UsdChf);
+            //await new StandardDeviationService().AddReng(DbIndex.EurJpy);
 
             //await  new PriceMinutelyIndexService().AddAll();
-
-            //timer();
         }
-        protected async Task timer()
+
+        private async Task timer()
         {
 
             await new DataCollectionHistory().DoWork(SymbolType.eurusd);
@@ -93,10 +98,22 @@ namespace Kama.FinancialAnalysis.Controllers
             await new DataCollectionHistory().DoWork(SymbolType.usdchf);
             await new DataCollectionHistory().DoWork(SymbolType.xauusd);
 
-            new DataCollectionDaily(SymbolType.eurusd, "1500").DoWork();
-            new DataCollectionDaily(SymbolType.eurjpy, "1500").DoWork();
-            new DataCollectionDaily(SymbolType.usdchf, "1500").DoWork();
-            new DataCollectionDaily(SymbolType.xauusd, "1500").DoWork();
+            await new DataCollectionHistory().DoWork(SymbolType.usdjpy);
+            await new DataCollectionHistory().DoWork(SymbolType.gbpusd);
+            await new DataCollectionHistory().DoWork(SymbolType.usdcad);
+            await new DataCollectionHistory().DoWork(SymbolType.usdsek);
+
+            await new DataCollectionDaily(SymbolType.eurusd, "1500").DoWork();
+            await new DataCollectionDaily(SymbolType.eurjpy, "1500").DoWork();
+            await new DataCollectionDaily(SymbolType.usdchf, "1500").DoWork();
+            await new DataCollectionDaily(SymbolType.xauusd, "1500").DoWork();
+
+            await new DataCollectionDaily(SymbolType.usdjpy, "1500").DoWork();
+            await new DataCollectionDaily(SymbolType.gbpusd, "1500").DoWork();
+            await new DataCollectionDaily(SymbolType.usdcad, "1500").DoWork();
+            await new DataCollectionDaily(SymbolType.usdsek, "1500").DoWork();
+
+            await new PriceMinutelyIndexService().AddAllDyx();
 
             new DataCollectionMinutely(SymbolType.eurusd).Start();
             new DataCollectionMinutely(SymbolType.eurjpy).Start();
