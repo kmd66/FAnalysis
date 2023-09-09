@@ -15,7 +15,7 @@ namespace Kama.FinancialAnalysis.Domain
 {
     public class PriceMinutelyIndexService
     {
-        public async Task<Result> AddAllDxy()
+        public async Task<Result> AddAll()
         {
             List<PriceMinutely> temporaryList = new List<PriceMinutely>();
             int i = 0;
@@ -27,10 +27,10 @@ namespace Kama.FinancialAnalysis.Domain
                            where pl == null
                            select p).ToList();
 
-            return await AddRengDxy(addList);
+            return await AddReng(addList);
         }
 
-        public async Task<Result> AddRengDxy(List<PriceMinutely> l)
+        public async Task<Result> AddReng(List<PriceMinutely> l)
         {
             List<List<PriceMinutely>> insertList = new List<List<PriceMinutely>>();
             List<PriceMinutely> temporaryList = new List<PriceMinutely>();
@@ -52,14 +52,13 @@ namespace Kama.FinancialAnalysis.Domain
                     i = 0;
                     temporaryList = new List<PriceMinutely>();
                 }
-                var dyx = await ComputingDxy(eurUsd);
-                temporaryList.Add(dyx);
+                temporaryList.Add(Computing(eurUsd));
             }
 
             if (temporaryList.Count > 0)
                 insertList.Add(temporaryList);
 
-            foreach(var insert in insertList)
+            foreach (var insert in insertList)
                 await new DAL.PriceMinutelyDataSource().AddListAsync(temporaryList, SymbolType.DYX);
 
             DbIndex.Dyx.AddRange(addList);
@@ -67,7 +66,7 @@ namespace Kama.FinancialAnalysis.Domain
 
             return Result.Successful();
         }
-        public async Task<PriceMinutely> ComputingDxy(PriceMinutely eurUsd)
+        public PriceMinutely Computing(PriceMinutely eurUsd)
         {
 
             var usdchf = DbIndex.UsdChf.FirstOrDefault(x => x.Date == eurUsd.Date);

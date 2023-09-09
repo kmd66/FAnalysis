@@ -71,7 +71,7 @@ namespace Kama.FinancialAnalysis.Controllers
             DbIndex.Nd100m = Nd100m.Data.ToList();
 
 
-          //await  new PriceMinutelyIndexService().AddAllDxy();
+          //await  new PriceMinutelyIndexService().AddAll();
         }
     }
 }
