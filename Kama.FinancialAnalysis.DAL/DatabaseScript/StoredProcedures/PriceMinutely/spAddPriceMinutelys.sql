@@ -32,8 +32,8 @@ BEGIN
 		LEFT JOIN [pbl].[PriceMinutely] Price ON Price.ID = JsonData.ID
 		WHERE Price.ID IS NULL 
 	END
-	ELSE
-		BEGIN
+	ELSE IF @Type IN (6,7,8,9) 
+	BEGIN
 		INSERT INTO [pbl].PriceMinutelyOther
 		SELECT JsonData.* ,@Type
 		FROM OPENJSON(@Json) WITH (
@@ -44,7 +44,18 @@ BEGIN
 			[Max] FLOAT ,
 			[Min] FLOAT 
 		) JsonData
-		LEFT JOIN [pbl].[PriceMinutely] Price ON Price.ID = JsonData.ID
+		LEFT JOIN [pbl].PriceMinutelyOther Price ON Price.ID = JsonData.ID
+		WHERE Price.ID IS NULL 
+	END
+	BEGIN
+		INSERT INTO [pbl].[PriceMinutelyIndex]
+		SELECT JsonData.* ,@Type
+		FROM OPENJSON(@Json) WITH (
+			ID BIGINT ,
+			[Date] DatetIME ,
+			[Close] FLOAT 
+		) JsonData
+		LEFT JOIN [pbl].[PriceMinutelyIndex] Price ON Price.ID = JsonData.ID
 		WHERE Price.ID IS NULL 
 	END
 END 

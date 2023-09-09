@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbIndex.cs" />
     <Compile Include="BaseModel\dbBase\StandardDeviation.cs" />
     <Compile Include="BaseModel\dbBase\WorkingHours.cs" />
     <Compile Include="BaseModel\dbBase\MovingAverage.cs" />

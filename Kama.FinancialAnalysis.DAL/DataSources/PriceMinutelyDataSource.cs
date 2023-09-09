@@ -52,6 +52,7 @@ namespace Kama.FinancialAnalysis.DAL
                     else
                         new StandardDeviationDataSource().AddListAsync(model.Select(x => x.ID).ToList());
                 }
+
                 return result;
             }
             catch (Exception e)

@@ -27,9 +27,27 @@ BEGIN
 		@Min FLOAT = @AMin,
 		@Type TINYINT= @AType
 	
-	INSERT INTO [pbl].[PriceMinutely]
-		([ID], [Date], [Open], [Close], [Max], [Min], [Type])
-	VALUES
-		(@ID, @Date, @Open, @Close, @Max, @Min, @Type)
+
+
+	IF @Type IN(1,2,3,4)
+	BEGIN
+		INSERT INTO [pbl].[PriceMinutely]
+			([ID], [Date], [Open], [Close], [Max], [Min], [Type])
+		VALUES
+			(@ID, @Date, @Open, @Close, @Max, @Min, @Type)
+	END
+	ELSE IF @Type IN (6,7,8,9) 
+	BEGIN
+		INSERT INTO [pbl].PriceMinutelyOther
+			([ID], [Date], [Open], [Close], [Max], [Min], [Type])
+		VALUES
+			(@ID, @Date, @Open, @Close, @Max, @Min, @Type)
+	END
+	BEGIN
+		INSERT INTO [pbl].[PriceMinutelyIndex]
+			([ID], [Date], [Close], [Type])
+		VALUES
+			(@ID, @Date, @Close, @Type)
+	END
 			
 END 
