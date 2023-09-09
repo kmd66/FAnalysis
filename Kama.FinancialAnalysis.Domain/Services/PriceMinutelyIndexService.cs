@@ -32,6 +32,7 @@ namespace Kama.FinancialAnalysis.Domain
 
         public async Task<Result> AddReng(List<PriceMinutely> l)
         {
+            var dataSource = new DAL.PriceMinutelyDataSource();
             List<List<PriceMinutely>> insertList = new List<List<PriceMinutely>>();
             List<PriceMinutely> temporaryList = new List<PriceMinutely>();
             int i = 0;
@@ -59,7 +60,7 @@ namespace Kama.FinancialAnalysis.Domain
                 insertList.Add(temporaryList);
 
             foreach (var insert in insertList)
-                await new DAL.PriceMinutelyDataSource().AddListAsync(temporaryList, SymbolType.DYX);
+                await dataSource.AddListAsync(insert, SymbolType.DYX);
 
             DbIndex.Dyx.AddRange(addList);
             DbIndex.Dyx = DbIndex.Dyx.OrderByDescending(x => x.ID).ToList();

@@ -71,7 +71,11 @@ namespace Kama.FinancialAnalysis.Controllers
             DbIndex.Nd100m = Nd100m.Data.ToList();
 
 
-          //await  new PriceMinutelyIndexService().AddAll();
+            await new MovingAverageService().AddReng(DbIndex.EeurUsd);
+            await new MovingAverageService().AddReng(DbIndex.XauUsd);
+            await new MovingAverageService().AddReng(DbIndex.UsdChf);
+            await new MovingAverageService().AddReng(DbIndex.EurJpy);
+            //await  new PriceMinutelyIndexService().AddAll();
         }
     }
 }

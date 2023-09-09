@@ -46,7 +46,7 @@ namespace Kama.FinancialAnalysis.DAL
 
                 if (index && result.Success && type == SymbolType.eurusd)
                 {
-                    await new DAL.MovingAverageDataSource().AddListAsync(model.Select(x => x.ID).ToList());
+                    await new DAL.MovingAverageDataSource().AddListFromIdsAsync(model.Select(x => x.ID).ToList());
                     if (model.Count <= 10)
                         await new StandardDeviationDataSource().AddListAsync(model.Select(x => x.ID).ToList());
                     else

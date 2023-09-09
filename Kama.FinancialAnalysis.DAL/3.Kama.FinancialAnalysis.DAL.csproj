@@ -108,6 +108,7 @@
     <Content Include="DatabaseScript\Functions\fnTimeStamp.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\fnAddMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spAddAllMovingAverage.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spAddListFromIdsMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutelyIndex\fnAddDxy.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutely\spGetPriceMinutelys.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutely\spAddPriceMinutelys.sql" />
@@ -124,7 +125,7 @@
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutelyIndex\spAddAllDxy.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutelyIndex\spGetLastWorkingHourAsync.sql" />
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\spAddWorkingHours.sql" />
-    <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spAddMovingAverages.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spAddListMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\spGetLastWorkingHourAsync.sql" />
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\spGeEmptyWorkingHours.sql" />
     <Content Include="LogDatabaseModel.tt">
