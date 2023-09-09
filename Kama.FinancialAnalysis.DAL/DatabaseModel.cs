@@ -15,46 +15,6 @@ public PBL(string connectionString, IModelValueBinder modelValueBinder)
 	:base(connectionString, modelValueBinder){}
 #endregion
 
-#region GetPriceMinutelys
-
-public System.Data.SqlClient.SqlCommand GetCommand_GetPriceMinutelys(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-var cmd = base.CreateCommand("pbl.spGetPriceMinutelys", 
-	System.Data.CommandType.StoredProcedure, 
-	new Parameter[]{
-					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
-					new Parameter { Name = "@APageSize", IsOutput = false, Value = _pageSize == null ? DBNull.Value : (object)_pageSize }, 
-					new Parameter { Name = "@APageIndex", IsOutput = false, Value = _pageIndex == null ? DBNull.Value : (object)_pageIndex }, 
-	});
-
-			if (timeout != null)
-				cmd.CommandTimeout = (int)timeout;
-			return cmd;
-}
-
-public async Task<ResultSet> GetPriceMinutelysAsync(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-	using(var cmd = GetCommand_GetPriceMinutelys(_type, _pageSize, _pageIndex, timeout))
-{
-	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
-}
-}
-
-public async Task<AppCore.Result<IEnumerable<T>>> GetPriceMinutelysDapperAsync<T>(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-	return await  DapperQueryAsync<T>("pbl.spGetPriceMinutelys",new {AType=_type,APageSize=_pageSize,APageIndex=_pageIndex} , timeout );
-}
-
-public ResultSet GetPriceMinutelys(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-	using(var cmd = GetCommand_GetPriceMinutelys(_type, _pageSize, _pageIndex, timeout))
-{
-	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
-}
-}
-
-#endregion
-
 #region GetLastWorkingHour
 
 public System.Data.SqlClient.SqlCommand GetCommand_GetLastWorkingHour(int? timeout = null)
@@ -123,44 +83,6 @@ public async Task<AppCore.Result<IEnumerable<T>>> AddListFromIdsMovingAverageDap
 public ResultSet AddListFromIdsMovingAverage(string _json, int? timeout = null)
 {
 	using(var cmd = GetCommand_AddListFromIdsMovingAverage(_json, timeout))
-{
-	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
-}
-}
-
-#endregion
-
-#region AddListMovingAverage
-
-public System.Data.SqlClient.SqlCommand GetCommand_AddListMovingAverage(string _json, int? timeout = null)
-{
-var cmd = base.CreateCommand("pbl.spAddListMovingAverage", 
-	System.Data.CommandType.StoredProcedure, 
-	new Parameter[]{
-					new Parameter { Name = "@AJson", IsOutput = false, Value = string.IsNullOrWhiteSpace(_json) ? DBNull.Value : (object)ReplaceArabicWithPersianChars(_json) }, 
-	});
-
-			if (timeout != null)
-				cmd.CommandTimeout = (int)timeout;
-			return cmd;
-}
-
-public async Task<ResultSet> AddListMovingAverageAsync(string _json, int? timeout = null)
-{
-	using(var cmd = GetCommand_AddListMovingAverage(_json, timeout))
-{
-	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
-}
-}
-
-public async Task<AppCore.Result<IEnumerable<T>>> AddListMovingAverageDapperAsync<T>(string _json, int? timeout = null)
-{
-	return await  DapperQueryAsync<T>("pbl.spAddListMovingAverage",new {AJson=string.IsNullOrWhiteSpace(_json) ? _json : ReplaceArabicWithPersianChars(_json)} , timeout );
-}
-
-public ResultSet AddListMovingAverage(string _json, int? timeout = null)
-{
-	using(var cmd = GetCommand_AddListMovingAverage(_json, timeout))
 {
 	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
 }
@@ -276,6 +198,44 @@ public async Task<AppCore.Result<IEnumerable<T>>> GetLastWorkingHourAsyncDapperA
 
 #endregion
 
+#region AddListMovingAverage
+
+public System.Data.SqlClient.SqlCommand GetCommand_AddListMovingAverage(string _json, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spAddListMovingAverage", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AJson", IsOutput = false, Value = string.IsNullOrWhiteSpace(_json) ? DBNull.Value : (object)ReplaceArabicWithPersianChars(_json) }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> AddListMovingAverageAsync(string _json, int? timeout = null)
+{
+	using(var cmd = GetCommand_AddListMovingAverage(_json, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> AddListMovingAverageDapperAsync<T>(string _json, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spAddListMovingAverage",new {AJson=string.IsNullOrWhiteSpace(_json) ? _json : ReplaceArabicWithPersianChars(_json)} , timeout );
+}
+
+public ResultSet AddListMovingAverage(string _json, int? timeout = null)
+{
+	using(var cmd = GetCommand_AddListMovingAverage(_json, timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
 #region GetPriceViewBases
 
 public System.Data.SqlClient.SqlCommand GetCommand_GetPriceViewBases(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
@@ -309,6 +269,84 @@ public async Task<AppCore.Result<IEnumerable<T>>> GetPriceViewBasesDapperAsync<T
 public ResultSet GetPriceViewBases(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
 {
 	using(var cmd = GetCommand_GetPriceViewBases(_type, _pageSize, _pageIndex, timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
+#region GetPriceMinutelys
+
+public System.Data.SqlClient.SqlCommand GetCommand_GetPriceMinutelys(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spGetPriceMinutelys", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
+					new Parameter { Name = "@APageSize", IsOutput = false, Value = _pageSize == null ? DBNull.Value : (object)_pageSize }, 
+					new Parameter { Name = "@APageIndex", IsOutput = false, Value = _pageIndex == null ? DBNull.Value : (object)_pageIndex }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> GetPriceMinutelysAsync(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetPriceMinutelys(_type, _pageSize, _pageIndex, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> GetPriceMinutelysDapperAsync<T>(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spGetPriceMinutelys",new {AType=_type,APageSize=_pageSize,APageIndex=_pageIndex} , timeout );
+}
+
+public ResultSet GetPriceMinutelys(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetPriceMinutelys(_type, _pageSize, _pageIndex, timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
+#region AddListStandardDeviation
+
+public System.Data.SqlClient.SqlCommand GetCommand_AddListStandardDeviation(string _json, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spAddListStandardDeviation", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AJson", IsOutput = false, Value = string.IsNullOrWhiteSpace(_json) ? DBNull.Value : (object)ReplaceArabicWithPersianChars(_json) }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> AddListStandardDeviationAsync(string _json, int? timeout = null)
+{
+	using(var cmd = GetCommand_AddListStandardDeviation(_json, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> AddListStandardDeviationDapperAsync<T>(string _json, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spAddListStandardDeviation",new {AJson=string.IsNullOrWhiteSpace(_json) ? _json : ReplaceArabicWithPersianChars(_json)} , timeout );
+}
+
+public ResultSet AddListStandardDeviation(string _json, int? timeout = null)
+{
+	using(var cmd = GetCommand_AddListStandardDeviation(_json, timeout))
 {
 	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
 }
@@ -383,43 +421,6 @@ public async Task<AppCore.Result<IEnumerable<T>>> AddWorkingHoursDapperAsync<T>(
 public ResultSet AddWorkingHours(int? timeout = null)
 {
 	using(var cmd = GetCommand_AddWorkingHours(timeout))
-{
-	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
-}
-}
-
-#endregion
-
-#region AddAllStandardDeviation
-
-public System.Data.SqlClient.SqlCommand GetCommand_AddAllStandardDeviation(int? timeout = null)
-{
-var cmd = base.CreateCommand("pbl.spAddAllStandardDeviation", 
-	System.Data.CommandType.StoredProcedure, 
-	new Parameter[]{
-	});
-
-			if (timeout != null)
-				cmd.CommandTimeout = (int)timeout;
-			return cmd;
-}
-
-public async Task<ResultSet> AddAllStandardDeviationAsync(int? timeout = null)
-{
-	using(var cmd = GetCommand_AddAllStandardDeviation(timeout))
-{
-	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
-}
-}
-
-public async Task<AppCore.Result<IEnumerable<T>>> AddAllStandardDeviationDapperAsync<T>(int? timeout = null)
-{
-	return await  DapperQueryAsync<T>("pbl.spAddAllStandardDeviation",new {} , timeout );
-}
-
-public ResultSet AddAllStandardDeviation(int? timeout = null)
-{
-	using(var cmd = GetCommand_AddAllStandardDeviation(timeout))
 {
 	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
 }

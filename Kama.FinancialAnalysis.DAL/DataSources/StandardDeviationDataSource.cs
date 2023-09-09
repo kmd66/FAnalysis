@@ -11,11 +11,11 @@ namespace Kama.FinancialAnalysis.DAL
         public StandardDeviationDataSource(): base()
         {
         }
-        public async Task<Result> AddListAsync(List<long> ids)
+        public async Task<Result> AddListAsync(List<StandardDeviation> ids)
         {
             try
             {
-                var result = (await pbl.AddStandardDeviationAsync(
+                var result = (await pbl.AddListStandardDeviationAsync(
                     _json: new Dependency.ObjectSerializer().Serialize(ids)
                     )).ToActionResult();
 
@@ -27,19 +27,19 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result> AddAllAsync()
-        {
-            try
-            {
-                var result = (await pbl.AddAllStandardDeviationAsync()).ToActionResult();
+        //public async Task<Result> AddAllAsync()
+        //{
+        //    try
+        //    {
+        //        var result = (await pbl.AddAllStandardDeviationAsync()).ToActionResult();
 
-                return result;
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-        }
+        //        return result;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw;
+        //    }
+        //}
 
     }
 }

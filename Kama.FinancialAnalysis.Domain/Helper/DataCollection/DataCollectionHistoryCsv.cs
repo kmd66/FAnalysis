@@ -50,7 +50,7 @@ namespace Kama.FinancialAnalysis.Domain
 
                             if (priceMinutelyes.Count > 999)
                             {
-                                await priceMinutelyDataSource.AddListAsync(priceMinutelyes, symbol, false);
+                                await priceMinutelyDataSource.AddListAsync(priceMinutelyes, symbol);
                                 priceMinutelyes = new List<PriceMinutely>();
                             }
 

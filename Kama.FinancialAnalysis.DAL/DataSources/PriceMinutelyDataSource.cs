@@ -35,7 +35,7 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result<PriceMinutely>> AddListAsync(List<PriceMinutely> model, SymbolType type, bool index = true)
+        public async Task<Result<PriceMinutely>> AddListAsync(List<PriceMinutely> model, SymbolType type)
         {
             try
             {
@@ -44,14 +44,14 @@ namespace Kama.FinancialAnalysis.DAL
                     _type: (byte)type
                     )).ToActionResult<PriceMinutely>();
 
-                if (index && result.Success && type == SymbolType.eurusd)
-                {
-                    await new DAL.MovingAverageDataSource().AddListFromIdsAsync(model.Select(x => x.ID).ToList());
-                    if (model.Count <= 10)
-                        await new StandardDeviationDataSource().AddListAsync(model.Select(x => x.ID).ToList());
-                    else
-                        new StandardDeviationDataSource().AddListAsync(model.Select(x => x.ID).ToList());
-                }
+                //if (index && result.Success && type == SymbolType.eurusd)
+                //{
+                //    await new DAL.MovingAverageDataSource().AddListFromIdsAsync(model.Select(x => x.ID).ToList());
+                //    if (model.Count <= 10)
+                //        await new StandardDeviationDataSource().AddListAsync(model.Select(x => x.ID).ToList());
+                //    else
+                //        new StandardDeviationDataSource().AddListAsync(model.Select(x => x.ID).ToList());
+                //}
 
                 return result;
             }

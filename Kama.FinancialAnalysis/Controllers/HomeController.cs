@@ -71,11 +71,39 @@ namespace Kama.FinancialAnalysis.Controllers
             DbIndex.Nd100m = Nd100m.Data.ToList();
 
 
-            await new MovingAverageService().AddReng(DbIndex.EeurUsd);
-            await new MovingAverageService().AddReng(DbIndex.XauUsd);
-            await new MovingAverageService().AddReng(DbIndex.UsdChf);
-            await new MovingAverageService().AddReng(DbIndex.EurJpy);
+            //await new MovingAverageService().AddReng(DbIndex.EeurUsd);
+            //await new MovingAverageService().AddReng(DbIndex.XauUsd);
+            //await new MovingAverageService().AddReng(DbIndex.UsdChf);
+            //await new MovingAverageService().AddReng(DbIndex.EurJpy);
+
+            await new StandardDeviationService().AddReng(DbIndex.EeurUsd);
+            await new StandardDeviationService().AddReng(DbIndex.XauUsd);
+            await new StandardDeviationService().AddReng(DbIndex.UsdChf);
+            await new StandardDeviationService().AddReng(DbIndex.EurJpy);
+
             //await  new PriceMinutelyIndexService().AddAll();
+
+            //timer();
+        }
+        protected async Task timer()
+        {
+
+            await new DataCollectionHistory().DoWork(SymbolType.eurusd);
+            await new DataCollectionHistory().DoWork(SymbolType.eurjpy);
+            await new DataCollectionHistory().DoWork(SymbolType.usdchf);
+            await new DataCollectionHistory().DoWork(SymbolType.xauusd);
+
+            new DataCollectionDaily(SymbolType.eurusd, "1500").DoWork();
+            new DataCollectionDaily(SymbolType.eurjpy, "1500").DoWork();
+            new DataCollectionDaily(SymbolType.usdchf, "1500").DoWork();
+            new DataCollectionDaily(SymbolType.xauusd, "1500").DoWork();
+
+            new DataCollectionMinutely(SymbolType.eurusd).Start();
+            new DataCollectionMinutely(SymbolType.eurjpy).Start();
+            new DataCollectionMinutely(SymbolType.usdchf).Start();
+            new DataCollectionMinutely(SymbolType.xauusd).Start();
+
+            //new AddWorkingHoursTimer().Start();
         }
     }
 }

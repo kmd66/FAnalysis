@@ -14,6 +14,8 @@ namespace Kama.FinancialAnalysis.Domain
     {
         public async Task DoWork(SymbolType symbol)
         {
+            var dataSource = new DAL.PriceMinutelyDataSource();
+
             var historyDirectory = $"{AppProperty.Instance.HistoryDirectory}{symbol}\\";
             List<PriceMinutely> list = new List<PriceMinutely>();
             List<List<PriceMinutely>> insertList = new List<List<PriceMinutely>>();
@@ -50,7 +52,7 @@ namespace Kama.FinancialAnalysis.Domain
             if (insertList.Count == 1 && insertList[0].Count == 0)
                 return;
             foreach (var insert in insertList)
-                await new DAL.PriceMinutelyDataSource().AddListAsync(insert, symbol);
+                await dataSource.AddListAsync(insert, symbol);
         }
     }
 }

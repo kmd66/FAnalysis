@@ -25,39 +25,17 @@ namespace Kama.FinancialAnalysis
 
             AppProperty.SetInstance(System.Configuration.ConfigurationManager.AppSettings["AppPropertyPath"]);
 
-
-
             //timer();
 
             //addDateFromCsvFli();
 
         }
-        protected void timer()
+        protected async void addDateFromCsvFlie()
         {
-
-            new DataCollectionHistory().DoWork(SymbolType.eurusd);
-            new DataCollectionHistory().DoWork(SymbolType.eurjpy);
-            new DataCollectionHistory().DoWork(SymbolType.usdchf);
-            new DataCollectionHistory().DoWork(SymbolType.xauusd);
-
-            new DataCollectionDaily(SymbolType.eurusd, "1500").DoWork();
-            new DataCollectionDaily(SymbolType.eurjpy, "1500").DoWork();
-            new DataCollectionDaily(SymbolType.usdchf, "1500").DoWork();
-            new DataCollectionDaily(SymbolType.xauusd, "1500").DoWork();
-
-            new DataCollectionMinutely(SymbolType.eurusd).Start();
-            new DataCollectionMinutely(SymbolType.eurjpy).Start();
-            new DataCollectionMinutely(SymbolType.usdchf).Start();
-            new DataCollectionMinutely(SymbolType.xauusd).Start();
-      
-            new AddWorkingHoursTimer().Start();
-        }
-        protected async void addDateFromCsvFli()
-        {
-            await new DataCollectionHistoryCsv().DoWork(SymbolType.eurusd, "D:\\prj\\forex\\csvFiles\\1_2019_2023-9-5_EurUsd.csv");
+            //await new DataCollectionHistoryCsv().DoWork(SymbolType.eurusd, "D:\\prj\\forex\\csvFiles\\1_2019_2023-9-5_EurUsd.csv");
             //await new DataCollectionHistoryCsv().DoWork(SymbolType.xauusd, "D:\\prj\\forex\\csvFiles\\2_2019_2023-9-5_XauUsd.csv");
-            await new DataCollectionHistoryCsv().DoWork(SymbolType.usdchf, "D:\\prj\\forex\\csvFiles\\usdchf.csv");
-            await new DataCollectionHistoryCsv().DoWork(SymbolType.eurjpy, "D:\\prj\\forex\\csvFiles\\eurjpy.csv");
+            //await new DataCollectionHistoryCsv().DoWork(SymbolType.usdchf, "D:\\prj\\forex\\csvFiles\\usdchf.csv");
+            //await new DataCollectionHistoryCsv().DoWork(SymbolType.eurjpy, "D:\\prj\\forex\\csvFiles\\eurjpy.csv");
 
             //await new DataCollectionHistoryCsv().DoWork(SymbolType.usdjpy, "D:\\prj\\forex\\csvFiles\\5_2019_2023-9-5_usdjpy.csv");
             //await new DataCollectionHistoryCsv().DoWork(SymbolType.gbpusd, "D:\\prj\\forex\\csvFiles\\6_2019_2023-9-5_gbpusd.csv");

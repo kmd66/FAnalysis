@@ -1,15 +1,9 @@
-py getData.py XAUUSD 1 50000 XAUUSD1.txt
-py getData.py XAUUSD 50000 50000 XAUUSD2.txt
+py getData.py EURUSD 1 14400 EURUSD1.txt
+py getData.py XAUUSD 1 14400 XAUUSD1.txt
+py getData.py USDCHF 1 14400 USDCHF1.txt
+py getData.py EURJPY 1 14400 EURJPY1.txt
 
-py getData.py USDCHF 1 50000 USDCHF1.txt
-py getData.py USDCHF 50000 50000 USDCHF2.txt
-
-py getData.py EURJPY 1 50000 EURJPY1.txt
-py getData.py EURJPY 50000 50000 EURJPY2.txt
-
-py getData.py EURUSD 1 50000 EURUSD1.txt
-py getData.py EURUSD 50000 50000 EURUSD2.txt
-
-py getData.py ND100m 1 50000 EURUSD1.txt
-py getData.py ND100m 50000 50000 EURUSD2.txt
-
+py getData.py USDJPY 1 14400 USDJPY1.txt
+py getData.py GBPUSD 1 14400 GBPUSD1.txt
+py getData.py USDCAD 1 14400 USDCAD1.txt
+py getData.py USDSEK 1 14400 USDSEK1.txt

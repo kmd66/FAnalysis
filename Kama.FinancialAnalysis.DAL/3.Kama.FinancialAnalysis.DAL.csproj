@@ -120,7 +120,7 @@
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetPriceViewBases.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\fnGetStandardDeviation2.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\fnGetStandardDeviation.sql" />
-    <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spAddAllStandardDeviation.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spAddListStandardDeviation.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spAddStandardDeviation.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutelyIndex\spAddAllDxy.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutelyIndex\spGetLastWorkingHourAsync.sql" />
