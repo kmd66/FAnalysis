@@ -15,7 +15,7 @@ namespace Kama.FinancialAnalysis.Controllers
         public async Task<ActionResult> Index()
         {
             await addDbIndex();
-            //await addAllIndexs();
+            // await addAllIndexs();
             await timer();
 
             ViewBag.Message = "اطلاعات دریافت شد";
@@ -77,17 +77,17 @@ namespace Kama.FinancialAnalysis.Controllers
         private async Task addAllIndexs()
         {
 
-            //await new MovingAverageService().AddReng(DbIndex.EeurUsd);
-            //await new MovingAverageService().AddReng(DbIndex.XauUsd);
-            //await new MovingAverageService().AddReng(DbIndex.UsdChf);
-            //await new MovingAverageService().AddReng(DbIndex.EurJpy);
+            await new MovingAverageService().AddReng(DbIndex.EeurUsd);
+            await new MovingAverageService().AddReng(DbIndex.XauUsd);
+            await new MovingAverageService().AddReng(DbIndex.UsdChf);
+            await new MovingAverageService().AddReng(DbIndex.EurJpy);
 
-            //await new StandardDeviationService().AddReng(DbIndex.EeurUsd);
-            //await new StandardDeviationService().AddReng(DbIndex.XauUsd);
-            //await new StandardDeviationService().AddReng(DbIndex.UsdChf);
-            //await new StandardDeviationService().AddReng(DbIndex.EurJpy);
+            await new StandardDeviationService().AddReng(DbIndex.EeurUsd);
+            await new StandardDeviationService().AddReng(DbIndex.XauUsd);
+            await new StandardDeviationService().AddReng(DbIndex.UsdChf);
+            await new StandardDeviationService().AddReng(DbIndex.EurJpy);
 
-            //await  new PriceMinutelyIndexService().AddAll();
+            await new PriceMinutelyIndexService().AddAllDyx();
         }
 
         private async Task timer()

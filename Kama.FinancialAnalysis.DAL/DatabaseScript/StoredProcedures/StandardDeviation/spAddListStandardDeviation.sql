@@ -14,12 +14,12 @@ BEGIN
 
 	INSERT INTO [pbl].StandardDeviation (ID, [Date], R100, R500, R1000, [Type])
 	SELECT 
-		ID ,
-		[Date] ,
-		R100  ,
-		R500 ,
-		R1000  ,
-		[Type]
+		jsonData.ID ,
+		jsonData.[Date] ,
+		jsonData.R100  ,
+		jsonData.R500 ,
+		jsonData.R1000  ,
+		jsonData.[Type]
 	FROM OPENJSON(@Json) WITH (
 			ID BIGINT ,
 			[Date] DatetIME ,
@@ -27,7 +27,9 @@ BEGIN
 			R500 FLOAT ,
 			R1000 FLOAT ,
 			[Type] TINYINT 
-		) 
+		) jsonData
+	LEFT JOIN [pbl].StandardDeviation SD ON SD.ID = JsonData.ID
+	WHERE SD.ID IS NULL
 	--INSERT INTO [pbl].StandardDeviation (ID, M10, M30, H1, H12, D1,p1000)
 	--SELECT 
 	--	t1.ID, 

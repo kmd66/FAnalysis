@@ -13,21 +13,21 @@ namespace Kama.FinancialAnalysis.DAL
         {
         }
 
-        public async Task<Result> AddListFromIdsAsync(List<long> ids)
-        {
-            try
-            {
-                //var result = (await pbl.AddMovingAveragesAsync(
-                //    _json: new Dependency.ObjectSerializer().Serialize(ids)
-                //    )).ToActionResult();
+        //public async Task<Result> AddListFromIdsAsync(List<long> ids)
+        //{
+        //    try
+        //    {
+        //        //var result = (await pbl.AddMovingAveragesAsync(
+        //        //    _json: new Dependency.ObjectSerializer().Serialize(ids)
+        //        //    )).ToActionResult();
 
-                return Result.Successful();
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-        }
+        //        return Result.Successful();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw;
+        //    }
+        //}
         public async Task<Result> AddListAsync(List<MovingAverage> ids)
         {
             try
@@ -44,19 +44,19 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result> AddAllAsync()
-        {
-            try
-            {
-                //var result = (await pbl.AddAllMovingAverageAsync()).ToActionResult();
+        //public async Task<Result> AddAllAsync()
+        //{
+        //    try
+        //    {
+        //        //var result = (await pbl.AddAllMovingAverageAsync()).ToActionResult();
 
-                return Result.Successful();
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-        }
+        //        return Result.Successful();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw;
+        //    }
+        //}
 
     }
 }

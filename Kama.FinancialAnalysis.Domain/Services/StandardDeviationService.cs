@@ -18,7 +18,6 @@ namespace Kama.FinancialAnalysis.Domain
         public async Task<Result> AddReng(List<PriceMinutely> addList)
         {
             var dataSource = new StandardDeviationDataSource();
-            List<List<StandardDeviation>> insertList = new List<List<StandardDeviation>>();
             List<StandardDeviation> temporaryList = new List<StandardDeviation>();
             int i = 0;
             int i2 = 0;
@@ -31,7 +30,7 @@ namespace Kama.FinancialAnalysis.Domain
                     i2++;
                     if (i2 > 10)
                         break;
-                    insertList.Add(temporaryList);
+                    await dataSource.AddListAsync(temporaryList);
                     i = 0;
                     temporaryList = new List<StandardDeviation>();
                 }
@@ -49,10 +48,7 @@ namespace Kama.FinancialAnalysis.Domain
             }
 
             if (temporaryList.Count > 0)
-                insertList.Add(temporaryList);
-
-            foreach (var insert in insertList)
-                await dataSource.AddListAsync(insert);
+                await dataSource.AddListAsync(temporaryList);
 
             return Result.Successful();
         }

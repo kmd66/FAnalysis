@@ -24,6 +24,12 @@ namespace Kama.FinancialAnalysis.Domain
                 var dbList = DbIndex.GetByType(type);
                 dbList.AddRange(model);
                 dbList = dbList.GroupBy(p => p.ID).Select(grp => grp.First()).OrderByDescending(x => x.ID).ToList();
+                //if(type == SymbolType.eurusd || type == SymbolType.xauusd ||
+                //    type == SymbolType.usdchf || type == SymbolType.eurjpy)
+                //{
+                //    await new MovingAverageService().AddReng(model);
+                //    await new StandardDeviationService().AddReng(model);
+                //}
             }
 
 
@@ -49,7 +55,6 @@ namespace Kama.FinancialAnalysis.Domain
         public async Task<Result> AddRengDyx(List<PriceMinutely> l)
         {
             var dataSource = new DAL.PriceMinutelyDataSource();
-            List<List<PriceMinutely>> insertList = new List<List<PriceMinutely>>();
             List<PriceMinutely> temporaryList = new List<PriceMinutely>();
             int i = 0;
 
@@ -65,7 +70,7 @@ namespace Kama.FinancialAnalysis.Domain
                 i++;
                 if (i > 1000)
                 {
-                    insertList.Add(temporaryList);
+                    await dataSource.AddListAsync(temporaryList, SymbolType.DYX);
                     i = 0;
                     temporaryList = new List<PriceMinutely>();
                 }
@@ -73,10 +78,7 @@ namespace Kama.FinancialAnalysis.Domain
             }
 
             if (temporaryList.Count > 0)
-                insertList.Add(temporaryList);
-
-            foreach (var insert in insertList)
-                await dataSource.AddListAsync(insert, SymbolType.DYX);
+                await dataSource.AddListAsync(temporaryList, SymbolType.DYX);
 
             DbIndex.Dyx.AddRange(addList);
             DbIndex.Dyx = DbIndex.Dyx.GroupBy(p => p.ID).Select(grp => grp.First()).OrderByDescending(x => x.ID).ToList();

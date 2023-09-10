@@ -19,16 +19,19 @@ namespace Kama.FinancialAnalysis.Domain
         public async Task<Result> AddReng(List<PriceMinutely> addList)
         {
             var dataSource = new MovingAverageDataSource();
-            List<List<MovingAverage>> insertList = new List<List<MovingAverage>>();
             List<MovingAverage> temporaryList = new List<MovingAverage>();
             int i = 0;
-            
+            int i2 = 0;
+
             foreach (var item in addList)
             {
                 i++;
                 if (i > 1000)
                 {
-                    insertList.Add(temporaryList);
+                    i2++;
+                    if (i2 > 10)
+                        break;
+                    await dataSource.AddListAsync(temporaryList);
                     i = 0;
                     temporaryList = new List<MovingAverage>();
                 }
@@ -46,10 +49,7 @@ namespace Kama.FinancialAnalysis.Domain
             }
 
             if (temporaryList.Count > 0)
-                insertList.Add(temporaryList);
-
-            foreach (var insert in insertList)
-                await dataSource.AddListAsync(insert);
+                await dataSource.AddListAsync(temporaryList);
 
             return Result.Successful();
         }
@@ -72,11 +72,12 @@ namespace Kama.FinancialAnalysis.Domain
             }
             else
             {
-                list = listSymbol.Take(reng).ToList();
+                list = listSymbol.Where(x => x.ID <= item.ID).Take(reng).ToList();
             }
 
             if (list.Count == 0)
                 return 0;
+
             return list.Sum(x => x.Close) / list.Count;
 
         }

@@ -13,13 +13,13 @@ BEGIN
 	
 	INSERT INTO [pbl].[MovingAverage] (ID, [Date], M5, M30, H1, D, [Type])
 	SELECT 
-		ID ,
-		[Date] ,
-		M5  ,
-		M30 ,
-		H1  ,
-		D ,
-		[Type]
+		jsonData.ID ,
+		jsonData.[Date] ,
+		jsonData.M5  ,
+		jsonData.M30 ,
+		jsonData.H1  ,
+		jsonData.D ,
+		jsonData.[Type]
 	FROM OPENJSON(@Json) WITH (
 			ID BIGINT ,
 			[Date] DatetIME ,
@@ -28,7 +28,9 @@ BEGIN
 			H1 FLOAT ,
 			D FLOAT ,
 			[Type] TINYINT 
-		) 
+		) jsonData
+	LEFT JOIN [pbl].[MovingAverage] MA ON MA.ID = JsonData.ID
+	WHERE MA.ID IS NULL
 
 
 END 
