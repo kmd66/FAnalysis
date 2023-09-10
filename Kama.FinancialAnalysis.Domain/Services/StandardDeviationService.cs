@@ -15,21 +15,47 @@ namespace Kama.FinancialAnalysis.Domain
 {
     public class StandardDeviationService
     {
+        StandardDeviationDataSource dataSource = new StandardDeviationDataSource();
+        public async Task<Result> AddNullReng(List<PriceMinutely> addList)
+        {
+            List<StandardDeviation> insert = new List<StandardDeviation>();
+            List<PriceMinutely> temporaryList = new List<PriceMinutely>();
+            int i = 0;
+            foreach (var item in addList)
+            {
+                i++;
+                if (i > 1000)
+                {
+                    var result = await dataSource.GetEmptys(temporaryList.Select(x => x.ID).ToList());
+                    insert.AddRange(result.Data);
+                    i = 0;
+                    temporaryList = new List<PriceMinutely>();
+                }
+                temporaryList.Add(item);
+            }
+            if (temporaryList.Count > 0)
+            {
+                var result = await dataSource.GetEmptys(temporaryList.Select(x => x.ID).ToList());
+                insert.AddRange(result.Data);
+            }
+
+            var query = (
+                from p1 in insert
+                join p2 in addList on p1.ID equals p2.ID
+                select p2).ToList();
+
+            return await AddReng(query);
+        }
         public async Task<Result> AddReng(List<PriceMinutely> addList)
         {
-            var dataSource = new StandardDeviationDataSource();
             List<StandardDeviation> temporaryList = new List<StandardDeviation>();
             int i = 0;
-            int i2 = 0;
 
             foreach (var item in addList)
             {
                 i++;
                 if (i > 1000)
                 {
-                    i2++;
-                    if (i2 > 10)
-                        break;
                     await dataSource.AddListAsync(temporaryList);
                     i = 0;
                     temporaryList = new List<StandardDeviation>();

@@ -115,10 +115,7 @@ namespace Kama.FinancialAnalysis.Controllers
 
             await new PriceMinutelyIndexService().AddAllDyx();
 
-            new DataCollectionMinutely(SymbolType.eurusd).Start();
-            new DataCollectionMinutely(SymbolType.eurjpy).Start();
-            new DataCollectionMinutely(SymbolType.usdchf).Start();
-            new DataCollectionMinutely(SymbolType.xauusd).Start();
+            new DataCollectionMinutely().Start();
 
             //new AddWorkingHoursTimer().Start();
         }

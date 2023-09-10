@@ -2,6 +2,7 @@
 using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -14,24 +15,23 @@ namespace Kama.FinancialAnalysis.Domain
     public class DataCollectionMinutely
     {
         private Timer _timer;
-        SymbolType _symbol ;
+        //SymbolType _symbol ;
         string _script = "";
         string _fromDate = "1";
         string _lenDate = "5";
-        string _priceMinutelyFile = AppProperty.Instance.PriceMinutelyFile;
-        public DataCollectionMinutely(SymbolType symbol)
+        public DataCollectionMinutely()
         {
-            _priceMinutelyFile = _priceMinutelyFile + symbol + ".txt";
-            _symbol = symbol;
+            //_priceMinutelyFile = _priceMinutelyFile + symbol + ".txt";
+            //_symbol = symbol;
             _script = $"{AppProperty.Instance.PythonScriptDirectory}getData.py";
             _timer = new Timer();
             _timer.Interval = 30000;
             _timer.Elapsed += _timer_Elapsed; 
         }
-        private void _timer_Elapsed(object sender, ElapsedEventArgs e)
+        private async void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Stop();
-            DoWork();
+            await DoWork();
             Start();
         }
 
@@ -42,16 +42,32 @@ namespace Kama.FinancialAnalysis.Domain
         }
 
         public void Stop() => _timer.Stop();
-        private async void DoWork()
+        public async System.Threading.Tasks.Task DoWork()
         {
+            await GetData(SymbolType.eurusd);
+            await GetData(SymbolType.xauusd);
+            await GetData(SymbolType.usdchf);
+            await GetData(SymbolType.eurjpy);
+
+            await GetData(SymbolType.usdjpy);
+            await GetData(SymbolType.gbpusd);
+            await GetData(SymbolType.usdcad);
+            await GetData(SymbolType.usdsek);
+
+            await new PriceMinutelyIndexService().AddAllDyx();
+
+        }
+        private async System.Threading.Tasks.Task GetData(SymbolType symbol)
+        {
+            string _priceMinutelyFile = AppProperty.Instance.PriceMinutelyFile + symbol + ".txt";
             var psi = new ProcessStartInfo();
-            psi.FileName =AppProperty.Instance.PythonExePath;
+            psi.FileName = AppProperty.Instance.PythonExePath;
             psi.UseShellExecute = false;
             psi.CreateNoWindow = true;
             psi.RedirectStandardOutput = true;
             psi.RedirectStandardError = true;
 
-            psi.Arguments = $"\"{_script}\" \"{_symbol.ToString().ToUpper()}\" \"{_fromDate}\" \"{_lenDate}\" \"{_priceMinutelyFile}\"";
+            psi.Arguments = $"\"{_script}\" \"{symbol.ToString().ToUpper()}\" \"{_fromDate}\" \"{_lenDate}\" \"{_priceMinutelyFile}\"";
             var errors = "";
             var results = "";
 
@@ -64,8 +80,8 @@ namespace Kama.FinancialAnalysis.Domain
             if (errors == "" && results.Contains("success"))
             {
                 string readText = File.ReadAllText(_priceMinutelyFile);
-                var list = PriceMinutely.ListFromJson(readText, _symbol);
-                await new PriceMinutelyIndexService().AddListAsync(list, _symbol);
+                var list = PriceMinutely.ListFromJson(readText, symbol);
+                await new PriceMinutelyIndexService().AddListAsync(list, symbol);
             }
         }
     }

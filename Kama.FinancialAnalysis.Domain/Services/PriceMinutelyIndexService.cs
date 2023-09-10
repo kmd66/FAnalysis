@@ -24,12 +24,12 @@ namespace Kama.FinancialAnalysis.Domain
                 var dbList = DbIndex.GetByType(type);
                 dbList.AddRange(model);
                 dbList = dbList.GroupBy(p => p.ID).Select(grp => grp.First()).OrderByDescending(x => x.ID).ToList();
-                //if(type == SymbolType.eurusd || type == SymbolType.xauusd ||
-                //    type == SymbolType.usdchf || type == SymbolType.eurjpy)
-                //{
-                //    await new MovingAverageService().AddReng(model);
-                //    await new StandardDeviationService().AddReng(model);
-                //}
+                if (type == SymbolType.eurusd || type == SymbolType.xauusd ||
+                    type == SymbolType.usdchf || type == SymbolType.eurjpy)
+                {
+                    await new MovingAverageService().AddNullReng(model);
+                    await new StandardDeviationService().AddNullReng(model);
+                }
             }
 
 

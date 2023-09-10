@@ -47,6 +47,7 @@ BEGIN
 		LEFT JOIN [pbl].PriceMinutelyOther Price ON Price.ID = JsonData.ID
 		WHERE Price.ID IS NULL 
 	END
+	ELSE
 	BEGIN
 		INSERT INTO [pbl].[PriceMinutelyIndex]
 		SELECT JsonData.* ,@Type

@@ -2,6 +2,7 @@
 using Kama.FinancialAnalysis.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -28,6 +29,21 @@ namespace Kama.FinancialAnalysis.DAL
         //        throw;
         //    }
         //}
+        public async Task<Result<IEnumerable<MovingAverage>>> GetEmptys(List<long> ids)
+        {
+            try
+            {
+                var result = (await pbl.GetEmptysMovingAverageAsync(
+                    _json: new Dependency.ObjectSerializer().Serialize(ids)
+                    )).ToListActionResult<MovingAverage>();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
         public async Task<Result> AddListAsync(List<MovingAverage> ids)
         {
             try
