@@ -166,7 +166,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\highstock.js" />
+    <Content Include="Scripts\chart.js" />
     <Content Include="Scripts\luxon.js" />
     <Content Include="Scripts\PriceView\oderSymbol.js" />
     <Content Include="Scripts\PriceView\index.js" />
