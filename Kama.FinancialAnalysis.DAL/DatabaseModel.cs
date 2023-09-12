@@ -90,84 +90,6 @@ public ResultSet AddListFromIdsMovingAverage(string _json, int? timeout = null)
 
 #endregion
 
-#region GetMovingAverages
-
-public System.Data.SqlClient.SqlCommand GetCommand_GetMovingAverages(int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-var cmd = base.CreateCommand("pbl.spGetMovingAverages", 
-	System.Data.CommandType.StoredProcedure, 
-	new Parameter[]{
-					new Parameter { Name = "@APageSize", IsOutput = false, Value = _pageSize == null ? DBNull.Value : (object)_pageSize }, 
-					new Parameter { Name = "@APageIndex", IsOutput = false, Value = _pageIndex == null ? DBNull.Value : (object)_pageIndex }, 
-	});
-
-			if (timeout != null)
-				cmd.CommandTimeout = (int)timeout;
-			return cmd;
-}
-
-public async Task<ResultSet> GetMovingAveragesAsync(int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-	using(var cmd = GetCommand_GetMovingAverages(_pageSize, _pageIndex, timeout))
-{
-	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
-}
-}
-
-public async Task<AppCore.Result<IEnumerable<T>>> GetMovingAveragesDapperAsync<T>(int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-	return await  DapperQueryAsync<T>("pbl.spGetMovingAverages",new {APageSize=_pageSize,APageIndex=_pageIndex} , timeout );
-}
-
-public ResultSet GetMovingAverages(int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-	using(var cmd = GetCommand_GetMovingAverages(_pageSize, _pageIndex, timeout))
-{
-	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
-}
-}
-
-#endregion
-
-#region GetStandardDeviations
-
-public System.Data.SqlClient.SqlCommand GetCommand_GetStandardDeviations(int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-var cmd = base.CreateCommand("pbl.spGetStandardDeviations", 
-	System.Data.CommandType.StoredProcedure, 
-	new Parameter[]{
-					new Parameter { Name = "@APageSize", IsOutput = false, Value = _pageSize == null ? DBNull.Value : (object)_pageSize }, 
-					new Parameter { Name = "@APageIndex", IsOutput = false, Value = _pageIndex == null ? DBNull.Value : (object)_pageIndex }, 
-	});
-
-			if (timeout != null)
-				cmd.CommandTimeout = (int)timeout;
-			return cmd;
-}
-
-public async Task<ResultSet> GetStandardDeviationsAsync(int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-	using(var cmd = GetCommand_GetStandardDeviations(_pageSize, _pageIndex, timeout))
-{
-	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
-}
-}
-
-public async Task<AppCore.Result<IEnumerable<T>>> GetStandardDeviationsDapperAsync<T>(int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-	return await  DapperQueryAsync<T>("pbl.spGetStandardDeviations",new {APageSize=_pageSize,APageIndex=_pageIndex} , timeout );
-}
-
-public ResultSet GetStandardDeviations(int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-	using(var cmd = GetCommand_GetStandardDeviations(_pageSize, _pageIndex, timeout))
-{
-	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
-}
-}
-
-#endregion
-
 #region GetLastWorkingHourAsync
 
 public System.Data.SqlClient.SqlCommand GetCommand_GetLastWorkingHourAsync(int? timeout = null)
@@ -194,6 +116,8 @@ public async Task<AppCore.Result<IEnumerable<T>>> GetLastWorkingHourAsyncDapperA
 {
 	return await  DapperQueryAsync<T>("pbl.spGetLastWorkingHourAsync",new {} , timeout );
 }
+
+
 #endregion
 
 #region GetPriceViewBases
@@ -391,44 +315,6 @@ public ResultSet AddListMovingAverage(string _json, int? timeout = null)
 
 #endregion
 
-#region GetEmptysStandardDeviation
-
-public System.Data.SqlClient.SqlCommand GetCommand_GetEmptysStandardDeviation(string _json, int? timeout = null)
-{
-var cmd = base.CreateCommand("pbl.spGetEmptysStandardDeviation", 
-	System.Data.CommandType.StoredProcedure, 
-	new Parameter[]{
-					new Parameter { Name = "@AJson", IsOutput = false, Value = string.IsNullOrWhiteSpace(_json) ? DBNull.Value : (object)ReplaceArabicWithPersianChars(_json) }, 
-	});
-
-			if (timeout != null)
-				cmd.CommandTimeout = (int)timeout;
-			return cmd;
-}
-
-public async Task<ResultSet> GetEmptysStandardDeviationAsync(string _json, int? timeout = null)
-{
-	using(var cmd = GetCommand_GetEmptysStandardDeviation(_json, timeout))
-{
-	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
-}
-}
-
-public async Task<AppCore.Result<IEnumerable<T>>> GetEmptysStandardDeviationDapperAsync<T>(string _json, int? timeout = null)
-{
-	return await  DapperQueryAsync<T>("pbl.spGetEmptysStandardDeviation",new {AJson=string.IsNullOrWhiteSpace(_json) ? _json : ReplaceArabicWithPersianChars(_json)} , timeout );
-}
-
-public ResultSet GetEmptysStandardDeviation(string _json, int? timeout = null)
-{
-	using(var cmd = GetCommand_GetEmptysStandardDeviation(_json, timeout))
-{
-	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
-}
-}
-
-#endregion
-
 #region GetEmptysMovingAverage
 
 public System.Data.SqlClient.SqlCommand GetCommand_GetEmptysMovingAverage(string _json, int? timeout = null)
@@ -460,6 +346,44 @@ public async Task<AppCore.Result<IEnumerable<T>>> GetEmptysMovingAverageDapperAs
 public ResultSet GetEmptysMovingAverage(string _json, int? timeout = null)
 {
 	using(var cmd = GetCommand_GetEmptysMovingAverage(_json, timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
+#region GetEmptysStandardDeviation
+
+public System.Data.SqlClient.SqlCommand GetCommand_GetEmptysStandardDeviation(string _json, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spGetEmptysStandardDeviation", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AJson", IsOutput = false, Value = string.IsNullOrWhiteSpace(_json) ? DBNull.Value : (object)ReplaceArabicWithPersianChars(_json) }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> GetEmptysStandardDeviationAsync(string _json, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetEmptysStandardDeviation(_json, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> GetEmptysStandardDeviationDapperAsync<T>(string _json, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spGetEmptysStandardDeviation",new {AJson=string.IsNullOrWhiteSpace(_json) ? _json : ReplaceArabicWithPersianChars(_json)} , timeout );
+}
+
+public ResultSet GetEmptysStandardDeviation(string _json, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetEmptysStandardDeviation(_json, timeout))
 {
 	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
 }
@@ -534,6 +458,86 @@ public async Task<AppCore.Result<IEnumerable<T>>> AddWorkingHoursDapperAsync<T>(
 public ResultSet AddWorkingHours(int? timeout = null)
 {
 	using(var cmd = GetCommand_AddWorkingHours(timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
+#region GetMovingAverages
+
+public System.Data.SqlClient.SqlCommand GetCommand_GetMovingAverages(int? _pageSize, int? _pageIndex, byte? _type, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spGetMovingAverages", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@APageSize", IsOutput = false, Value = _pageSize == null ? DBNull.Value : (object)_pageSize }, 
+					new Parameter { Name = "@APageIndex", IsOutput = false, Value = _pageIndex == null ? DBNull.Value : (object)_pageIndex }, 
+					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> GetMovingAveragesAsync(int? _pageSize, int? _pageIndex, byte? _type, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetMovingAverages(_pageSize, _pageIndex, _type, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> GetMovingAveragesDapperAsync<T>(int? _pageSize, int? _pageIndex, byte? _type, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spGetMovingAverages",new {APageSize=_pageSize,APageIndex=_pageIndex,AType=_type} , timeout );
+}
+
+public ResultSet GetMovingAverages(int? _pageSize, int? _pageIndex, byte? _type, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetMovingAverages(_pageSize, _pageIndex, _type, timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
+#region GetStandardDeviations
+
+public System.Data.SqlClient.SqlCommand GetCommand_GetStandardDeviations(int? _pageSize, int? _pageIndex, byte? _type, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spGetStandardDeviations", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@APageSize", IsOutput = false, Value = _pageSize == null ? DBNull.Value : (object)_pageSize }, 
+					new Parameter { Name = "@APageIndex", IsOutput = false, Value = _pageIndex == null ? DBNull.Value : (object)_pageIndex }, 
+					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> GetStandardDeviationsAsync(int? _pageSize, int? _pageIndex, byte? _type, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetStandardDeviations(_pageSize, _pageIndex, _type, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> GetStandardDeviationsDapperAsync<T>(int? _pageSize, int? _pageIndex, byte? _type, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spGetStandardDeviations",new {APageSize=_pageSize,APageIndex=_pageIndex,AType=_type} , timeout );
+}
+
+public ResultSet GetStandardDeviations(int? _pageSize, int? _pageIndex, byte? _type, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetStandardDeviations(_pageSize, _pageIndex, _type, timeout))
 {
 	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
 }

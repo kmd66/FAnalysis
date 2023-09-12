@@ -31,13 +31,15 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result<IEnumerable<MovingAverage>>> ListMovingAverage(ListVM model)
+        public async Task<Result<IEnumerable<MovingAverage>>> ListMovingAverage(PriceViewVM model)
         {
             try
             {
                 var result = (await pbl.GetMovingAveragesAsync(
                     _pageIndex: model.PageIndex,
-                    _pageSize: model.PageSize
+                    _pageSize: model.PageSize,
+                    _type: (byte)model.Type
+
                     )).ToListActionResult<MovingAverage>();
 
                 return result;
@@ -48,13 +50,14 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result<IEnumerable<StandardDeviation>>> ListStandardDeviation(ListVM model)
+        public async Task<Result<IEnumerable<StandardDeviation>>> ListStandardDeviation(PriceViewVM model)
         {
             try
             {
                 var result = (await pbl.GetStandardDeviationsAsync(
                     _pageIndex: model.PageIndex,
-                    _pageSize: model.PageSize
+                    _pageSize: model.PageSize,
+                    _type:(byte)model.Type
                     )).ToListActionResult<StandardDeviation>();
 
                 return result;
@@ -65,19 +68,19 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result<WorkingHours>> LastWorkingHours()
-        {
-            try
-            {
-                var result = (await pbl.GetLastWorkingHourAsync()).ToActionResult<WorkingHours>();
+        //public async Task<Result<WorkingHours>> LastWorkingHours()
+        //{
+        //    try
+        //    {
+        //        var result = (await pbl.GetLastWorkingHourAsync()).ToActionResult<WorkingHours>();
 
-                return result;
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-        }
+        //        return result;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw;
+        //    }
+        //}
 
     }
 }

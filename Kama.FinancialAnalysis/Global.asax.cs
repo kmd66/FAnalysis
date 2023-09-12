@@ -25,11 +25,14 @@ namespace Kama.FinancialAnalysis
             //---------------------
 
             AppProperty.SetInstance(System.Configuration.ConfigurationManager.AppSettings["AppPropertyPath"]);
-            
-            await addDbIndex();
-            // await addAllIndexs();
-            await timer();
-            IsInit = true;
+
+            if (!IsInit)
+            {
+                await addDbIndex();
+                //await addAllIndexs();
+                await timer();
+                IsInit = true;
+            }
             //addDateFromCsvFli();
 
         }

@@ -50,12 +50,16 @@ namespace Kama.FinancialAnalysis.Domain
         {
             List<StandardDeviation> temporaryList = new List<StandardDeviation>();
             int i = 0;
+            int i2 = 0;
 
             foreach (var item in addList)
             {
                 i++;
                 if (i > 1000)
                 {
+                    i2++;
+                    if (i2 > 10)
+                        break;
                     await dataSource.AddListAsync(temporaryList);
                     i = 0;
                     temporaryList = new List<StandardDeviation>();

@@ -1,8 +1,4 @@
 ﻿
-<script src="~/Scripts/luxon.js"></script>
-<script src="~/Scripts/chartV4.4.0.js"></script>
-<script src="~/Scripts/chartjs-adapter-luxon.js"></script>
-<script src="~/Scripts/aaaindex1.js"></script>
 
 <div class="row">
 
@@ -17,33 +13,6 @@
             <canvas id="eurjpy" width="0"></canvas>
         </div>
     </div>
-
-    @*<script>
-            new Chart('myChart', {
-                type: 'line',
-                data: {
-                    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-                    datasets: [{
-                        label: 'My Dataset',
-                        data: [101, 122, 103, 115, 95, 94, 100, 108, 112, 115, 119, 120, 109, 108, 105, 116, 117, 108, 109, 114],
-                        segment: {
-                            borderColor: (ctx) => {
-                                const xVal = ctx.p1.parsed.x;
-
-                                if (xVal <= 7) {
-                                    return 'gray';
-                                } else if (xVal <= 15) {
-                                    return 'red'
-                                } else {
-                                    return 'blue'
-                                }
-                            },
-                        },
-                    }]
-                },
-                options: {}
-            });
-        </script>*@
 
     <script src="~/Scripts/PriceView/oderSymbol.js"></script>
 </div>

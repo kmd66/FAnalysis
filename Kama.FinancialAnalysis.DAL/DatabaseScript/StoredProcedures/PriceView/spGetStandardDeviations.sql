@@ -7,7 +7,8 @@ GO
 
 CREATE PROCEDURE pbl.spGetStandardDeviations
 	@APageSize INT,
-	@APageIndex INT
+	@APageIndex INT,
+	@AType TINYINT
 --WITH ENCRYPTION
 AS
 BEGIN
@@ -15,7 +16,8 @@ BEGIN
 
 	DECLARE 
 		@PageSize INT = @APageSize,
-		@PageIndex INT =@APageIndex
+		@PageIndex INT =@APageIndex,
+		@Type INT =@AType
 
 	IF @PageIndex = 0 
 	BEGIN
@@ -26,6 +28,7 @@ BEGIN
 	SELECT 
 		*
 	FROM [pbl].StandardDeviation
+	WHERE Type = @Type
 	ORDER BY ID DESC
 	OFFSET ((@PageIndex - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY;
 			

@@ -9,6 +9,6 @@
 <#@ import namespace="Kama.FinancialAnalysis.Model" #>
 <#@ output extension=".cs" #>
 <#
-	var generator = new Kama.DatabaseModel.Generator(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Kama.FinancialAnalysis;User ID =kama; Password=kama@@1389", "dbo");
+	var generator = new Kama.DatabaseModel.Generator(@"Data Source=.;Initial Catalog=Kama.FinancialAnalysis;User ID =kama; Password=kama@@1389", "dbo");
 #>
 <#=generator.Generate(" Kama.FinancialAnalysis.DAL")#>

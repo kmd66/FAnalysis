@@ -52,11 +52,15 @@ namespace Kama.FinancialAnalysis.Domain
         {
             List<MovingAverage> temporaryList = new List<MovingAverage>();
             int i = 0;
+            int i2= 0;
             foreach (var item in addList)
             {
                 i++;
                 if (i > 1000)
                 {
+                    i2++;
+                    if (i2 > 10)
+                        break;
                     await dataSource.AddListAsync(temporaryList);
                     i = 0;
                     temporaryList = new List<MovingAverage>();
@@ -94,7 +98,7 @@ namespace Kama.FinancialAnalysis.Domain
                 int m = dt.Date.Month;
                 int d = dt.Date.Day;
                 var dateTime = new DateTime(y, m, d,23,59,0);
-                list = listSymbol.Where(x => x.Date > dateTime).ToList();
+                list = listSymbol.Where(x => x.Date > dateTime && x.Date <= item.Date).ToList();
             }
             else
             {

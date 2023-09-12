@@ -32,9 +32,9 @@ namespace Kama.FinancialAnalysis.Domain
             if (!StandardDeviationResult.Success)
                 return Result<PriceView>.Failure(message: StandardDeviationResult.Message);
 
-            var workingHourResult = await dataSource.LastWorkingHours();
-            if (!workingHourResult.Success)
-                return Result<PriceView>.Failure(message: workingHourResult.Message);
+            //var workingHourResult = await dataSource.LastWorkingHours();
+            //if (!workingHourResult.Success)
+            //    return Result<PriceView>.Failure(message: workingHourResult.Message);
 
 
             return Result<PriceView>.Successful(data:new PriceView
@@ -42,7 +42,6 @@ namespace Kama.FinancialAnalysis.Domain
                 Bases = baseResult.Data.ToList(),
                 MovingAverages = movingAverageResult.Data.ToList(),
                 StandardDeviations = StandardDeviationResult.Data.ToList(),
-                WorkingHour = workingHourResult.Data,
             });
 
 
