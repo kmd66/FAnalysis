@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Kama.FinancialAnalysis.Domain
 {
-    public class PriceMinutelyIndexService
+    public class PriceMinutelyService
     {
         public async Task<Result> AddListAsync(List<PriceMinutely> model, SymbolType type)
         {
@@ -28,7 +28,7 @@ namespace Kama.FinancialAnalysis.Domain
                     type == SymbolType.usdchf || type == SymbolType.eurjpy)
                 {
                     await new MovingAverageService().AddNullReng(model);
-                    await new StandardDeviationService().AddNullReng(model);
+                    //await new StandardDeviationService().AddNullReng(model);
                 }
             }
 

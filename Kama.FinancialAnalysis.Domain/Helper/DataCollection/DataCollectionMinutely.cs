@@ -54,7 +54,7 @@ namespace Kama.FinancialAnalysis.Domain
             await GetData(SymbolType.usdcad);
             await GetData(SymbolType.usdsek);
 
-            await new PriceMinutelyIndexService().AddAllDyx();
+            await new PriceMinutelyService().AddAllDyx();
 
         }
         private async System.Threading.Tasks.Task GetData(SymbolType symbol)
@@ -81,7 +81,7 @@ namespace Kama.FinancialAnalysis.Domain
             {
                 string readText = File.ReadAllText(_priceMinutelyFile);
                 var list = PriceMinutely.ListFromJson(readText, symbol);
-                await new PriceMinutelyIndexService().AddListAsync(list, symbol);
+                await new PriceMinutelyService().AddListAsync(list, symbol);
             }
         }
     }

@@ -14,7 +14,7 @@ namespace Kama.FinancialAnalysis.Domain
     {
         public async Task DoWork(SymbolType symbol)
         {
-            var service = new PriceMinutelyIndexService();
+            var service = new PriceMinutelyService();
 
             var historyDirectory = $"{AppProperty.Instance.HistoryDirectory}{symbol}\\";
             List<PriceMinutely> list = new List<PriceMinutely>();

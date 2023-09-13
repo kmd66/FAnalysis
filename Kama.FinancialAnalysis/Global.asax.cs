@@ -113,7 +113,7 @@ namespace Kama.FinancialAnalysis
             await new StandardDeviationService().AddReng(DbIndex.UsdChf);
             await new StandardDeviationService().AddReng(DbIndex.EurJpy);
 
-            await new PriceMinutelyIndexService().AddAllDyx();
+            await new PriceMinutelyService().AddAllDyx();
         }
 
         private async Task timer()
@@ -143,7 +143,7 @@ namespace Kama.FinancialAnalysis
             await new DataCollectionDaily(SymbolType.usdcad, "1500").DoWork();
             await new DataCollectionDaily(SymbolType.usdsek, "1500").DoWork();
 
-            await new PriceMinutelyIndexService().AddAllDyx();
+            await new PriceMinutelyService().AddAllDyx();
 
             new DataCollectionMinutely().Start();
 

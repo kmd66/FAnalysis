@@ -97,7 +97,7 @@
     <Compile Include="Service.cs" />
     <Compile Include="Services\MovingAverageService.cs" />
     <Compile Include="Services\StandardDeviationService.cs" />
-    <Compile Include="Services\PriceMinutelyIndexService.cs" />
+    <Compile Include="Services\PriceMinutelyService.cs" />
     <Compile Include="Services\PriceViewService.cs" />
   </ItemGroup>
   <ItemGroup>
