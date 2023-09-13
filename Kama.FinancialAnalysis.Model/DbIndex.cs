@@ -7,7 +7,7 @@ namespace Kama.FinancialAnalysis.Model
 {
     public class DbIndex
     {
-        public static List<PriceMinutely> EeurUsd;
+        public static List<PriceMinutely> EurUsd;
         public static List<PriceMinutely> XauUsd;
         public static List<PriceMinutely> UsdChf;
         public static List<PriceMinutely> EurJpy;
@@ -29,7 +29,7 @@ namespace Kama.FinancialAnalysis.Model
             else if (symbolType == SymbolType.eurjpy)
                 return DbIndex.EurJpy;
             else
-                return DbIndex.EeurUsd;
+                return DbIndex.EurUsd;
         }
     }
 }

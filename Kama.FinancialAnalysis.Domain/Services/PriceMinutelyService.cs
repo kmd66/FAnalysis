@@ -42,7 +42,7 @@ namespace Kama.FinancialAnalysis.Domain
             List<PriceMinutely> temporaryList = new List<PriceMinutely>();
             int i = 0;
 
-            var addList = (from p in DbIndex.EeurUsd
+            var addList = (from p in DbIndex.EurUsd
                            join pl in DbIndex.Dyx
                              on p.ID equals pl.ID into pp
                            from pl in pp.DefaultIfEmpty()

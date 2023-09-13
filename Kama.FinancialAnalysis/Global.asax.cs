@@ -52,12 +52,12 @@ namespace Kama.FinancialAnalysis
         private async Task addDbIndex()
         {
             var priceMinutelyDataSource = new PriceMinutelyDataSource();
-            if (DbIndex.EeurUsd != null)
+            if (DbIndex.EurUsd != null)
                 return;
 
-            var EeurUsd = await priceMinutelyDataSource.ListAsync(new ListVM { PageIndex = 0, PageSize = 0 }, SymbolType.eurusd);
-            if (!EeurUsd.Success) System.Environment.Exit(500);
-            DbIndex.EeurUsd = EeurUsd.Data.ToList();
+            var EurUsd = await priceMinutelyDataSource.ListAsync(new ListVM { PageIndex = 0, PageSize = 0 }, SymbolType.eurusd);
+            if (!EurUsd.Success) System.Environment.Exit(500);
+            DbIndex.EurUsd = EurUsd.Data.ToList();
 
             var XauUsd = await priceMinutelyDataSource.ListAsync(new ListVM { PageIndex = 0, PageSize = 0 }, SymbolType.xauusd);
             if (!XauUsd.Success) System.Environment.Exit(500);
@@ -103,12 +103,12 @@ namespace Kama.FinancialAnalysis
         private async Task addAllIndexs()
         {
 
-            await new MovingAverageService().AddReng(DbIndex.EeurUsd);
+            await new MovingAverageService().AddReng(DbIndex.EurUsd);
             await new MovingAverageService().AddReng(DbIndex.XauUsd);
             await new MovingAverageService().AddReng(DbIndex.UsdChf);
             await new MovingAverageService().AddReng(DbIndex.EurJpy);
 
-            await new StandardDeviationService().AddReng(DbIndex.EeurUsd);
+            await new StandardDeviationService().AddReng(DbIndex.EurUsd);
             await new StandardDeviationService().AddReng(DbIndex.XauUsd);
             await new StandardDeviationService().AddReng(DbIndex.UsdChf);
             await new StandardDeviationService().AddReng(DbIndex.EurJpy);
@@ -120,7 +120,7 @@ namespace Kama.FinancialAnalysis
         {
 
             var priceMinutelyDataSource = new PriceMinutelyDataSource();
-            if (DbIndex.EeurUsd != null)
+            if (DbIndex.EurUsd != null)
                 return;
 
             await new DataCollectionHistory().DoWork(SymbolType.eurusd);
