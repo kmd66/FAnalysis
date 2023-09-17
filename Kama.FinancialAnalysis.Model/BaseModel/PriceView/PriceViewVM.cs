@@ -13,5 +13,7 @@ namespace Kama.FinancialAnalysis.Model
 
         }
         public SymbolType Type { get; set; }
+        public DateTime FromDate{ get; set; }
+        public DateTime ToDate { get; set; }
     }
 }

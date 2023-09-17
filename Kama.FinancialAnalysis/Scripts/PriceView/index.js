@@ -1,6 +1,8 @@
 ﻿var _obj;
 var initSession = [];
 var _pageIndex = 1;
+var _sessions;
+var _series = [];
 
 getData(0);
 
@@ -15,10 +17,11 @@ async function initCahrt() {
     var option;
     var rt=1
     var time = getTimes();
+    initChartService();
 
     option = {
         legend: {
-            data: ['MA5', 'MA', 'SDR100', 'SDR500', 'SDR1000']
+            data: ['session', 'MA5', 'MA', 'SDR1000']
         },
         grid: [{
             bottom: '23%',
@@ -79,89 +82,8 @@ async function initCahrt() {
             scale: true, gridIndex: 0
         }, {
             scale: true, gridIndex: 1
-        }],
-        series: [
-            {
-                name: 'MA5',
-                type: 'candlestick',
-                data: getOhlc(),
-                xAxisIndex: 0, yAxisIndex: 0,
-            },
-
-
-            {
-                name: 'bar1',
-                type: 'bar',
-                xAxisIndex: 0, yAxisIndex: 0,
-
-                markPoint: {
-                    data: [
-                        {
-                            name: 'Mark',
-                            coord: [time[563], 1.07163],
-                            xAxisIndex: 0, yAxisIndex: 0,
-                            value: 1
-                        },
-                    ],
-                    xAxisIndex: 0, yAxisIndex: 0,
-                },
-                markArea: {
-                    itemStyle: {
-                        color: 'rgba(255, 173, 177, 0.4)'
-                    },
-                    data: [
-                        [
-                            {
-                                name: 'Morning Peak',
-                                color: "blue",
-                                xAxis: time[363]
-                            },
-                            {
-                                color: "blue",
-                                xAxis: time[770]
-                            }
-                        ],
-                    ]
-                },
-
-            },
-            {
-                name: 'bar2',
-                type: 'bar',
-                xAxisIndex: 0, yAxisIndex: 0,
-                markArea: {
-                    itemStyle: {
-                        color: 'rgba(255, 255, 177, 0.4)'
-                    },
-                    data: [
-                        [
-                            {
-                                name: 'aaaaaaaa',
-                                xAxis: time[590], color: 'rgba(255, 255, 177, 0.4)'
-                            },
-                            {
-                                xAxis: time[970]
-                            }
-                        ],
-                    ]
-                },
-                markLine: {
-                    silent: true, // ignore mouse events
-                    data: [
-                        // Horizontal Axis (requires valueIndex = 0)
-                        { type: 'average', name: 'Marker Line', valueIndex: 1, xAxis: time[563], itemStyle: { normal: { color: '#1e90ff' } } },
-                    ]
-                },
-            },
-
-            movingAverages('M5'),
-            movingAverages('M30'),
-            movingAverages('H1'),
-            movingAverages('D'),
-            standardDeviation('R100'),
-            standardDeviation('R500'),
-            standardDeviation('R1000'),
-        ]
+            }],
+        series: _series
     };
 
     if (option && typeof option === 'object') {
@@ -172,14 +94,90 @@ async function initCahrt() {
 
 }
 
+function initChartService() {
+    var time = getTimes();
+    _series= [
+        {
+            name: 'MA5',
+            type: 'candlestick',
+            data: getOhlc(),
+            xAxisIndex: 0, yAxisIndex: 0,
+        },
+        movingAverages('M5'),
+        movingAverages('M30'),
+        movingAverages('H1'),
+        movingAverages('D'),
+        //standardDeviation('R100'),
+        //standardDeviation('R500'),
+        standardDeviation('R1000'),
+    ]
+
+    var found1 = _obj.find((item) => item.Session == 1);
+    if (found1) {
+        _series.push(
+            {
+                name: 'session',
+                type: 'bar',
+                xAxisIndex: 0, yAxisIndex: 0,
+
+                markLine: {
+                    silent: true, // ignore mouse events
+                    data: [
+                        { type: 'average', name: 'Marker Line', valueIndex: 1, xAxis: getTimesByID(found1.ID), itemStyle: { normal: { color: '#1e90ff' } } },
+                    ]
+                },
+            }
+        );
+    }
+    addArea(10, 20, '#ff00a340', 'new york');
+    addArea(11, 21, '#00ff8b40', 'london');
+    //addArea(12, 22, '#ffed0040', 'sydney');
+    function addArea(type1, type2, color, title) {
+
+        var found10 = _obj.find((item) => item.Session == type1);
+        var found20 = _obj.find((item) => item.Session == type2);
+        if (found10 && found20) {
+            _series.push(
+                {
+                    name: 'session',
+                    type: 'bar',
+                    xAxisIndex: 0, yAxisIndex: 0,
+
+                    markArea: {
+                        itemStyle: {
+                            color: color
+                        },
+                        data: [
+                            [
+                                {
+                                    name: title,
+                                    xAxis: getTimesByID(found10.ID)
+                                },
+                                {
+                                    xAxis: getTimesByID(found20.ID)
+                                }
+                            ],
+                        ]
+                    }
+                }
+            );
+        }
+    }
+
+}
+
 function getData(p) {
+    var pageIndexSpan = document.getElementById('PageIndex');
     _pageIndex = _pageIndex + p;
+    pageIndexSpan.innerHTML = _pageIndex;
     $.post("PriceView/ListView", { Type: 1, pageIndex: _pageIndex })
         .done(function (data) {
             _obj = data.Data;
-            _obj.Bases = _obj.Bases.reverse();
-            _obj.MovingAverages = _obj.MovingAverages.reverse();
-            _obj.StandardDeviations = _obj.StandardDeviations.reverse();
+            _obj = _obj.reverse();
+            _sessions = _obj.filter((item) => item.Session > 0);
+            var found = _obj.find((item) => item.Session > 100);
+            //_obj.MovingAverages = _obj.MovingAverages.reverse();
+            //_obj.StandardDeviations = _obj.StandardDeviations.reverse();
             initCahrt();
         })
         .fail(function (e) {
@@ -189,23 +187,29 @@ function getData(p) {
 
 function getTimes() {
     var obj = [];
-    for (var i = 0; i < _obj.Bases.length; i++) {
-        var d = new Date(parseInt(_obj.Bases[i].Date.match(/\d+/)[0] * 1));
-        obj.push(d.toISOString().replace(':00.000Z', '').replace('T', ' '));
+    for (var i = 0; i < _obj.length; i++) {
+        var d = new Date(parseInt(_obj[i].Date.match(/\d+/)[0] * 1));
+        obj.push(moment(d).format('L') + ' ' + moment(d).format('LT'));
     }
     return obj;
 }
 
+function getTimesByID(id) {
+    var item = _obj.find((x) => x.ID == id);
+    var d = new Date(parseInt(item.Date.match(/\d+/)[0] * 1));
+    return moment(d).format('L') + ' ' + moment(d).format('LT');
+}
+
 function getOhlc() {
     var obj = [];
-    for (var i = 0; i < _obj.Bases.length; i += 1) {
+    for (var i = 0; i < _obj.length; i += 1) {
         if (i == 563)
-            rt = _obj.Bases[i].Max
+            rt = _obj[i].Max
         obj.push([
-            _obj.Bases[i].Open,
-            _obj.Bases[i].Close,
-            _obj.Bases[i].Min,
-            _obj.Bases[i].Max
+            _obj[i].Open,
+            _obj[i].Close,
+            _obj[i].Min,
+            _obj[i].Max
         ]);
     }
     return obj;
@@ -245,8 +249,8 @@ function movingAverages(t) {
 
     function getData(type) {
         var obj = [];
-        for (var i = 0; i < _obj.MovingAverages.length; i += 1) {
-            obj.push(_obj.MovingAverages[i][type]);
+        for (var i = 0; i < _obj.length; i += 1) {
+            obj.push(_obj[i][type]);
         }
         return obj;
     }
@@ -283,8 +287,8 @@ function standardDeviation(t) {
 
     function getData(type) {
         var obj = [];
-        for (var i = 0; i < _obj.StandardDeviations.length; i += 1) {
-            obj.push(_obj.StandardDeviations[i][type]);
+        for (var i = 0; i < _obj.length; i += 1) {
+            obj.push(_obj[i][type]);
         }
         return obj;
     }

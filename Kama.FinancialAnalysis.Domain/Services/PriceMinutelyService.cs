@@ -22,8 +22,7 @@ namespace Kama.FinancialAnalysis.Domain
             if (dataSource.Success)
             {
                 var dbList = DbIndex.GetByType(type);
-                dbList.AddRange(model);
-                dbList = dbList.GroupBy(p => p.ID).Select(grp => grp.First()).OrderByDescending(x => x.ID).ToList();
+                DbIndex.AddRange(model);
                 if (type == SymbolType.eurusd || type == SymbolType.xauusd ||
                     type == SymbolType.usdchf || type == SymbolType.eurjpy)
                 {
@@ -79,9 +78,7 @@ namespace Kama.FinancialAnalysis.Domain
 
             if (temporaryList.Count > 0)
                 await dataSource.AddListAsync(temporaryList, SymbolType.DYX);
-
-            DbIndex.Dyx.AddRange(addList);
-            DbIndex.Dyx = DbIndex.Dyx.GroupBy(p => p.ID).Select(grp => grp.First()).OrderByDescending(x => x.ID).ToList();
+            DbIndex.AddRange(addList);
 
             return Result.Successful();
         }

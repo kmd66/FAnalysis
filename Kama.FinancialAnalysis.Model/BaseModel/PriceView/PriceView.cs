@@ -8,10 +8,24 @@ namespace Kama.FinancialAnalysis.Model
 {
     public class PriceView
     {
-        public List<PriceViewBase> Bases { get; set; }
-        public List<MovingAverage> MovingAverages { get; set; }
-        public List<StandardDeviation> StandardDeviations { get; set; }
-        public WorkingHours WorkingHour { get; set; }
+        public long ID { get; set; }
+        public DateTime Date { get; set; }
+        public double Open { get; set; }
+        public double Close { get; set; }
+        public double Max { get; set; }
+        public double Min { get; set; }
+
+        public double M5 { get; set; }
+        public double M30 { get; set; }
+        public double H1 { get; set; }
+        public double D { get; set; }
+
+        public double R100 { get; set; }
+        public double R500 { get; set; }
+        public double R1000 { get; set; }
+
+        public SessionOCType Session { get; set; }
+
     }
 
     public class PriceViewBase

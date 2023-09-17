@@ -27,7 +27,7 @@ namespace Kama.FinancialAnalysis.Model
             for (int i = 0; i < obj[0].Length; i++)
                 id[i] = obj[0][i];
 
-            var idLong = $"{(byte)type}{id}".ToLong();
+            var idLong = id.ToString().ToLong() + (byte)type;
 
             return new PriceMinutely
             {

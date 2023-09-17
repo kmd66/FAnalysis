@@ -13,15 +13,16 @@ namespace Kama.FinancialAnalysis.DAL
         {
         }
 
-        public async Task<Result<IEnumerable<PriceViewBase>>> ListPriceViewBase(PriceViewVM model)
+        public async Task<Result<IEnumerable<PriceView>>> ListPriceViewBase(PriceViewVM model)
         {
             try
             {
+
                 var result = (await pbl.GetPriceViewBasesAsync(
-                    _pageIndex:model.PageIndex,
-                    _pageSize:model.PageSize,
-                    _type:(byte)model.Type
-                    )).ToListActionResult<PriceViewBase>();
+                    _type:(byte)model.Type,
+                    _fromDate: model.FromDate,
+                    _toDate: model.ToDate
+                    )).ToListActionResult<PriceView>();
 
                 return result;
             }
@@ -59,6 +60,21 @@ namespace Kama.FinancialAnalysis.DAL
                     _pageSize: model.PageSize,
                     _type:(byte)model.Type
                     )).ToListActionResult<StandardDeviation>();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        public async Task<Result<PriceViewBase>> GetLast(SymbolType type)
+        {
+            try
+            {
+                var result = (await pbl.GetLastPriceMinutelyAsync(
+                    _type: (byte)type
+                    )).ToActionResult<PriceViewBase>();
 
                 return result;
             }

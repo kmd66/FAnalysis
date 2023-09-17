@@ -14,7 +14,7 @@ public enum SymbolType : byte
     usdsek = 9,
 
 
-    nd100m = 10,
+    nq100m = 10,
     DYX = 11,
 }
 public enum SessionType : byte
@@ -31,11 +31,24 @@ public enum SessionType : byte
     usdcad = 8,
     usdsek = 9,
 
-    nd100m = 10,
+    nq100m = 10,
     DYX = 11,
 
 
     newYork = 110,
     london = 111,
     sydney = 112,
+}
+public enum SessionOCType : byte
+{
+    Unknown = 0,
+
+    dayOpen = 1,
+    newYorkOpen = 10,
+    londonOpen = 11,
+    sydneyOpen = 12,
+
+    newYorkClose = 20,
+    londonClose = 21,
+    sydneyClose = 22,
 }

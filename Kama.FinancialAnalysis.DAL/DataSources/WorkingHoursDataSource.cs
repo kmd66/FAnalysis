@@ -12,6 +12,20 @@ namespace Kama.FinancialAnalysis.DAL
         {
         }
 
+        public async Task<Result<IEnumerable<Sessions>>> GetSessionsAsync()
+        {
+            try
+            {
+                var result = (await pbl.GetSessionsAsync()).ToListActionResult<Sessions>();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
         public async Task<Result> AddAsync()
         {
             try

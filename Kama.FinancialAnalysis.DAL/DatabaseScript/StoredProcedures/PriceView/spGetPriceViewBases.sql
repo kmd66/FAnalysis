@@ -7,8 +7,8 @@ GO
 
 CREATE PROCEDURE pbl.spGetPriceViewBases
 	@AType TINYINT,
-	@APageSize INT,
-	@APageIndex INT
+	@AFromDate DATETIME,
+	@AToDate DATETIME
 --WITH ENCRYPTION
 AS
 BEGIN
@@ -16,21 +16,34 @@ BEGIN
 
 	DECLARE 
 		@Type TINYINT = @AType,
-		@PageSize INT = @APageSize,
-		@PageIndex INT =@APageIndex
-
-	IF @PageIndex = 0 
-	BEGIN
-		SET @pagesize = 100
-		SET @PageIndex = 1
-	END
-
+		@FromDate DATETIME = @AFromDate,
+		@ToDate DATETIME = @AToDate
+	
+	;WITH sd AS(
+		SELECT distinct 
+			CONVERT(VARCHAR(8),[Date],108) Time
+			,[R100]
+			,[R500]
+			,[R1000]
+		FROM [Kama.FinancialAnalysis].[pbl].[StandardDeviation]
+		WHERE Type = @Type
+	),pr AS(
+		SELECT
+			P.*,
+			M5, M30, H1, D
+			--pbl.fnAscendingOrDescending(ID, @Type, [Close]) [Asc]
+		FROM [pbl].PriceMinutely p
+		INNER JOIN pbl.MovingAverage m on p.ID = m.ID
+		WHERE p.[Type] = 1
+			AND p.[Date] >= @FromDate
+			AND p.[Date] <= @ToDate
+	)
 	SELECT 
-		*,
-		pbl.fnAscendingOrDescending(ID, @Type, [Close]) [Asc]
-	FROM [pbl].PriceMinutely
-	WHERE [Type] = @Type
+		pr.*
+		,[R100]
+		,[R500]
+		,[R1000]
+	FROM pr
+	INNER JOIN sd ON sd.Time = CONVERT(VARCHAR(8),pr.[Date],108)
 	ORDER BY ID DESC
-	OFFSET ((@PageIndex - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY;
-			
 END 

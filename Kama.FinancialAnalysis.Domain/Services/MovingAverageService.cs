@@ -59,7 +59,7 @@ namespace Kama.FinancialAnalysis.Domain
                 if (i > 1000)
                 {
                     i2++;
-                    if (i2 > 10)
+                    if (i2 > 50)
                         break;
                     await dataSource.AddListAsync(temporaryList);
                     i = 0;
@@ -93,11 +93,13 @@ namespace Kama.FinancialAnalysis.Domain
 
             if (reng == 0)
             {
-                var dt = item.Date.AddDays(-1);
-                int y = dt.Date.Year;
-                int m = dt.Date.Month;
-                int d = dt.Date.Day;
-                var dateTime = new DateTime(y, m, d,23,59,0);
+                var closeTime = DbIndex.GetSession((byte)item.Type).GetTimeColse();
+                //var dt = item.Date.AddDays(-1);
+                int y = item.Date.Year;
+                int m = item.Date.Month;
+                int d = item.Date.Day;
+                var dateTime = new DateTime(y, m, d, closeTime[0], closeTime[1], 0);
+                dateTime = dateTime.AddMinutes(-1);
                 list = listSymbol.Where(x => x.Date > dateTime && x.Date <= item.Date).ToList();
             }
             else

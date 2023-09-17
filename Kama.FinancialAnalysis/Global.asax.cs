@@ -26,27 +26,27 @@ namespace Kama.FinancialAnalysis
 
             AppProperty.SetInstance(System.Configuration.ConfigurationManager.AppSettings["AppPropertyPath"]);
 
+            //addDateFromCsvFlie();
             if (!IsInit)
             {
                 await addDbIndex();
                 //await addAllIndexs();
-                await timer();
+                //await timer();
                 IsInit = true;
             }
-            //addDateFromCsvFli();
 
         }
         protected async void addDateFromCsvFlie()
         {
-            //await new DataCollectionHistoryCsv().DoWork(SymbolType.eurusd, "D:\\prj\\forex\\csvFiles\\1_2019_2023-9-5_EurUsd.csv");
-            //await new DataCollectionHistoryCsv().DoWork(SymbolType.xauusd, "D:\\prj\\forex\\csvFiles\\2_2019_2023-9-5_XauUsd.csv");
-            //await new DataCollectionHistoryCsv().DoWork(SymbolType.usdchf, "D:\\prj\\forex\\csvFiles\\usdchf.csv");
-            //await new DataCollectionHistoryCsv().DoWork(SymbolType.eurjpy, "D:\\prj\\forex\\csvFiles\\eurjpy.csv");
-
-            //await new DataCollectionHistoryCsv().DoWork(SymbolType.usdjpy, "D:\\prj\\forex\\csvFiles\\5_2019_2023-9-5_usdjpy.csv");
-            //await new DataCollectionHistoryCsv().DoWork(SymbolType.gbpusd, "D:\\prj\\forex\\csvFiles\\6_2019_2023-9-5_gbpusd.csv");
-            //await new DataCollectionHistoryCsv().DoWork(SymbolType.usdcad, "D:\\prj\\forex\\csvFiles\\7_2019_2023-9-5_usdcad.csv");
-            //await new DataCollectionHistoryCsv().DoWork(SymbolType.usdsek, "D:\\prj\\forex\\csvFiles\\8_2019_2023-9-5_usdsek.csv");
+             //new DataCollectionHistoryCsv().DoWork(SymbolType.eurusd, "D:\\prj\\forex\\csvFiles\\2019-20230913\\EURUSD.csv");
+             //new DataCollectionHistoryCsv().DoWork(SymbolType.xauusd, "D:\\prj\\forex\\csvFiles\\2019-20230913\\XAUUSD.csv");
+             //new DataCollectionHistoryCsv().DoWork(SymbolType.usdchf, "D:\\prj\\forex\\csvFiles\\2019-20230913\\USDCHF.csv");
+             //new DataCollectionHistoryCsv().DoWork(SymbolType.eurjpy, "D:\\prj\\forex\\csvFiles\\2019-20230913\\EURJPY.csv");
+             //new DataCollectionHistoryCsv().DoWork(SymbolType.usdjpy, "D:\\prj\\forex\\csvFiles\\2019-20230913\\USDJPY.csv");
+             //new DataCollectionHistoryCsv().DoWork(SymbolType.gbpusd, "D:\\prj\\forex\\csvFiles\\2019-20230913\\GBPUSD.csv");
+             //new DataCollectionHistoryCsv().DoWork(SymbolType.usdcad, "D:\\prj\\forex\\csvFiles\\2019-20230913\\USDCAD.csv");
+             //new DataCollectionHistoryCsv().DoWork(SymbolType.usdsek, "D:\\prj\\forex\\csvFiles\\2019-20230913\\usdsek.csv");
+            //await new DataCollectionHistoryCsv().DoWork(SymbolType.nq100m, "D:\\prj\\forex\\csvFiles\\2019-20230913\\nq100m.csv");
         }
 
         private async Task addDbIndex()
@@ -54,6 +54,10 @@ namespace Kama.FinancialAnalysis
             var priceMinutelyDataSource = new PriceMinutelyDataSource();
             if (DbIndex.EurUsd != null)
                 return;
+
+            var sessions = await new WorkingHoursDataSource().GetSessionsAsync();
+            if (!sessions.Success) System.Environment.Exit(500);
+            DbIndex.Sessions = sessions.Data.ToList();
 
             var EurUsd = await priceMinutelyDataSource.ListAsync(new ListVM { PageIndex = 0, PageSize = 0 }, SymbolType.eurusd);
             if (!EurUsd.Success) System.Environment.Exit(500);
@@ -95,23 +99,25 @@ namespace Kama.FinancialAnalysis
             if (!Dyx.Success) System.Environment.Exit(500);
             DbIndex.Dyx = Dyx.Data.ToList();
 
-            var Nd100m = await priceMinutelyDataSource.ListAsync(new ListVM { PageIndex = 0, PageSize = 0 }, SymbolType.nd100m);
-            if (!Nd100m.Success) System.Environment.Exit(500);
-            DbIndex.Nd100m = Nd100m.Data.ToList();
+            var Nq100m = await priceMinutelyDataSource.ListAsync(new ListVM { PageIndex = 0, PageSize = 0 }, SymbolType.nq100m);
+            if (!Nq100m.Success) System.Environment.Exit(500);
+            DbIndex.Nq100m = Nq100m.Data.ToList();
 
         }
         private async Task addAllIndexs()
         {
 
-            await new MovingAverageService().AddReng(DbIndex.EurUsd);
-            await new MovingAverageService().AddReng(DbIndex.XauUsd);
-            await new MovingAverageService().AddReng(DbIndex.UsdChf);
-            await new MovingAverageService().AddReng(DbIndex.EurJpy);
+            new MovingAverageService().AddReng(DbIndex.EurUsd);
+            new MovingAverageService().AddReng(DbIndex.XauUsd);
+            new MovingAverageService().AddReng(DbIndex.UsdChf);
+            new MovingAverageService().AddReng(DbIndex.EurJpy);
+            await new MovingAverageService().AddReng(DbIndex.Nq100m);
 
-            await new StandardDeviationService().AddReng(DbIndex.EurUsd);
-            await new StandardDeviationService().AddReng(DbIndex.XauUsd);
-            await new StandardDeviationService().AddReng(DbIndex.UsdChf);
-            await new StandardDeviationService().AddReng(DbIndex.EurJpy);
+            new StandardDeviationService().AddReng(DbIndex.EurUsd);
+            new StandardDeviationService().AddReng(DbIndex.XauUsd);
+            new StandardDeviationService().AddReng(DbIndex.UsdChf);
+            new StandardDeviationService().AddReng(DbIndex.EurJpy);
+            await new StandardDeviationService().AddReng(DbIndex.Nq100m);
 
             await new PriceMinutelyService().AddAllDyx();
         }
@@ -120,13 +126,14 @@ namespace Kama.FinancialAnalysis
         {
 
             var priceMinutelyDataSource = new PriceMinutelyDataSource();
-            if (DbIndex.EurUsd != null)
+            if (IsInit)
                 return;
 
             await new DataCollectionHistory().DoWork(SymbolType.eurusd);
             await new DataCollectionHistory().DoWork(SymbolType.eurjpy);
             await new DataCollectionHistory().DoWork(SymbolType.usdchf);
             await new DataCollectionHistory().DoWork(SymbolType.xauusd);
+            await new DataCollectionHistory().DoWork(SymbolType.nq100m);
 
             await new DataCollectionHistory().DoWork(SymbolType.usdjpy);
             await new DataCollectionHistory().DoWork(SymbolType.gbpusd);

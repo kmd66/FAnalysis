@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseModel\dbBase\Sessions.cs" />
     <Compile Include="DbIndex.cs" />
     <Compile Include="BaseModel\dbBase\StandardDeviation.cs" />
     <Compile Include="BaseModel\dbBase\WorkingHours.cs" />
@@ -62,7 +63,9 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ML\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

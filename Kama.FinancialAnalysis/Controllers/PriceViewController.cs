@@ -33,10 +33,10 @@ namespace Kama.FinancialAnalysis.Controllers
         [HttpPost]
         public async Task<JsonResult> ListView(PriceViewVM model)
         {
-            model.PageSize = 1500;
             var result = await _service.ListViewAsync(model);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
     }
 }

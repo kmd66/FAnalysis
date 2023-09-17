@@ -54,6 +54,8 @@ namespace Kama.FinancialAnalysis.Domain
             await GetData(SymbolType.usdcad);
             await GetData(SymbolType.usdsek);
 
+            await GetData(SymbolType.nq100m);
+
             await new PriceMinutelyService().AddAllDyx();
 
         }

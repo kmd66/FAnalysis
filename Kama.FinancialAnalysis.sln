@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4.Kama.FinancialAnalysis.Mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kama.FinancialAnalysis.Dependency", "Kama.FinancialAnalysis.Dependency\Kama.FinancialAnalysis.Dependency.csproj", "{446A5031-23BD-49DA-8CDF-FBF716009372}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kama.Aro.Salary.WebApp", "Kama.Aro.Salary.WebApp\Kama.Aro.Salary.WebApp.csproj", "{348FD0E2-C3CF-49CA-834D-45A55D065293}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{446A5031-23BD-49DA-8CDF-FBF716009372}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{446A5031-23BD-49DA-8CDF-FBF716009372}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{446A5031-23BD-49DA-8CDF-FBF716009372}.Release|Any CPU.Build.0 = Release|Any CPU
+		{348FD0E2-C3CF-49CA-834D-45A55D065293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{348FD0E2-C3CF-49CA-834D-45A55D065293}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{348FD0E2-C3CF-49CA-834D-45A55D065293}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{348FD0E2-C3CF-49CA-834D-45A55D065293}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
