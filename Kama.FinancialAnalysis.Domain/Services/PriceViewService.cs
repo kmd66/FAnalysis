@@ -1,4 +1,5 @@
-﻿using Kama.AppCore;
+﻿using DeviceDetectorNET.Class.Device;
+using Kama.AppCore;
 using Kama.AppCore.IOC;
 using Kama.FinancialAnalysis.DAL;
 using Kama.FinancialAnalysis.Model;
@@ -11,14 +12,14 @@ namespace Kama.FinancialAnalysis.Domain
 {
     public class PriceViewService
     {
+        PriceViewDataSource _dataSource = new PriceViewDataSource();
         public async Task<Result<IEnumerable<PriceView>>> ListViewAsync(PriceViewVM model)
         {
-            var dataSource = new PriceViewDataSource();
 
             var dayIndex = model.PageIndex < 1 ? 0 : (model.PageIndex - 1) * -1;
             var closeTime = DbIndex.GetSession((byte)model.Type).GetTimeColse();
 
-            var resultLastItem = await dataSource.GetLast(model.Type);
+            var resultLastItem = await _dataSource.GetLast(model.Type);
            
             model.ToDate = resultLastItem.Data.Date.AddDays(dayIndex);
             int y = model.ToDate .Date.Year;
@@ -27,9 +28,29 @@ namespace Kama.FinancialAnalysis.Domain
             model.FromDate = new DateTime(y, m, d, closeTime[0], closeTime[1], 0);
             model.FromDate = model.FromDate.AddHours(-1);
            
-            var result = await dataSource.ListPriceViewBase(model);
+            var result = await _dataSource.ListPriceViewBase(model);
             if(!result.Success)
                 return Result<IEnumerable<PriceView>>.Failure(message: result.Message);
+            
+            await addSession(result.Data, model.Type);
+
+            var resultBiggerThanSD = await _dataSource.GetBiggerThanSDBetweenIDAsync(new BiggerThanSDVM { 
+                FromID = result.Data.Min(x => x.ID),
+                ToID= result.Data.Max(x => x.ID),
+                Type = model.Type
+            });
+            foreach(var item in resultBiggerThanSD.Data.ToList())
+            {
+                var p = result.Data.FirstOrDefault(x => x.ID == item.PriceID);
+                if (p != null)
+                    p.BiggerThanSD = item;
+            }
+
+            return result;
+        }
+        private async Task addSession(IEnumerable<PriceView> result, SymbolType type)
+        {
+            var closeTime = DbIndex.GetSession((byte)type).GetTimeColse();
 
             var nykOpenTime = DbIndex.GetSession((byte)SessionType.newYork).GetTimeColse();
             var lonOpenTime = DbIndex.GetSession((byte)SessionType.london).GetTimeColse();
@@ -37,11 +58,12 @@ namespace Kama.FinancialAnalysis.Domain
             var nykCloseTime = DbIndex.GetSession((byte)SessionType.newYork).GetTimeOpen();
             var lonCloseTime = DbIndex.GetSession((byte)SessionType.london).GetTimeOpen();
             var sydCloseTime = DbIndex.GetSession((byte)SessionType.sydney).GetTimeOpen();
-            foreach (var item in result.Data.ToList()) {
+            foreach (var item in result.ToList())
+            {
 
                 if (item.Date.Hour == closeTime[0] && item.Date.Minute == closeTime[1])
                     item.Session = SessionOCType.dayOpen;
-                
+
                 if (item.Date.Hour == nykOpenTime[0] && item.Date.Minute == nykOpenTime[1])
                     item.Session = SessionOCType.newYorkOpen;
                 if (item.Date.Hour == lonOpenTime[0] && item.Date.Minute == lonOpenTime[1])
@@ -56,24 +78,6 @@ namespace Kama.FinancialAnalysis.Domain
                 if (item.Date.Hour == sydCloseTime[0] && item.Date.Minute == sydCloseTime[1])
                     item.Session = SessionOCType.sydneyClose;
             }
-            return result;
-            //if(model.Type != SymbolType.eurusd)
-            //    return Result<PriceView>.Successful(data: new PriceView
-            //    {
-            //        Bases = baseResult.Data.ToList()
-            //    });
-
-            //var movingAverageResult = await dataSource.ListMovingAverage(model);
-            //if (!movingAverageResult.Success)
-            //    return Result<PriceView>.Failure(message: movingAverageResult.Message);
-
-            //var StandardDeviationResult = await dataSource.ListStandardDeviation(model);
-            //if (!StandardDeviationResult.Success)
-            //    return Result<PriceView>.Failure(message: StandardDeviationResult.Message);
-
-            //var workingHourResult = await dataSource.LastWorkingHours();
-            //if (!workingHourResult.Success)
-            //    return Result<PriceView>.Failure(message: workingHourResult.Message);
         }
     }
 }

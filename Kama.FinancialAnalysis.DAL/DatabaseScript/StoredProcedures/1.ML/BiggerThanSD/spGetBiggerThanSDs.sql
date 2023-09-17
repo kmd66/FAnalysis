@@ -1,23 +1,23 @@
 USE [Kama.FinancialAnalysis]
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pbl.spBiggerThanSD') AND type in (N'P', N'PC'))
-    DROP PROCEDURE pbl.spBiggerThanSD
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pbl.spGetBiggerThanSDs') AND type in (N'P', N'PC'))
+    DROP PROCEDURE pbl.spGetBiggerThanSDs
 GO
-CREATE PROCEDURE pbl.spBiggerThanSD
+CREATE PROCEDURE pbl.spGetBiggerThanSDs
 	@AType TINYINT,
-	@ASessionID TINYINT
+	@ASession TINYINT
 AS
 BEGIN
 	
 	DECLARE 
 		@Type TINYINT = @AType,
-		@SessionID TINYINT = @ASessionID
+		@Session TINYINT = @ASession
 	
 	;WITH p AS (
 		SELECT 
 			*
-			, ABS([CLOSE] - [OPEN]) pABS
+			, ABS([CLOSE] - [OPEN]) Rate
 			,CONVERT(VARCHAR(8),[date],108) Time
 		FROM [pbl].PriceMinutely
 		WHERE Type = @Type
@@ -34,7 +34,7 @@ BEGIN
 		SELECT DISTINCT	
 			[Open] sessionsOpen, [Close] sessionsClose
 		FROM [pbl].[Sessions]
-		WHERE ID =@SessionID
+		WHERE ID =@Session
 	), mainData as (
 		SELECT DISTINCT	
 			 P.*,
@@ -42,9 +42,15 @@ BEGIN
 		from P 
 		INNER JOIN T on t.Time = p.Time
 	)
-	SELECT DISTINCT mainData.* FROM mainData
+	SELECT DISTINCT 
+		mainData.ID PriceID,
+		mainData.R1000,
+		mainData.Rate,
+		@Type Type,
+		@Session Session
+	FROM mainData
 	INNER JOIN s on 1  = 1
-	WHERE pABS > R1000
+	WHERE Rate > R1000
 	AND Time > sessionsOpen
 	AND Time < sessionsClose
 	ORDER BY ID DESC

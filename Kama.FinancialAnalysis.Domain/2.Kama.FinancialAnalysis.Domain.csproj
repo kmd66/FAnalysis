@@ -93,6 +93,8 @@
     <Compile Include="Helper\DataCollection\DataCollectionMinutely.cs" />
     <Compile Include="Helper\WorkingHours\AddWorkingHoursTimer.cs" />
     <Compile Include="LayerRegistrar.cs" />
+    <Compile Include="ML\Helper\BiggerThanSDHelper.cs" />
+    <Compile Include="ML\InitML.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Services\MovingAverageService.cs" />

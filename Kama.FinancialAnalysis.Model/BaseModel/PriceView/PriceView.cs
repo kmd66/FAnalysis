@@ -26,6 +26,8 @@ namespace Kama.FinancialAnalysis.Model
 
         public SessionOCType Session { get; set; }
 
+        public BiggerThanSD BiggerThanSD { get; set; }
+
     }
 
     public class PriceViewBase

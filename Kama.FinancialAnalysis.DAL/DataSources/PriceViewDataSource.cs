@@ -68,6 +68,7 @@ namespace Kama.FinancialAnalysis.DAL
                 throw;
             }
         }
+
         public async Task<Result<PriceViewBase>> GetLast(SymbolType type)
         {
             try
@@ -75,6 +76,24 @@ namespace Kama.FinancialAnalysis.DAL
                 var result = (await pbl.GetLastPriceMinutelyAsync(
                     _type: (byte)type
                     )).ToActionResult<PriceViewBase>();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public async Task<Result<IEnumerable<BiggerThanSD>>> GetBiggerThanSDBetweenIDAsync(BiggerThanSDVM model)
+        {
+            try
+            {
+                var result = (await pbl.GetBiggerThanSDBetweenIDAsync(
+                    _fromID: model.FromID,
+                    _toID: model.ToID,
+                    _type: (byte)model.Type
+                    )).ToListActionResult<BiggerThanSD>();
 
                 return result;
             }

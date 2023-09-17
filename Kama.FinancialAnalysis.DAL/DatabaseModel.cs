@@ -590,45 +590,6 @@ public ResultSet GetStandardDeviations(int? _pageSize, int? _pageIndex, byte? _t
 
 #endregion
 
-#region BiggerThanSD
-
-public System.Data.SqlClient.SqlCommand GetCommand_BiggerThanSD(byte? _type, byte? _sessionID, int? timeout = null)
-{
-var cmd = base.CreateCommand("pbl.spBiggerThanSD", 
-	System.Data.CommandType.StoredProcedure, 
-	new Parameter[]{
-					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
-					new Parameter { Name = "@ASessionID", IsOutput = false, Value = _sessionID == null ? DBNull.Value : (object)_sessionID }, 
-	});
-
-			if (timeout != null)
-				cmd.CommandTimeout = (int)timeout;
-			return cmd;
-}
-
-public async Task<ResultSet> BiggerThanSDAsync(byte? _type, byte? _sessionID, int? timeout = null)
-{
-	using(var cmd = GetCommand_BiggerThanSD(_type, _sessionID, timeout))
-{
-	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
-}
-}
-
-public async Task<AppCore.Result<IEnumerable<T>>> BiggerThanSDDapperAsync<T>(byte? _type, byte? _sessionID, int? timeout = null)
-{
-	return await  DapperQueryAsync<T>("pbl.spBiggerThanSD",new {AType=_type,ASessionID=_sessionID} , timeout );
-}
-
-public ResultSet BiggerThanSD(byte? _type, byte? _sessionID, int? timeout = null)
-{
-	using(var cmd = GetCommand_BiggerThanSD(_type, _sessionID, timeout))
-{
-	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
-}
-}
-
-#endregion
-
 #region AddAllMovingAverage
 
 public System.Data.SqlClient.SqlCommand GetCommand_AddAllMovingAverage(int? timeout = null)
@@ -696,6 +657,123 @@ public async Task<AppCore.Result<IEnumerable<T>>> AddAllDxyDapperAsync<T>(int? t
 public ResultSet AddAllDxy(int? timeout = null)
 {
 	using(var cmd = GetCommand_AddAllDxy(timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
+#region GetBiggerThanSDs
+
+public System.Data.SqlClient.SqlCommand GetCommand_GetBiggerThanSDs(byte? _type, byte? _session, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spGetBiggerThanSDs", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
+					new Parameter { Name = "@ASession", IsOutput = false, Value = _session == null ? DBNull.Value : (object)_session }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> GetBiggerThanSDsAsync(byte? _type, byte? _session, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetBiggerThanSDs(_type, _session, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> GetBiggerThanSDsDapperAsync<T>(byte? _type, byte? _session, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spGetBiggerThanSDs",new {AType=_type,ASession=_session} , timeout );
+}
+
+public ResultSet GetBiggerThanSDs(byte? _type, byte? _session, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetBiggerThanSDs(_type, _session, timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
+#region AddBiggerThanSDs
+
+public System.Data.SqlClient.SqlCommand GetCommand_AddBiggerThanSDs(string _json, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spAddBiggerThanSDs", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AJson", IsOutput = false, Value = string.IsNullOrWhiteSpace(_json) ? DBNull.Value : (object)ReplaceArabicWithPersianChars(_json) }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> AddBiggerThanSDsAsync(string _json, int? timeout = null)
+{
+	using(var cmd = GetCommand_AddBiggerThanSDs(_json, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> AddBiggerThanSDsDapperAsync<T>(string _json, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spAddBiggerThanSDs",new {AJson=string.IsNullOrWhiteSpace(_json) ? _json : ReplaceArabicWithPersianChars(_json)} , timeout );
+}
+
+public ResultSet AddBiggerThanSDs(string _json, int? timeout = null)
+{
+	using(var cmd = GetCommand_AddBiggerThanSDs(_json, timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
+#region GetBiggerThanSDBetweenID
+
+public System.Data.SqlClient.SqlCommand GetCommand_GetBiggerThanSDBetweenID(long? _fromID, long? _toID, byte? _type, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spGetBiggerThanSDBetweenID", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AFromID", IsOutput = false, Value = _fromID == null ? DBNull.Value : (object)_fromID }, 
+					new Parameter { Name = "@AToID", IsOutput = false, Value = _toID == null ? DBNull.Value : (object)_toID }, 
+					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> GetBiggerThanSDBetweenIDAsync(long? _fromID, long? _toID, byte? _type, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetBiggerThanSDBetweenID(_fromID, _toID, _type, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> GetBiggerThanSDBetweenIDDapperAsync<T>(long? _fromID, long? _toID, byte? _type, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spGetBiggerThanSDBetweenID",new {AFromID=_fromID,AToID=_toID,AType=_type} , timeout );
+}
+
+public ResultSet GetBiggerThanSDBetweenID(long? _fromID, long? _toID, byte? _type, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetBiggerThanSDBetweenID(_fromID, _toID, _type, timeout))
 {
 	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
 }

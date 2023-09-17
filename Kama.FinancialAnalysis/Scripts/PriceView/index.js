@@ -3,6 +3,7 @@ var initSession = [];
 var _pageIndex = 1;
 var _sessions;
 var _series = [];
+var _biggerThanSD = [];
 
 getData(0);
 
@@ -21,7 +22,7 @@ async function initCahrt() {
 
     option = {
         legend: {
-            data: ['session', 'MA5', 'MA', 'SDR1000']
+            data: ['session', 'MA5', 'MA', 'SD']
         },
         grid: [{
             bottom: '23%',
@@ -129,9 +130,102 @@ function initChartService() {
             }
         );
     }
+
     addArea(10, 20, '#ff00a340', 'new york');
     addArea(11, 21, '#00ff8b40', 'london');
     //addArea(12, 22, '#ffed0040', 'sydney');
+
+    addbiggerThanSD(110, '#ff00a3', 'newYork');
+    addbiggerThanSD(111, '#0064ff', 'london');
+
+    addMaxMin(110, '#ff00a3', 'newYork');
+    addMaxMin(111, '#0064ff', 'london');
+
+
+    //#ff00a3
+    //00ff8b
+
+    function addbiggerThanSD(type, color) {
+        if (_biggerThanSD) {
+
+            biggerThanSD = _biggerThanSD.filter((item) => item.BiggerThanSD.Session == type);
+            if (biggerThanSD.length>0) {
+
+                var objBiggerThanSD = [];
+                for (var i = 0; i < biggerThanSD.length; i += 1) {
+                    objBiggerThanSD.push([
+                        getTimesByID(biggerThanSD[i].ID),
+                        (biggerThanSD[i].Close + biggerThanSD[i].Open) / 2
+                    ]);
+                }
+                _series.push(
+                    {
+                        name: 'SD',
+                        symbolSize: 14,
+                        type: 'scatter',
+                        xAxisIndex: 0, yAxisIndex: 0,
+                        data: objBiggerThanSD,
+                        color: color
+                    }
+                );
+            }
+        }
+    }
+
+    function addMaxMin(type, color) {
+        if (_biggerThanSD) {
+
+            biggerThanSD = _biggerThanSD.filter((item) => item.BiggerThanSD.Session == type);
+            if (biggerThanSD.length > 0) {
+                var objMaxMin = [];
+
+                var filtered = biggerThanSD.filter(function ({ BiggerThanSD }) {
+                    var key = `${BiggerThanSD['MaxPriceID']}`;
+                    return !this.has(key) && this.add(key);
+                }, new Set);
+
+                var filteredMin = biggerThanSD.filter(function ({ BiggerThanSD }) {
+                    var key = `${BiggerThanSD['MinPriceID']}`;
+                    return !this.has(key) && this.add(key);
+                }, new Set);
+
+                for (var i = 0; i < filtered.length; i += 1) {
+                    var found = _obj.find((item) => item.ID == filteredMin[i].BiggerThanSD.MaxPriceID);
+                    if (found)
+                    objMaxMin.push({
+                        type: 'min',
+                        name: 'Mark',
+                        coord: [getTimesByID(filtered[i].BiggerThanSD.MaxPriceID), filtered[i].Close],
+                        xAxisIndex: 0, yAxisIndex: 0,
+                        value: 'Max'
+                    });
+                }
+                for (var i = 0; i < filteredMin.length; i += 1) {
+                    var found = _obj.find((item) => item.ID == filteredMin[i].BiggerThanSD.MinPriceID);
+                    if (found)
+                    objMaxMin.push({
+                        name: 'Mark',
+                        coord: [getTimesByID(found.ID), found.Close],
+                        type: 'min',
+                        value: 'Min'
+                    });
+                }
+                _series.push({
+                    name: 'SD',
+                    type: 'bar',
+                    xAxisIndex: 0, yAxisIndex: 0,
+
+                    markPoint: {
+                        data: objMaxMin,
+                        itemStyle: {
+                            color: color,
+                        },
+                    }
+
+                });
+            }
+        }
+    }
     function addArea(type1, type2, color, title) {
 
         var found10 = _obj.find((item) => item.Session == type1);
@@ -175,7 +269,7 @@ function getData(p) {
             _obj = data.Data;
             _obj = _obj.reverse();
             _sessions = _obj.filter((item) => item.Session > 0);
-            var found = _obj.find((item) => item.Session > 100);
+            _biggerThanSD = _obj.filter((item) => item.BiggerThanSD);
             //_obj.MovingAverages = _obj.MovingAverages.reverse();
             //_obj.StandardDeviations = _obj.StandardDeviations.reverse();
             initCahrt();
@@ -203,8 +297,6 @@ function getTimesByID(id) {
 function getOhlc() {
     var obj = [];
     for (var i = 0; i < _obj.length; i += 1) {
-        if (i == 563)
-            rt = _obj[i].Max
         obj.push([
             _obj[i].Open,
             _obj[i].Close,
@@ -273,7 +365,7 @@ function standardDeviation(t) {
 
     return {
 
-        name: ('SD' + t),
+        name: 'SD',
         type: 'line',
         data: getData(t),
         smooth: true,

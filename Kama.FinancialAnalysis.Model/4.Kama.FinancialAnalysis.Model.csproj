@@ -61,11 +61,11 @@
     <Compile Include="BaseModel\PriceMinutely\PriceMinutely.cs" />
     <Compile Include="AppProperty.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="ML\BiggerThanSDVM.cs" />
+    <Compile Include="ML\BiggerThanSD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ML\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

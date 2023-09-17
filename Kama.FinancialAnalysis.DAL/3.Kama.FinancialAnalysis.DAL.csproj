@@ -85,6 +85,7 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="DataSources\ML\BiggerThanSdDataSource.cs" />
     <Compile Include="DataSources\MovingAverageDataSource.cs" />
     <Compile Include="DataSources\PriceViewDataSource.cs" />
     <Compile Include="DataSources\StandardDeviationDataSource.cs" />
@@ -106,7 +107,9 @@
       <LastGenOutput>DatabaseModel.cs</LastGenOutput>
     </Content>
     <Content Include="DatabaseScript\Functions\fnTimeStamp.sql" />
-    <Content Include="DatabaseScript\StoredProcedures\1.ML\spBiggerThanSD.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spAddBiggerThanSDBetweenID.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spAddBiggerThanSD.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spGetBiggerThanSDs.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\fnAddMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spAddAllMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spAddListFromIdsMovingAverage.sql" />

@@ -3,7 +3,10 @@ py getData.py XAUUSD 1 14400 XAUUSD1.txt
 py getData.py USDCHF 1 14400 USDCHF1.txt
 py getData.py EURJPY 1 14400 EURJPY1.txt
 
+py getData.py NQ100_m 1 14400 nq100m.txt
+
 py getData.py USDJPY 1 14400 USDJPY1.txt
 py getData.py GBPUSD 1 14400 GBPUSD1.txt
 py getData.py USDCAD 1 14400 USDCAD1.txt
 py getData.py USDSEK 1 14400 USDSEK1.txt
+

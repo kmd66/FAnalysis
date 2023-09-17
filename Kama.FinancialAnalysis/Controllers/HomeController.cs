@@ -20,7 +20,7 @@ namespace Kama.FinancialAnalysis.Controllers
             while(true) {
 
                 await Task.Delay(1000);
-                if (MvcApplication.IsInit)
+                if (Init.IsInit)
                     break;
             }
 
