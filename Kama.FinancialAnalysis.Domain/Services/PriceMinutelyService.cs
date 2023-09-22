@@ -23,8 +23,8 @@ namespace Kama.FinancialAnalysis.Domain
             {
                 var dbList = DbIndex.GetByType(type);
                 DbIndex.AddRange(model);
-                if (type == SymbolType.eurusd || type == SymbolType.xauusd ||
-                    type == SymbolType.usdchf || type == SymbolType.eurjpy)
+                if (type == SymbolType.xauusd ||type == SymbolType.usdchf || type == SymbolType.eurjpy
+                    || type == SymbolType.nq100m || type == SymbolType.DYX)
                 {
                     await new MovingAverageService().AddNullReng(model);
                     //await new StandardDeviationService().AddNullReng(model);
@@ -35,83 +35,83 @@ namespace Kama.FinancialAnalysis.Domain
             return dataSource;
         }
 
-        #region Dyx
-        public async Task<Result> AddAllDyx()
-        {
-            List<PriceMinutely> temporaryList = new List<PriceMinutely>();
-            int i = 0;
+        //#region Dyx
+        //public async Task<Result> AddAllDyx()
+        //{
+        //    List<PriceMinutely> temporaryList = new List<PriceMinutely>();
+        //    int i = 0;
 
-            var addList = (from p in DbIndex.EurUsd
-                           join pl in DbIndex.Dyx
-                             on p.ID equals pl.ID into pp
-                           from pl in pp.DefaultIfEmpty()
-                           where pl == null
-                           select p).ToList();
+        //    var addList = (from p in DbIndex.EurUsd
+        //                   join pl in DbIndex.Dyx
+        //                   on p.ID equals pl.ID into pp
+        //                   from pl in pp.DefaultIfEmpty()
+        //                   where pl == null
+        //                   select p).ToList();
 
-            return await AddRengDyx(addList);
-        }
+        //    return await AddRengDyx(addList);
+        //}
 
-        public async Task<Result> AddRengDyx(List<PriceMinutely> l)
-        {
-            var dataSource = new DAL.PriceMinutelyDataSource();
-            List<PriceMinutely> temporaryList = new List<PriceMinutely>();
-            int i = 0;
+        //public async Task<Result> AddRengDyx(List<PriceMinutely> l)
+        //{
+        //    var dataSource = new DAL.PriceMinutelyDataSource();
+        //    List<PriceMinutely> temporaryList = new List<PriceMinutely>();
+        //    int i = 0;
 
-            var addList = (from p in l
-                           join pl in DbIndex.Dyx
-                             on p.ID equals pl.ID into pp
-                           from pl in pp.DefaultIfEmpty()
-                           where pl == null
-                           select p).ToList();
+        //    var addList = (from p in l
+        //                   join pl in DbIndex.Dyx
+        //                     on p.ID equals pl.ID into pp
+        //                   from pl in pp.DefaultIfEmpty()
+        //                   where pl == null
+        //                   select p).ToList();
 
-            foreach (var eurUsd in addList)
-            {
-                i++;
-                if (i > 1000)
-                {
-                    await dataSource.AddListAsync(temporaryList, SymbolType.DYX);
-                    i = 0;
-                    temporaryList = new List<PriceMinutely>();
-                }
-                temporaryList.Add(ComputingDyx(eurUsd));
-            }
+        //    foreach (var eurUsd in addList)
+        //    {
+        //        i++;
+        //        if (i > 1000)
+        //        {
+        //            await dataSource.AddListAsync(temporaryList, SymbolType.DYX);
+        //            i = 0;
+        //            temporaryList = new List<PriceMinutely>();
+        //        }
+        //        temporaryList.Add(ComputingDyx(eurUsd));
+        //    }
 
-            if (temporaryList.Count > 0)
-                await dataSource.AddListAsync(temporaryList, SymbolType.DYX);
-            DbIndex.AddRange(addList);
+        //    if (temporaryList.Count > 0)
+        //        await dataSource.AddListAsync(temporaryList, SymbolType.DYX);
+        //    DbIndex.AddRange(addList);
 
-            return Result.Successful();
-        }
-        public PriceMinutely ComputingDyx(PriceMinutely eurUsd)
-        {
+        //    return Result.Successful();
+        //}
+        //public PriceMinutely ComputingDyx(PriceMinutely eurUsd)
+        //{
 
-            var usdchf = DbIndex.UsdChf.FirstOrDefault(x => x.Date == eurUsd.Date);
-            var usdjpy = DbIndex.UsdJpy.FirstOrDefault(x => x.Date == eurUsd.Date);
-            var gbpusd = DbIndex.GbpUsd.FirstOrDefault(x => x.Date == eurUsd.Date);
-            var usdcad = DbIndex.UsdCad.FirstOrDefault(x => x.Date == eurUsd.Date);
-            var usdsek = DbIndex.UsdSek.FirstOrDefault(x => x.Date == eurUsd.Date);
+        //    var usdchf = DbIndex.UsdChf.FirstOrDefault(x => x.Date == eurUsd.Date);
+        //    var usdjpy = DbIndex.UsdJpy.FirstOrDefault(x => x.Date == eurUsd.Date);
+        //    var gbpusd = DbIndex.GbpUsd.FirstOrDefault(x => x.Date == eurUsd.Date);
+        //    var usdcad = DbIndex.UsdCad.FirstOrDefault(x => x.Date == eurUsd.Date);
+        //    var usdsek = DbIndex.UsdSek.FirstOrDefault(x => x.Date == eurUsd.Date);
 
-            double p = 0;
+        //    double p = 0;
 
-            if (usdchf != null && usdjpy != null && gbpusd != null
-                && usdcad != null && usdsek != null)
-            {
-                p = 50.14348112 * Math.Pow(eurUsd.Close, -0.576) *
-                    Math.Pow(usdjpy.Close, 0.136) *
-                    Math.Pow(gbpusd.Close, -0.119) *
-                    Math.Pow(usdcad.Close, 0.091) *
-                    Math.Pow(usdsek.Close, 0.042) *
-                    Math.Pow(usdchf.Close, 0.0361);
-            }
-            return new PriceMinutely
-            {
-                ID = eurUsd.ID,
-                Date = eurUsd.Date,
-                Close = p,
-                Type = SymbolType.DYX
-            };
+        //    if (usdchf != null && usdjpy != null && gbpusd != null
+        //        && usdcad != null && usdsek != null)
+        //    {
+        //        p = 50.14348112 * Math.Pow(eurUsd.Close, -0.576) *
+        //            Math.Pow(usdjpy.Close, 0.136) *
+        //            Math.Pow(gbpusd.Close, -0.119) *
+        //            Math.Pow(usdcad.Close, 0.091) *
+        //            Math.Pow(usdsek.Close, 0.042) *
+        //            Math.Pow(usdchf.Close, 0.0361);
+        //    }
+        //    return new PriceMinutely
+        //    {
+        //        ID = eurUsd.ID,
+        //        Date = eurUsd.Date,
+        //        Close = p,
+        //        Type = SymbolType.DYX
+        //    };
 
-        }
-        #endregion
+        //}
+        //#endregion
     }
 }

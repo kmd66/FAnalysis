@@ -58,9 +58,9 @@ namespace Kama.FinancialAnalysis.Domain
                 i++;
                 if (i > 1000)
                 {
-                    i2++;
-                    if (i2 > 50)
-                        break;
+                    //i2++;
+                    //if (i2 > 10)
+                    //    break;
                     await dataSource.AddListAsync(temporaryList);
                     i = 0;
                     temporaryList = new List<MovingAverage>();
@@ -70,9 +70,9 @@ namespace Kama.FinancialAnalysis.Domain
                     ID = item.ID,
                     Date = item.Date,
                     Type = item.Type,
-                    M5 = Computing(item, 5),
-                    M30 = Computing(item, 30),
-                    H1 = Computing(item, 60),
+                    M5 = 0,
+                    M30 = 0,
+                    H1 = 0,
                     D = Computing(item, 0),
                 };
                 temporaryList.Add(dyx);

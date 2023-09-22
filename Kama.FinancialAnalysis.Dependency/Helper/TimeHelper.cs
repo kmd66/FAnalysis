@@ -19,16 +19,17 @@ namespace Kama.FinancialAnalysis.Dependency
 
         public static long TOID(this DateTime dt, dynamic symbol) {
 
-            DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            TimeSpan elapsedTime =dt - Epoch;
 
-            var l = ((long)elapsedTime.TotalSeconds + (byte)symbol).ToString();
+            DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            TimeSpan elapsedTime = dt - Epoch;
+
+            var l = elapsedTime.TotalSeconds.ToString();
 
             StringBuilder id = new StringBuilder("0000000000000");
             for (int i = 0; i < l.Length; i++)
                 id[i] = l[i];
 
-            return id.ToString().ToLong();
+            return id.ToString().ToLong() + (byte)symbol;
         }
             
     }

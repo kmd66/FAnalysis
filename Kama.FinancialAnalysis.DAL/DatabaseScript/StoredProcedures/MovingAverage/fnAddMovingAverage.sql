@@ -1,29 +1,23 @@
 USE [Kama.FinancialAnalysis]
 GO
 
-IF OBJECT_ID('pbl.fnAddMovingAverage') IS NOT NULL DROP FUNCTION pbl.fnAddMovingAverage
+IF OBJECT_ID('pbl.fnGetDxyOpen') IS NOT NULL DROP FUNCTION pbl.fnGetDxyOpen
 GO
 
-CREATE FUNCTION pbl.fnAddMovingAverage(@ID BIGINT, @Type TINYINT, @Reng INT)
+CREATE FUNCTION pbl.fnGetDxyOpen(@ID BIGINT)
 RETURNS FLOAT
 AS
 BEGIN
 
-	DECLARE @M5 FLOAT
-	SET @M5 = (SELECT TOP 1 M5 FROM [pbl].[MovingAverage] WHERE ID = @ID )
+	DECLARE @Open FLOAT
+	SET @Open = (SELECT TOP 1 [Close] FROM [pbl].PriceMinutelyIndex WHERE ID < @ID AND [Type] = 11 )
 	
-	IF @M5 IS NULL
+	IF @Open IS NULL
 	BEGIN
-		;WITH SelectItem AS (
-			SELECT TOP(@Reng) [Close] FROM [pbl].[PriceMinutely]
-			WHERE ID <= @ID AND [Type] = @Type
-			ORDER BY ID DESC
-		)
-		--INSERT INTO [pbl].[MovingAverage] (ID, M5)
-		SELECT @M5 = ROUND (SUM([Close]) / COUNT([Close]),6)  FROM SelectItem 
+		SET @Open = (SELECT TOP 1 [Close] FROM [pbl].PriceMinutelyIndex WHERE ID  = @ID AND [Type] = 11 )
 	END
   
-  RETURN @M5
+  RETURN @Open
 
 END
 GO

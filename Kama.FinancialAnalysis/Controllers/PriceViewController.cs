@@ -25,6 +25,13 @@ namespace Kama.FinancialAnalysis.Controllers
             return View();
         }
 
+        // GET: Default/Details/5
+        public ActionResult Symbol(int id)
+        {
+            ViewBag.ID = id;
+            return View("Index");
+        }
+
         public async Task<ActionResult> OderSymbol(int i = 1)
         {
             return View();

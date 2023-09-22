@@ -70,8 +70,8 @@ namespace Kama.FinancialAnalysis.Domain
                     ID = item.ID,
                     Date = item.Date,
                     Type = item.Type,
-                    R100 = Computing(item, 100),
-                    R500 = Computing(item, 500),
+                    R100 = 0,
+                    R500 = 0,
                     R1000 = Computing(item, 1000),
 
                 };

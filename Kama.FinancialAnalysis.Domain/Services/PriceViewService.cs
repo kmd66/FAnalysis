@@ -27,7 +27,8 @@ namespace Kama.FinancialAnalysis.Domain
             int d = model.ToDate.Date.Day;
             model.FromDate = new DateTime(y, m, d, closeTime[0], closeTime[1], 0);
             model.FromDate = model.FromDate.AddHours(-1);
-           
+            model.ToDate = model.FromDate.AddHours(25);
+
             var result = await _dataSource.ListPriceViewBase(model);
             if(!result.Success)
                 return Result<IEnumerable<PriceView>>.Failure(message: result.Message);

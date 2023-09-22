@@ -1,23 +1,49 @@
-﻿var _obj;
+﻿
+var _type;
+var _obj;
 var initSession = [];
-var _pageIndex = 1;
+var _pageIndex;
 var _sessions;
 var _series = [];
 var _biggerThanSD = [];
+var _time;
 
-getData(0);
+setType(parseInt(document.getElementById('ViewBagID').value));
+
+function setType(t) {
+    var typeSpan = document.getElementById('TypeSpan');
+    switch (t) {
+        case 2:
+            typeSpan.innerHTML = 'xauusd';
+            break;
+        case 3:
+            typeSpan.innerHTML = 'usdchf';
+            break;
+        case 4:
+            typeSpan.innerHTML = 'eurjpy';
+            break;
+        case 10:
+            typeSpan.innerHTML = 'nq100m';
+            break;
+        default:
+            typeSpan.innerHTML = 'DYX';
+    }
+    _type = t;
+    _pageIndex = 1;
+    getData(0);
+}
+
+var dom = document.getElementById('container');
+var myChart = echarts.init(dom, null, {
+    renderer: 'canvas',
+    useDirtyRect: false
+});
 
 
 async function initCahrt() {
-
-    var dom = document.getElementById('container');
-    var myChart = echarts.init(dom, null, {
-        renderer: 'canvas',
-        useDirtyRect: false
-    });
     var option;
     var rt=1
-    var time = getTimes();
+    _time = getTimes();
     initChartService();
 
     option = {
@@ -45,7 +71,7 @@ async function initCahrt() {
         xAxis: [
             {
                 type: 'category',
-                data: time,
+                data: _time,
                 boundaryGap: false,
                 splitLine: { show: false },
                 axisLine: { show: false },
@@ -60,7 +86,7 @@ async function initCahrt() {
                 }, gridIndex: 0
             },
             {
-                data: time, type: 'category', gridIndex: 1
+                data: _time, type: 'category', gridIndex: 1
             }
         ],
         dataZoom: [
@@ -96,7 +122,6 @@ async function initCahrt() {
 }
 
 function initChartService() {
-    var time = getTimes();
     _series= [
         {
             name: 'MA5',
@@ -104,9 +129,9 @@ function initChartService() {
             data: getOhlc(),
             xAxisIndex: 0, yAxisIndex: 0,
         },
-        movingAverages('M5'),
-        movingAverages('M30'),
-        movingAverages('H1'),
+        //movingAverages('M5'),
+        //movingAverages('M30'),
+        //movingAverages('H1'),
         movingAverages('D'),
         //standardDeviation('R100'),
         //standardDeviation('R500'),
@@ -131,15 +156,16 @@ function initChartService() {
         );
     }
 
-    addArea(10, 20, '#ff00a340', 'new york');
-    addArea(11, 21, '#00ff8b40', 'london');
+    //addArea(10, 20, '#ff00a340', 'new york');
+    //addArea(11, 21, '#00ff8b40', 'london');
     //addArea(12, 22, '#ffed0040', 'sydney');
 
     addbiggerThanSD(110, '#ff00a3', 'newYork');
     addbiggerThanSD(111, '#0064ff', 'london');
+    addbiggerThanSD(112, '#ffed00', 'london');
 
-    addMaxMin(110, '#ff00a3', 'newYork');
-    addMaxMin(111, '#0064ff', 'london');
+    //addMaxMin(110, '#ff00a3', 'newYork');
+    //addMaxMin(111, '#0064ff', 'london');
 
 
     //#ff00a3
@@ -264,7 +290,7 @@ function getData(p) {
     var pageIndexSpan = document.getElementById('PageIndex');
     _pageIndex = _pageIndex + p;
     pageIndexSpan.innerHTML = _pageIndex;
-    $.post("PriceView/ListView", { Type: 1, pageIndex: _pageIndex })
+    $.post("/PriceView/ListView", { Type: _type, pageIndex: _pageIndex })
         .done(function (data) {
             _obj = data.Data;
             _obj = _obj.reverse();
@@ -393,3 +419,16 @@ function initSessionObj() {
 
     return []
 };
+
+
+myChart.on('click', params => {
+    if (params.seriesName === "SD" && params.seriesType == "scatter") {
+        var d = params.data;
+
+        var f = _time.findIndex((item) => item == d[0]);
+
+        var max = _obj.find((item) => item.ID == _obj[f].BiggerThanSD.MaxPriceID);
+        var min = _obj.find((item) => item.ID == _obj[f].BiggerThanSD.MinPriceID);
+        alert(`max: ${getTimesByID(max.ID)} ${max.Close}  |  min: ${getTimesByID(min.ID)} ${min.Close}  `);
+    }
+})

@@ -27,8 +27,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("EurUsd", "Index", "PriceView")</li>
-                    <li>@Html.ActionLink("OderSymbol", "OderSymbol", "PriceView")</li>
+                    <li><a href="/PriceView/Symbol/2" id="someID">Symbols</a></li>
+                    @*<li>@Html.ActionLink("Symbols", "Symbol", "PriceView", 2, new { id = "1" })</li>*@
+                    @*<li>@Html.ActionLink("OderSymbol", "OderSymbol", "PriceView")</li>*@
                     @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                 </ul>
             </div>

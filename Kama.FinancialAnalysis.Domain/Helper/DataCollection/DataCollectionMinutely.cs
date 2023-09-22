@@ -44,19 +44,12 @@ namespace Kama.FinancialAnalysis.Domain
         public void Stop() => _timer.Stop();
         public async System.Threading.Tasks.Task DoWork()
         {
-            await GetData(SymbolType.eurusd);
             await GetData(SymbolType.xauusd);
             await GetData(SymbolType.usdchf);
             await GetData(SymbolType.eurjpy);
 
-            await GetData(SymbolType.usdjpy);
-            await GetData(SymbolType.gbpusd);
-            await GetData(SymbolType.usdcad);
-            await GetData(SymbolType.usdsek);
 
             await GetData(SymbolType.nq100m);
-
-            await new PriceMinutelyService().AddAllDyx();
 
         }
         private async System.Threading.Tasks.Task GetData(SymbolType symbol)

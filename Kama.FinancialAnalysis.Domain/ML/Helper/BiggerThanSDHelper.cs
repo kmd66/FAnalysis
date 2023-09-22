@@ -18,19 +18,35 @@ namespace Kama.FinancialAnalysis.Domain
         }
         public async Task Start()
         {
-            var eurudLondonResult = await _dataSource.GetBiggerThanSDsAsync(
-                new BiggerThanSDVM { Session= SessionType.london, Type = SymbolType.eurusd }
-            );
-            await insertDb(eurudLondonResult.Data.ToList());
+            Start(SymbolType.DYX);
+            Start(SymbolType.nq100m);
+            Start(SymbolType.xauusd);
+            Start(SymbolType.usdchf);
+            await Start(SymbolType.eurjpy);
 
-            var eurudNewYorkResult = await _dataSource.GetBiggerThanSDsAsync(
-                new BiggerThanSDVM { Session = SessionType.newYork, Type = SymbolType.eurusd }
+        }
+        private async Task Start(SymbolType symbolType)
+        {
+            var londonResult = await _dataSource.GetBiggerThanSDsAsync(
+                new BiggerThanSDVM { Session = SessionType.london, Type = symbolType }
             );
-            await insertDb(eurudNewYorkResult.Data.ToList());
+            await insertDb(londonResult.Data.ToList());
+
+            var newYorkResult = await _dataSource.GetBiggerThanSDsAsync(
+                new BiggerThanSDVM { Session = SessionType.newYork, Type = symbolType }
+            );
+            await insertDb(newYorkResult.Data.ToList());
+
+            var sydneyResult = await _dataSource.GetBiggerThanSDsAsync(
+                new BiggerThanSDVM { Session = SessionType.sydney, Type = symbolType }
+            );
+            await insertDb(sydneyResult.Data.ToList());
 
         }
         private async Task insertDb(List<BiggerThanSD> model)
         {
+            if (model.Count == 0)
+                return;
             int i = 0;
             var insertList = new List<BiggerThanSD>();
             var list = DbIndex.GetByType(model[0].Type);

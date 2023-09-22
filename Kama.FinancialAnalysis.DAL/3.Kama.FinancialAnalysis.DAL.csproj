@@ -119,6 +119,7 @@
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutely\spGetPriceMinutelys.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutely\spAddPriceMinutelys.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutely\spAddPriceMinutely.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\PriceMinutely\spAddPriceMinutelyIndexs.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\fnAscendingOrDescending.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetLastWorkingHour.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetStandardDeviations.sql" />

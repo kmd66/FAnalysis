@@ -25,26 +25,9 @@ BEGIN
 		SET @PageIndex = 1
 	END
 	
-	IF @Type IN (1,2,3,4) 
-	BEGIN
 		SELECT * FROM [pbl].[PriceMinutely] 
 		WHERE [Type] = @Type
 		ORDER BY ID DESC
 		OFFSET ((@PageIndex - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY;
-	END
-	ELSE IF @Type IN (6,7,8,9) 
-	BEGIN
-		SELECT * FROM [pbl].[PriceMinutelyOther] 
-		WHERE [Type] = @Type
-		ORDER BY ID DESC
-		OFFSET ((@PageIndex - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY;
-	END
-	ELSE 
-	BEGIN
-		SELECT * FROM [pbl].[PriceMinutelyIndex]
-		WHERE [Type] = @Type
-		ORDER BY ID DESC
-		OFFSET ((@PageIndex - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY;
-	END
 			
 END 
