@@ -49,7 +49,7 @@ namespace Kama.FinancialAnalysis.Domain
                 return;
             int i = 0;
             var insertList = new List<BiggerThanSD>();
-            var list = DbIndex.GetByType(model[0].Type);
+            var list = DbIndexPrice.GetByType(model[0].Type);
             list.Reverse();
             foreach (var item in model)
             {
@@ -60,7 +60,7 @@ namespace Kama.FinancialAnalysis.Domain
                     await _dataSource.AddBiggerThanSDsAsync(insertList);
                     insertList = new List<BiggerThanSD>();
                 }
-                var maxMin = MinMAax(list, item.PriceID);
+                var maxMin = MinMAax(list, item.PriceID, item.Type);
                 item.ID = Guid.NewGuid();
                 item.MaxPriceID = maxMin[0];
                 item.MinPriceID = maxMin[1];
@@ -71,9 +71,9 @@ namespace Kama.FinancialAnalysis.Domain
             list.Reverse();
 
         }
-        private long[] MinMAax(List<PriceMinutely>list, long priceID)
+        public static long[] MinMAax(List<PriceMinutely>list, long priceID, SymbolType type)
         {
-            var l = list.Where(x => x.ID > priceID).Take(240).ToList();
+            var l = list.Where(x => x.ID > priceID && x.Type == type).Take(240).ToList();
             if (l.Count == 0)
                 return new long[2] { 0, 0 };
 

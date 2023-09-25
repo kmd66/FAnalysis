@@ -50,7 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel\dbBase\Sessions.cs" />
-    <Compile Include="DbIndex.cs" />
+    <Compile Include="DbIndex\DbIndexBiggerThanSD.cs" />
+    <Compile Include="DbIndex\DbIndexMovingAverage.cs" />
+    <Compile Include="DbIndex\DbIndexStandardDeviation.cs" />
+    <Compile Include="DbIndex\DbIndexPrice.cs" />
     <Compile Include="BaseModel\dbBase\StandardDeviation.cs" />
     <Compile Include="BaseModel\dbBase\WorkingHours.cs" />
     <Compile Include="BaseModel\dbBase\MovingAverage.cs" />
@@ -61,8 +64,11 @@
     <Compile Include="BaseModel\PriceMinutely\PriceMinutely.cs" />
     <Compile Include="AppProperty.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="ML\BiggerThanSDVM.cs" />
-    <Compile Include="ML\BiggerThanSD.cs" />
+    <Compile Include="ML\BiggerThanSD\BiggerThanSDVM.cs" />
+    <Compile Include="ML\BiggerThanSD\BiggerThanSD.cs" />
+    <Compile Include="ML\DistanceMeasurement\DistanceMeasurementJoin.cs" />
+    <Compile Include="ML\DistanceMeasurement\DistanceMeasurementVM.cs" />
+    <Compile Include="ML\DistanceMeasurement\DistanceMeasurement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

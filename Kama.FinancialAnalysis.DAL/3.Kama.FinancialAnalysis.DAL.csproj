@@ -85,6 +85,7 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="DataSources\ML\DistanceMeasurementDataSource.cs" />
     <Compile Include="DataSources\ML\BiggerThanSdDataSource.cs" />
     <Compile Include="DataSources\MovingAverageDataSource.cs" />
     <Compile Include="DataSources\PriceViewDataSource.cs" />
@@ -107,12 +108,17 @@
       <LastGenOutput>DatabaseModel.cs</LastGenOutput>
     </Content>
     <Content Include="DatabaseScript\Functions\fnTimeStamp.sql" />
-    <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spAddBiggerThanSDBetweenID.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spGetBiggerThanSDBetweenID.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spAddBiggerThanSD.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spListBiggerThanSD.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spGetBiggerThanSDs.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\1.ML\DistanceMeasurement\spAddDistanceMeasurements.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\1.ML\DistanceMeasurement\spGetDistanceMeasurements.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\1.ML\DistanceMeasurement\spListDistanceMeasurement.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\fnAddMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spAddAllMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spAddListFromIdsMovingAverage.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spListMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spGetEmptysMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutelyIndex\fnAddDxy.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutely\spGetLastPriceMinutely.sql" />
@@ -122,6 +128,7 @@
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutely\spAddPriceMinutelyIndexs.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\fnAscendingOrDescending.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetLastWorkingHour.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetFromTOPriceMinutelys.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetStandardDeviations.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetMovingAverages.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetPriceViewBases.sql" />
@@ -131,8 +138,10 @@
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spAddStandardDeviation.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutelyIndex\spAddAllDxy.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutelyIndex\spGetLastWorkingHourAsync.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spGetSessions - Copy.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spGetSessions.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spGetEmptysStandardDeviation.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spListStandardDeviation.sql" />
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\spAddWorkingHours.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spAddListMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\spGetLastWorkingHourAsync.sql" />

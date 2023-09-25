@@ -32,15 +32,23 @@ namespace Kama.FinancialAnalysis.Controllers
             return View("Index");
         }
 
-        public async Task<ActionResult> OderSymbol(int i = 1)
-        {
-            return View();
-        }
-
         [HttpPost]
         public async Task<JsonResult> ListView(PriceViewVM model)
         {
             var result = await _service.ListViewAsync(model);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        // GET: Default/Details/5
+        public ActionResult FromTOAllSymbol()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<JsonResult> FromTOAllSymbol(PriceViewVM model)
+        {
+            var result = await _service.FromTOAllSymbol(model);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

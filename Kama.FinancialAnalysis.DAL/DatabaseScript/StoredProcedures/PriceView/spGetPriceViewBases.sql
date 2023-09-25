@@ -34,7 +34,7 @@ BEGIN
 			--pbl.fnAscendingOrDescending(ID, @Type, [Close]) [Asc]
 		FROM [pbl].PriceMinutely p
 		INNER JOIN pbl.MovingAverage m on p.ID = m.ID
-		WHERE p.[Type] = @AType
+		WHERE p.[Type] = @Type
 			AND p.[Date] >= @FromDate
 			AND p.[Date] <= @ToDate
 	)

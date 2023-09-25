@@ -17,7 +17,7 @@ namespace Kama.FinancialAnalysis.Domain
         {
 
             var dayIndex = model.PageIndex < 1 ? 0 : (model.PageIndex - 1) * -1;
-            var closeTime = DbIndex.GetSession((byte)model.Type).GetTimeColse();
+            var closeTime = DbIndexPrice.GetSession((byte)model.Type).GetTimeColse();
 
             var resultLastItem = await _dataSource.GetLast(model.Type);
            
@@ -49,16 +49,60 @@ namespace Kama.FinancialAnalysis.Domain
 
             return result;
         }
+
+        public async Task<Result<List<List<PriceViewBase>>>> FromTOAllSymbol(PriceViewVM model)
+        {
+            var list = new List<List<PriceViewBase>>();
+
+            model.ToDate = model.ToDate.Year != 1 ? model.ToDate : model.FromDate.AddMinutes(400);
+
+            model.Type = SymbolType.xauusd;
+            var result = await _dataSource.GetFromTOPriceMinutelysAsync(model);
+            if (!result.Success)
+                return Result<List<List<PriceViewBase>>>.Failure(message: result.Message);
+            list.Add(result.Data.ToList());
+
+
+            model.Type = SymbolType.usdchf;
+            result = await _dataSource.GetFromTOPriceMinutelysAsync(model);
+            if (!result.Success)
+                return Result<List<List<PriceViewBase>>>.Failure(message: result.Message);
+            list.Add(result.Data.ToList());
+
+
+            model.Type = SymbolType.eurjpy;
+            result = await _dataSource.GetFromTOPriceMinutelysAsync(model);
+            if (!result.Success)
+                return Result<List<List<PriceViewBase>>>.Failure(message: result.Message);
+            list.Add(result.Data.ToList());
+
+
+            model.Type = SymbolType.nq100m;
+            result = await _dataSource.GetFromTOPriceMinutelysAsync(model);
+            if (!result.Success)
+                return Result<List<List<PriceViewBase>>>.Failure(message: result.Message);
+            list.Add(result.Data.ToList());
+
+
+            model.Type = SymbolType.DYX;
+            result = await _dataSource.GetFromTOPriceMinutelysAsync(model);
+            if (!result.Success)
+                return Result<List<List<PriceViewBase>>>.Failure(message: result.Message);
+            list.Add(result.Data.ToList());
+
+            return Result<List<List<PriceViewBase>>>.Successful(data:list);
+        }
+
         private async Task addSession(IEnumerable<PriceView> result, SymbolType type)
         {
-            var closeTime = DbIndex.GetSession((byte)type).GetTimeColse();
+            var closeTime = DbIndexPrice.GetSession((byte)type).GetTimeColse();
 
-            var nykOpenTime = DbIndex.GetSession((byte)SessionType.newYork).GetTimeColse();
-            var lonOpenTime = DbIndex.GetSession((byte)SessionType.london).GetTimeColse();
-            var sydOpenTime = DbIndex.GetSession((byte)SessionType.sydney).GetTimeColse();
-            var nykCloseTime = DbIndex.GetSession((byte)SessionType.newYork).GetTimeOpen();
-            var lonCloseTime = DbIndex.GetSession((byte)SessionType.london).GetTimeOpen();
-            var sydCloseTime = DbIndex.GetSession((byte)SessionType.sydney).GetTimeOpen();
+            var nykOpenTime = DbIndexPrice.GetSession((byte)SessionType.newYork).GetTimeColse();
+            var lonOpenTime = DbIndexPrice.GetSession((byte)SessionType.london).GetTimeColse();
+            var sydOpenTime = DbIndexPrice.GetSession((byte)SessionType.sydney).GetTimeColse();
+            var nykCloseTime = DbIndexPrice.GetSession((byte)SessionType.newYork).GetTimeOpen();
+            var lonCloseTime = DbIndexPrice.GetSession((byte)SessionType.london).GetTimeOpen();
+            var sydCloseTime = DbIndexPrice.GetSession((byte)SessionType.sydney).GetTimeOpen();
             foreach (var item in result.ToList())
             {
 
@@ -80,5 +124,6 @@ namespace Kama.FinancialAnalysis.Domain
                     item.Session = SessionOCType.sydneyClose;
             }
         }
+
     }
 }

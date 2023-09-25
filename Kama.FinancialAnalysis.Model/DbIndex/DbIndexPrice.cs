@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace Kama.FinancialAnalysis.Model
 {
-    public class DbIndex
+    public class DbIndexPrice
     {
         public static List<PriceMinutely> XauUsd;
         public static List<PriceMinutely> UsdChf;
@@ -17,6 +17,24 @@ namespace Kama.FinancialAnalysis.Model
         public static List<PriceMinutely> Dyx;
 
         public static List<Sessions> Sessions;
+
+        public static List<PriceMinutely> All(SymbolType filterSymbolType)
+        {
+            var l = new List<PriceMinutely>();
+
+            if (filterSymbolType != SymbolType.xauusd)
+                l.AddRange(XauUsd);
+            if (filterSymbolType != SymbolType.usdchf)
+                l.AddRange(UsdChf);
+            if (filterSymbolType != SymbolType.eurjpy)
+                l.AddRange(EurJpy);
+            if (filterSymbolType != SymbolType.nq100m)
+                l.AddRange(Nq100m);
+            if (filterSymbolType != SymbolType.DYX)
+                l.AddRange(Dyx);
+
+            return l;
+        }
 
         public static List<PriceMinutely> GetByType(SymbolType symbolType)
         {

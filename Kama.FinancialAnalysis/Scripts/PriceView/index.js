@@ -1,4 +1,10 @@
-﻿
+﻿const _itemStyle = {
+    color: '#00da3c',
+    color0: '#ec0000',
+    borderColor: undefined,
+    borderColor0: undefined
+}
+
 var _type;
 var _obj;
 var initSession = [];
@@ -127,6 +133,7 @@ function initChartService() {
             name: 'MA5',
             type: 'candlestick',
             data: getOhlc(),
+            itemStyle: _itemStyle,
             xAxisIndex: 0, yAxisIndex: 0,
         },
         //movingAverages('M5'),

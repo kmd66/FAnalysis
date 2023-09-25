@@ -88,7 +88,7 @@ namespace Kama.FinancialAnalysis.Domain
 
             List<PriceMinutely> listSymbol = new List<PriceMinutely>();
             List<PriceMinutely> list = new List<PriceMinutely>();
-            listSymbol = DbIndex.GetByType(item.Type); 
+            listSymbol = DbIndexPrice.GetByType(item.Type); 
 
             foreach (var l in listSymbol)
             {

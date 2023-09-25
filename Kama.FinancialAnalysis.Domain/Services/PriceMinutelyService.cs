@@ -21,8 +21,8 @@ namespace Kama.FinancialAnalysis.Domain
             var dataSource = await new DAL.PriceMinutelyDataSource().AddListAsync(model, type);
             if (dataSource.Success)
             {
-                var dbList = DbIndex.GetByType(type);
-                DbIndex.AddRange(model);
+                var dbList = DbIndexPrice.GetByType(type);
+                DbIndexPrice.AddRange(model);
                 if (type == SymbolType.xauusd ||type == SymbolType.usdchf || type == SymbolType.eurjpy
                     || type == SymbolType.nq100m || type == SymbolType.DYX)
                 {

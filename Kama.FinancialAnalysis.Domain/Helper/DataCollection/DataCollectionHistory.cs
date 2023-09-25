@@ -52,7 +52,7 @@ namespace Kama.FinancialAnalysis.Domain
             if (insertList.Count == 1 && insertList[0].Count == 0)
                 return;
 
-            var dbList = DbIndex.GetByType(symbol);
+            var dbList = DbIndexPrice.GetByType(symbol);
 
 
             foreach (var insert in insertList)

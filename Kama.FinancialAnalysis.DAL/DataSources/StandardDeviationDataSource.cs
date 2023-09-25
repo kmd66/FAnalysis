@@ -41,6 +41,21 @@ namespace Kama.FinancialAnalysis.DAL
                 throw;
             }
         }
+        public async Task<Result<IEnumerable<StandardDeviation>>> ListAsync(SymbolType type)
+        {
+            try
+            {
+                var result = (await pbl.ListStandardDeviationAsync(
+                    _type: (byte)type
+                    )).ToListActionResult<StandardDeviation>();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
 
         //public async Task<Result> AddAllAsync()
         //{

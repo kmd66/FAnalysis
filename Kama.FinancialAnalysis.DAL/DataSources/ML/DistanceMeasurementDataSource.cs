@@ -8,20 +8,20 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace Kama.FinancialAnalysis.DAL
 {
-    public class BiggerThanSdDataSource : DataSource
+    public class DistanceMeasurementDataSource : DataSource
     {
-        public BiggerThanSdDataSource(): base()
+        public DistanceMeasurementDataSource(): base()
         {
         }
 
-        public async Task<Result<IEnumerable<BiggerThanSD>>> GetBiggerThanSDsAsync(BiggerThanSDVM model)
+        public async Task<Result<IEnumerable<DistanceMeasurement>>> GetDistanceMeasurementsAsync(DistanceMeasurementVM model)
         {
             try
             {
-                var result = (await pbl.GetBiggerThanSDsAsync(
+                var result = (await pbl.GetDistanceMeasurementsAsync(
                     _session: (byte)model.Session,
                     _type: (byte)model.Type
-                    )).ToListActionResult<BiggerThanSD>();
+                    )).ToListActionResult<DistanceMeasurement>();
 
 
                 return result;
@@ -32,11 +32,11 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result> AddBiggerThanSDsAsync(List<BiggerThanSD> model)
+        public async Task<Result> AddAsync(List<DistanceMeasurement> model)
         {
             try
             {
-                var result = (await pbl.AddBiggerThanSDsAsync(
+                var result = (await pbl.AddDistanceMeasurementsAsync(
                     _json: new Dependency.ObjectSerializer().Serialize(model)
                     )).ToActionResult();
 
@@ -49,14 +49,14 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result<IEnumerable<BiggerThanSD>>> ListAsync(BiggerThanSDVM model)
+        public async Task<Result<IEnumerable<DistanceMeasurement>>> ListAsync(DistanceMeasurementVM model)
         {
             try
             {
-                var result = (await pbl.ListBiggerThanSDAsync(
-                    _session: (byte)model.Session,
+                var result = (await pbl.ListDistanceMeasurementAsync(
+                    _session:(byte)model.Session,
                     _type: (byte)model.Type
-                    )).ToListActionResult<BiggerThanSD>();
+                    )).ToListActionResult<DistanceMeasurement>();
 
 
                 return result;

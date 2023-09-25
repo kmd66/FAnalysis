@@ -32,6 +32,25 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
+        public async Task<Result<IEnumerable<PriceViewBase>>> GetFromTOPriceMinutelysAsync(PriceViewVM model)
+        {
+            try
+            {
+
+                var result = (await pbl.GetFromTOPriceMinutelysAsync(
+                    _type: (byte)model.Type,
+                    _fromDate: model.FromDate,
+                    _toDate: model.ToDate
+                    )).ToListActionResult<PriceViewBase>();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
         public async Task<Result<IEnumerable<MovingAverage>>> ListMovingAverage(PriceViewVM model)
         {
             try

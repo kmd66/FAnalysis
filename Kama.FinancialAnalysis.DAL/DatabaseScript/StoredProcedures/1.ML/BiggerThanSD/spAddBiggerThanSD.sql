@@ -23,8 +23,6 @@ BEGIN
 		MaxPriceID BIGINT ,
 		MinPriceID BIGINT 
 	) JsonData
-	LEFT JOIN [pbl].BiggerThanSD Price ON Price.ID = JsonData.ID
-	WHERE Price.ID IS NULL 
 
 END 
 

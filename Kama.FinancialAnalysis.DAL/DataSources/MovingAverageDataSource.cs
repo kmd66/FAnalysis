@@ -44,6 +44,7 @@ namespace Kama.FinancialAnalysis.DAL
                 throw;
             }
         }
+
         public async Task<Result> AddListAsync(List<MovingAverage> ids)
         {
             try
@@ -51,6 +52,21 @@ namespace Kama.FinancialAnalysis.DAL
                 var result = (await pbl.AddListMovingAverageAsync(
                     _json: new Dependency.ObjectSerializer().Serialize(ids)
                     )).ToActionResult();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        public async Task<Result<IEnumerable<MovingAverage>>> ListAsync(SymbolType type)
+        {
+            try
+            {
+                var result = (await pbl.ListMovingAverageAsync(
+                    _type: (byte)type
+                    )).ToListActionResult<MovingAverage>();
 
                 return result;
             }
