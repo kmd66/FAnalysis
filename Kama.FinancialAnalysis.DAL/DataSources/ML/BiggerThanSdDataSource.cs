@@ -49,6 +49,23 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
+        public async Task<Result> AddBiggerThanSdOtherSymbolsAsync(List<BiggerThanSD> model)
+        {
+            try
+            {
+                var result = (await pbl.AddBiggerThanSdOtherSymbolsAsync(
+                    _json: new Dependency.ObjectSerializer().Serialize(model)
+                    )).ToActionResult();
+
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
         public async Task<Result<IEnumerable<BiggerThanSD>>> ListAsync(BiggerThanSDVM model)
         {
             try

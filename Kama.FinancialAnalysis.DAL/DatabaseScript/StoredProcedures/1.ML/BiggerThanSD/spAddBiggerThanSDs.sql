@@ -11,17 +11,17 @@ BEGIN
 	
 	DECLARE @Json NVARCHAR(MAX) = @AJson
 	
-	INSERT INTO [pbl].BiggerThanSD(ID, PriceID, R1000, Rate, Type, Session, MaxPriceID, MinPriceID)
+	INSERT INTO [pbl].BiggerThanSD(ID, PriceID, MaxPriceID, MinPriceID, R1000, Rate, Type, Session)
 	SELECT JsonData.* 
 	FROM OPENJSON(@Json) WITH (
 		ID UNIQUEIDENTIFIER,
 		PriceID BIGINT ,
+		MaxPriceID BIGINT ,
+		MinPriceID BIGINT  ,
 		R1000 FLOAT ,
 		Rate FLOAT ,
 		[Type] TINYINT ,
-		[Session] TINYINT ,
-		MaxPriceID BIGINT ,
-		MinPriceID BIGINT 
+		[Session] TINYINT
 	) JsonData
 
 END 

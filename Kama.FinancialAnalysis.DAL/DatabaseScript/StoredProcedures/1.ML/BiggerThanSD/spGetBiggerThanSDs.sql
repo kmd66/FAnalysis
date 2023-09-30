@@ -25,7 +25,7 @@ BEGIN
 	t AS (
 		SELECT DISTINCT
 			CONVERT(VARCHAR(8),[date],108) Time
-			,R1000 * 1.5 R1000
+			,R1000 R1000
 		FROM [pbl].[StandardDeviation]
 		WHERE Type = @Type
 	

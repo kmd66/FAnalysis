@@ -18,11 +18,11 @@ namespace Kama.FinancialAnalysis.Domain
         }
         public async Task Start()
         {
-            Start(SymbolType.DYX);
-            Start(SymbolType.nq100m);
-            Start(SymbolType.xauusd);
-            Start(SymbolType.usdchf);
-            await Start(SymbolType.eurjpy);
+            await Start(SymbolType.xauusd);
+            //Start(SymbolType.usdchf);
+            //Start(SymbolType.eurjpy);
+            //Start(SymbolType.nq100m);
+            //await Start(SymbolType.DYX);
 
         }
         private async Task Start(SymbolType symbolType)
@@ -37,10 +37,10 @@ namespace Kama.FinancialAnalysis.Domain
             );
             await insertDb(newYorkResult.Data.ToList());
 
-            var sydneyResult = await _dataSource.GetBiggerThanSDsAsync(
-                new BiggerThanSDVM { Session = SessionType.sydney, Type = symbolType }
-            );
-            await insertDb(sydneyResult.Data.ToList());
+            //var sydneyResult = await _dataSource.GetBiggerThanSDsAsync(
+            //    new BiggerThanSDVM { Session = SessionType.sydney, Type = symbolType }
+            //);
+            //await insertDb(sydneyResult.Data.ToList());
 
         }
         private async Task insertDb(List<BiggerThanSD> model)

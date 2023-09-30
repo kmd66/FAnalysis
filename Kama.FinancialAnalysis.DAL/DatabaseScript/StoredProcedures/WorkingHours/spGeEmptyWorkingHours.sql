@@ -6,23 +6,22 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pbl.spGeEmpt
 GO
 
 CREATE PROCEDURE pbl.spGeEmptyWorkingHours
+	@AType TINYINT
 AS
 BEGIN
-	;with DailyDate as (
-		SELECT distinct 
-			cast ([Date] as DATE) [Date]
-		FROM [pbl].[PriceMinutely] 
-		WHERE [Type] = 1
-	),
-	AddID As(
-		SELECT  
-			dbo.fnTimeStamp([Date] ) ID,[Date]
-		FROM DailyDate
+	
+	DECLARE  @Type TINYINT = @AType
+	
+	;WITH DailyDate as (
+		SELECT 
+			DATEADD(dd, 0, DATEDIFF(dd, 0, Date)) d from pbl.PriceMinutely
+		WHERE Type = @Type
+	),Distinc as (
+		SELECT DISTINCT d FROM DailyDate
 	)
-	SELECT 
-		aid.* 
-	FROM AddID aid
-	LEFT JOIN [pbl].[WorkingHours] wkh ON aid.ID = wkh.ID
-	WHERE wkh.ID IS NULL
+	SELECT d FROM Distinc
+	LEFT JOIN pbl.WorkingHours w On Distinc.d = w.Date AND w.Type = @Type
+	WHERE w.ID IS NULL
+	ORDER BY d
 
 END 

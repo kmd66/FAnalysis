@@ -55,10 +55,10 @@ namespace Kama.FinancialAnalysis
 
             //-----------------------
 
-            BiggerThanSdDataSource biggerThanSdDataSource = new BiggerThanSdDataSource();
-            var biggerThanSDs = await biggerThanSdDataSource.ListAsync(new BiggerThanSDVM());
-            if (!biggerThanSDs.Success) System.Environment.Exit(500);
-            DbIndexBiggerThanSD.Index = biggerThanSDs.Data.ToList();
+            //BiggerThanSdDataSource biggerThanSdDataSource = new BiggerThanSdDataSource();
+            //var biggerThanSDs = await biggerThanSdDataSource.ListAsync(new BiggerThanSDVM());
+            //if (!biggerThanSDs.Success) System.Environment.Exit(500);
+            //DbIndexBiggerThanSD.Index = biggerThanSDs.Data.ToList();
 
             MovingAverageDataSource movingAverageDataSource = new MovingAverageDataSource();
             var movingAverage = await movingAverageDataSource.ListAsync(SymbolType.Unknown);

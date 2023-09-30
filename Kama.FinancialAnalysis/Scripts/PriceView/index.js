@@ -294,10 +294,14 @@ function initChartService() {
 }
 
 function getData(p) {
+    var date;
+    if (p == 0) 
+        date = document.getElementById('dateInput').value;
+
     var pageIndexSpan = document.getElementById('PageIndex');
     _pageIndex = _pageIndex + p;
     pageIndexSpan.innerHTML = _pageIndex;
-    $.post("/PriceView/ListView", { Type: _type, pageIndex: _pageIndex })
+    $.post("/PriceView/ListView", { Type: _type, Date: date, pageIndex: _pageIndex })
         .done(function (data) {
             _obj = data.Data;
             _obj = _obj.reverse();

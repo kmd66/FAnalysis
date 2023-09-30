@@ -108,8 +108,9 @@
       <LastGenOutput>DatabaseModel.cs</LastGenOutput>
     </Content>
     <Content Include="DatabaseScript\Functions\fnTimeStamp.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spAddBiggerThanSdOtherSymbols.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spGetBiggerThanSDBetweenID.sql" />
-    <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spAddBiggerThanSD.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spAddBiggerThanSDs.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spListBiggerThanSD.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spGetBiggerThanSDs.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\DistanceMeasurement\spAddDistanceMeasurements.sql" />
@@ -144,6 +145,7 @@
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spListStandardDeviation.sql" />
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\spAddWorkingHours.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spAddListMovingAverage.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\WorkingHours\fnGetLastPricelastDayBefore.sql" />
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\spGetLastWorkingHourAsync.sql" />
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\spGeEmptyWorkingHours.sql" />
     <Content Include="LogDatabaseModel.tt">

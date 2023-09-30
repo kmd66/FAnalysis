@@ -17,20 +17,24 @@ namespace Kama.FinancialAnalysis.Domain
     public class DistanceMeasurementHelper
     {
         DistanceMeasurementDataSource _dataSource = new DistanceMeasurementDataSource();
+        BiggerThanSdDataSource _biggerThanSdDataSource = new BiggerThanSdDataSource();
 
-        static List<DistanceMeasurement> otherSymbol = new List<DistanceMeasurement>();
         public DistanceMeasurementHelper()
         {
         }
         public async Task Start()
         {
+            var biggerThanSDs = await _biggerThanSdDataSource.ListAsync(new BiggerThanSDVM());
+            if (!biggerThanSDs.Success) System.Environment.Exit(500);
+            DbIndexBiggerThanSD.Index = biggerThanSDs.Data.ToList();
+
             Start(SymbolType.xauusd, SessionType.london);
+            await Start(SymbolType.xauusd, SessionType.newYork);
         }
         private async Task Start(SymbolType symbolType, SessionType sessionType)
         {
             var dbIndexPrice= DbIndexPrice.GetByType(symbolType);
             var allPrice= DbIndexPrice.All(symbolType);
-            otherSymbol = new List<DistanceMeasurement>();
 
             var list = (
                 from b in DbIndexBiggerThanSD.Index
@@ -43,8 +47,8 @@ namespace Kama.FinancialAnalysis.Domain
                 {
                     ID = Guid.NewGuid(),
                     BiggerThanSdID = b.ID,
-                    Rate = Math.Round(Math.Abs(p.Close - p.Open)/ b.R1000, 10),
-                    Macd = Math.Round(Math.Abs(p.Close - Ma.D)/ b.R1000, 10),
+                    Rate = Math.Round((p.Close - p.Open)/ b.R1000, 10),
+                    Macd = Math.Round((p.Close - Ma.D)/ b.R1000, 10),
                     UpGs = Math.Round((pMax.Close - p.Close) / b.R1000, 10),
                     DownGs = Math.Round((p.Close - pMin.Close) / b.R1000, 10),
                     Type = symbolType,
@@ -69,7 +73,7 @@ namespace Kama.FinancialAnalysis.Domain
                 .GroupBy(x => new { x.Type, x.Date.Hour, x.Date.Minute }).Select(x => x.First()).ToList();
 
 
-            var listOther = (
+            var listOtherTemp = (
                 from p in listOtherSymbol
                 join ma in DbIndexMovingAverage.Index on p.obj.ID equals ma.ID
                 join s in sdList4 on new { p.obj.Date.Hour, p.obj.Date.Minute, p.obj.Type } equals new { s.Date.Hour, s.Date.Minute, s.Type }
@@ -81,30 +85,59 @@ namespace Kama.FinancialAnalysis.Domain
                     R1000 = s.R1000
                 }).ToList();
 
-
-            foreach (var item in listOther)
+            var biggerThanSdOtherSymbols = new List<BiggerThanSD>();
+            foreach (var item in listOtherTemp)
             {
                 var minMAax = BiggerThanSDHelper.MinMAax(allPrice, item.Price.ID, item.Price.Type);
-                var max = allPrice.FirstOrDefault(x => x.ID == minMAax[0]);
-                var min = allPrice.FirstOrDefault(x => x.ID == minMAax[1]);
-
-                otherSymbol.Add(new DistanceMeasurement
-                {
-                    ID = Guid.NewGuid(),
-                    BiggerThanSdID = item.BiggerThanSdID,
-                    Rate = Math.Round(Math.Abs(item.Price.Close - item.Price.Open) / item.R1000, 10),
-                    Macd = Math.Round(Math.Abs(item.Price.Close - item.D) / item.R1000, 10),
-                    UpGs = Math.Round((max.Close - item.Price.Close) / item.R1000, 10),
-                    DownGs = Math.Round((item.Price.Close - min.Close) / item.R1000, 10),
+                item.pMAxID = minMAax[0];
+                item.pMinID = minMAax[1];
+                biggerThanSdOtherSymbols.Add(new BiggerThanSD { 
+                    ID= item.BiggerThanSdID,
+                    PriceID = item.Price.ID,
                     Type = item.Price.Type,
+                    MaxPriceID = minMAax[0],
+                    MinPriceID = minMAax[1],
+                    R1000 = item.R1000,
                     Session = sessionType
                 });
             }
 
-            //await insertDb(list);
-            await insertDb(otherSymbol);
-            otherSymbol = new List<DistanceMeasurement>();
+            var listOther = (
+                from p in listOtherTemp
+                join pMax in allPrice on p.pMAxID equals pMax.ID
+                join pMin in allPrice on p.pMinID equals pMin.ID
+                select new DistanceMeasurement
+                {
+                    ID = Guid.NewGuid(),
+                    BiggerThanSdID = p.BiggerThanSdID,
+                    Rate = Math.Round((p.Price.Close - p.Price.Open) / p.R1000, 10),
+                    Macd = Math.Round((p.Price.Close - p.D) / p.R1000, 10),
+                    UpGs = Math.Round((pMax.Close - p.Price.Close) / p.R1000, 10),
+                    DownGs = Math.Round((p.Price.Close - pMin.Close) / p.R1000, 10),
+                    Type = p.Price.Type,
+                    Session = sessionType
+                }).ToList();
+
+            var jk = dbIndexPrice.FirstOrDefault(x => x.ID == 1694790600010);
+
+            var listOtsher = (
+                from p in listOtherTemp
+                select new DistanceMeasurement
+                {
+                    ID = Guid.NewGuid(),
+                    BiggerThanSdID = p.BiggerThanSdID,
+                    Rate = Math.Round((p.Price.Close - p.Price.Open) / p.R1000, 10),
+                    Macd = Math.Round((p.Price.Close - p.D) / p.R1000, 10),
+                    Type = p.Price.Type,
+                    Session = sessionType
+                }).ToList();
+
+
+            await insertBiggerThanSdOtherSymbols(biggerThanSdOtherSymbols);
+            await insertDb(list);
+            await insertDb(listOther);
         }
+
         private async Task insertDb(List<DistanceMeasurement> model)
         {
             if (model.Count == 0)
@@ -123,8 +156,30 @@ namespace Kama.FinancialAnalysis.Domain
                 insertList.Add(item);
 
             }
-            if(insertList.Count> 0)
+            if (insertList.Count > 0)
                 await _dataSource.AddAsync(insertList);
+        }
+
+        private async Task insertBiggerThanSdOtherSymbols(List<BiggerThanSD> model)
+        {
+            if (model.Count == 0)
+                return;
+            int i = 0;
+            var insertList = new List<BiggerThanSD>();
+            foreach (var item in model)
+            {
+                i++;
+                if (i > 1000)
+                {
+                    i = 0;
+                    await _biggerThanSdDataSource.AddBiggerThanSdOtherSymbolsAsync(insertList);
+                    insertList = new List<BiggerThanSD>();
+                }
+                insertList.Add(item);
+
+            }
+            if (insertList.Count > 0)
+                await _biggerThanSdDataSource.AddBiggerThanSdOtherSymbolsAsync(insertList);
         }
     }
 }

@@ -6,64 +6,30 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pbl.spAddWor
 GO
 
 CREATE PROCEDURE pbl.spAddWorkingHours
+	@AType TINYINT
 AS
 BEGIN
+	DECLARE  @Type TINYINT = @AType,
+		 @Time NVARCHAR(MAX);
+	SET @Time = (select top 1 CONVERT(varchar, [Close],120) from pbl.Sessions where ID = @Type)
 
-	DECLARE @Daily TABLE (ID BIGINT, [Date] DATE)
+	DECLARE @Daily TABLE ([Date] DATE)
 	INSERT INTO @Daily
-	exec pbl.spGeEmptyWorkingHours
+	EXEC pbl.spGeEmptyWorkingHours @AType = @Type
 
-	;WITH WorkingHour As(
-		SELECT 
-			*,
-			DATEADD(Day, DATEDIFF(Day, 0, [Date]), '7:00:00.000') [LndOpen],
-			DATEADD(Day, DATEDIFF(Day, 0, [Date]), '15:59:00.000') [LndClose],
-			DATEADD(Day, DATEDIFF(Day, 0, [Date]), '12:00:00.000') [NykOpen],
-			DATEADD(Day, DATEDIFF(Day, 0, [Date]), '20:59:00.000') [NykClose]
-			--DATEADD(Day, DATEDIFF(Day, 1, [Date]), '23:00:00.000') [TkoOpen],
-			--DATEADD(Day, DATEDIFF(Day, 0, [Date]), '7:59:00.000') [TkoClose]
-		FROM @Daily
-	),
-	NewyorkOpen As(
-		SELECT t1.ID,
-			t2.[Open] Price
-		FROM WorkingHour t1
-		INNER JOIN [pbl].[PriceMinutely] t2 On t1.NykOpen = t2.Date
-		WHERE [Type] = 1
-	),
-	NewyorkClose As(
-		SELECT t1.ID,
-			t2.[Close] Price
-		FROM WorkingHour t1
-		INNER JOIN [pbl].[PriceMinutely] t2 On t1.NykClose = t2.Date
-		WHERE [Type] = 1
-	),
-	LondanOpen As(
-		SELECT t1.ID,
-			t2.[Open] Price
-		FROM WorkingHour t1
-		INNER JOIN [pbl].[PriceMinutely] t2 On t1.LndOpen = t2.Date
-		WHERE [Type] = 1
-	),
-	LondanClose As(
-		SELECT t1.ID,
-			t2.[Close]  Price
-		FROM WorkingHour t1
-		INNER JOIN [pbl].[PriceMinutely] t2 On t1.LndClose = t2.Date
-		WHERE [Type] = 1
+	;WITH a AS(
+		SELECT DATEADD(dd, 0, DATEDIFF(dd, 0, Date)) D from pbl.PriceMinutely 
+		WHERE Type = @Type
 	)
-	INSERT INTO [pbl].[WorkingHours](ID, Date, LndOpen, LndClose, NykOpen, NykClose, TkoOpen, TkoClose)
-	SELECT 
-		t1.*,
-		t2.Price NykOpen,
-		t3.Price NykClose,
-		t4.Price LndOpen,
-		t5.Price LndClose, 
-		0,0
-	FROM @Daily t1
-	INNER JOIN NewyorkOpen t2 ON t1.ID = t2.ID
-	INNER JOIN NewyorkClose t3 ON t1.ID = t3.ID
-	INNER JOIN LondanOpen t4 ON t1.ID = t4.ID
-	INNER JOIN LondanClose t5 ON t1.ID = t5.ID
+	
+	,DistincA AS(
+		SELECT DISTINCT D FROM a
+	),Main AS(
+		SELECT p.D,DATEADD(day, DATEDIFF(day, 0, p.D), @Time) T from @Daily d
+		INNER JOIN DistincA p ON p.D = d.Date
+		--WHERE p.D = @Type
+	)
+	INSERT INTO [pbl].[WorkingHours](ID, Date, Session, LndOpen, LndClose, NykOpen, NykClose, TkoOpen, TkoClose, Type)
+	SELECT NEWID(), D, pbl.fnGetLastPricelastDayBefore(T, @Type), 0, 0, 0, 0, 0, 0, @Type FROM Main
 
 END 

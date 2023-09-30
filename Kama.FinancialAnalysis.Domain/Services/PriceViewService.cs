@@ -15,19 +15,8 @@ namespace Kama.FinancialAnalysis.Domain
         PriceViewDataSource _dataSource = new PriceViewDataSource();
         public async Task<Result<IEnumerable<PriceView>>> ListViewAsync(PriceViewVM model)
         {
-
-            var dayIndex = model.PageIndex < 1 ? 0 : (model.PageIndex - 1) * -1;
             var closeTime = DbIndexPrice.GetSession((byte)model.Type).GetTimeColse();
-
-            var resultLastItem = await _dataSource.GetLast(model.Type);
-           
-            model.ToDate = resultLastItem.Data.Date.AddDays(dayIndex);
-            int y = model.ToDate .Date.Year;
-            int m = model.ToDate .Date.Month;
-            int d = model.ToDate.Date.Day;
-            model.FromDate = new DateTime(y, m, d, closeTime[0], closeTime[1], 0);
-            model.FromDate = model.FromDate.AddHours(-1);
-            model.ToDate = model.FromDate.AddHours(25);
+            await getDate(model, closeTime);
 
             var result = await _dataSource.ListPriceViewBase(model);
             if(!result.Success)
@@ -54,8 +43,8 @@ namespace Kama.FinancialAnalysis.Domain
         {
             var list = new List<List<PriceViewBase>>();
 
-            model.ToDate = model.ToDate.Year != 1 ? model.ToDate : model.FromDate.AddMinutes(400);
-
+            model.ToDate = model.ToDate.Year != 1 ? model.ToDate : model.FromDate.AddMinutes(240);
+            //model.FromDate= model.FromDate.AddMinutes(-5);
             model.Type = SymbolType.xauusd;
             var result = await _dataSource.GetFromTOPriceMinutelysAsync(model);
             if (!result.Success)
@@ -91,6 +80,33 @@ namespace Kama.FinancialAnalysis.Domain
             list.Add(result.Data.ToList());
 
             return Result<List<List<PriceViewBase>>>.Successful(data:list);
+        }
+
+        private async Task getDate(PriceViewVM model, List<int> closeTime)
+        {
+            if (model.Date == null)
+            {
+                var dayIndex = model.PageIndex < 1 ? 0 : (model.PageIndex - 1) * -1;
+                var resultLastItem = await _dataSource.GetLast(model.Type);
+
+                model.ToDate = resultLastItem.Data.Date.AddDays(dayIndex);
+                int y = model.ToDate.Date.Year;
+                int m = model.ToDate.Date.Month;
+                int d = model.ToDate.Date.Day;
+                model.FromDate = new DateTime(y, m, d, closeTime[0], closeTime[1], 0);
+                model.FromDate = model.FromDate.AddHours(-2);
+                model.ToDate = model.FromDate.AddHours(26);
+            }
+            else
+            {
+                int y = ((DateTime)model.Date).Year;
+                int m = ((DateTime)model.Date).Month;
+                int d = ((DateTime)model.Date).Day;
+                model.FromDate = new DateTime(y, m, d, closeTime[0], closeTime[1], 0);
+                model.FromDate = model.FromDate.AddHours(-2);
+                model.ToDate = model.FromDate.AddHours(26);
+
+            }
         }
 
         private async Task addSession(IEnumerable<PriceView> result, SymbolType type)
