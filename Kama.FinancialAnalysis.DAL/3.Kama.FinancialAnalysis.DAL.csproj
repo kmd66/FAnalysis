@@ -116,6 +116,7 @@
     <Content Include="DatabaseScript\StoredProcedures\1.ML\DistanceMeasurement\spAddDistanceMeasurements.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\DistanceMeasurement\spGetDistanceMeasurements.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\DistanceMeasurement\spListDistanceMeasurement.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\MovingAverage\fnGetMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\fnAddMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spAddAllMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spAddListFromIdsMovingAverage.sql" />
