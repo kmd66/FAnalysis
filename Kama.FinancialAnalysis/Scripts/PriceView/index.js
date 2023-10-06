@@ -164,7 +164,7 @@ function initChartService() {
     }
 
     //addArea(10, 20, '#ff00a340', 'new york');
-    //addArea(11, 21, '#00ff8b40', 'london');
+    addArea(11, 21, '#00ff8b40', 'london');
     //addArea(12, 22, '#ffed0040', 'sydney');
 
     addbiggerThanSD(110, '#ff00a3', 'newYork');

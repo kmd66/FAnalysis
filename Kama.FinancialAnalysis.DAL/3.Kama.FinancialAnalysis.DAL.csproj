@@ -116,6 +116,7 @@
     <Content Include="DatabaseScript\StoredProcedures\1.ML\DistanceMeasurement\spAddDistanceMeasurements.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\DistanceMeasurement\spGetDistanceMeasurements.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\DistanceMeasurement\spListDistanceMeasurement.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\MovingAverage\fnGetSlope.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\fnGetMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\fnAddMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\spAddAllMovingAverage.sql" />
@@ -128,7 +129,9 @@
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutely\spAddPriceMinutelys.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutely\spAddPriceMinutely.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutely\spAddPriceMinutelyIndexs.sql" />
-    <Content Include="DatabaseScript\StoredProcedures\PriceView\fnAscendingOrDescending.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\PriceView\fnAscendingPrice.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\PriceView\fnAfterAscendingPrice.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\PriceView\fnAscendingPrice2.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetLastWorkingHour.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetFromTOPriceMinutelys.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetStandardDeviations.sql" />
@@ -140,7 +143,6 @@
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spAddStandardDeviation.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutelyIndex\spAddAllDxy.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceMinutelyIndex\spGetLastWorkingHourAsync.sql" />
-    <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spGetSessions - Copy.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spGetSessions.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spGetEmptysStandardDeviation.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spListStandardDeviation.sql" />
