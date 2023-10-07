@@ -14,6 +14,9 @@ BEGIN
 		SELECT TOP(@Top) [Close] FROM PBL.PriceMinutely WHERE ID < @ID AND Type = @Type ORDER BY ID DESC
 	)
 	SELECT @Ma = AVG([Close])  FROM M
+	if @Ma is null
+		RETURN 0
+	
 	RETURN @Ma
 END
 GO
