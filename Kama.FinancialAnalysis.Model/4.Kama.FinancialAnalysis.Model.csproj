@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseModel\ZigZag\ZigZagVM.cs" />
+    <Compile Include="BaseModel\ZigZag\ZigZag.cs" />
     <Compile Include="BaseModel\dbBase\Sessions.cs" />
     <Compile Include="DbIndex\DbIndexBiggerThanSD.cs" />
     <Compile Include="DbIndex\DbIndexMovingAverage.cs" />

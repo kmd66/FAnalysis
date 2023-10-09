@@ -13,6 +13,8 @@ namespace Kama.FinancialAnalysis.Domain
     public class PriceViewService
     {
         PriceViewDataSource _dataSource = new PriceViewDataSource();
+        ZigZagDataSource _zigZagDataSource = new ZigZagDataSource();
+
         public async Task<Result<IEnumerable<PriceView>>> ListViewAsync(PriceViewVM model)
         {
             var closeTime = DbIndexPrice.GetSession((byte)model.Type).GetTimeColse();
@@ -29,12 +31,26 @@ namespace Kama.FinancialAnalysis.Domain
                 ToID= result.Data.Max(x => x.ID),
                 Type = model.Type
             });
-            foreach(var item in resultBiggerThanSD.Data.ToList())
+
+            foreach (var item in resultBiggerThanSD.Data.ToList())
             {
                 var p = result.Data.FirstOrDefault(x => x.ID == item.PriceID);
                 if (p != null)
                     p.BiggerThanSD = item;
             }
+
+            //var resultZigZag = await _zigZagDataSource.GetFromToAsync(new  ZigZagVM
+            //{
+            //    FromDate = model.FromDate,
+            //    ToDate = model.ToDate,
+            //    Type = model.Type
+            //});
+            //foreach (var item in resultZigZag.Data.ToList())
+            //{
+            //    var p = result.Data.FirstOrDefault(x => x.ID == item.ID);
+            //    if (p != null)
+            //        p.ZigZag = item.Value;
+            //}
 
             return result;
         }

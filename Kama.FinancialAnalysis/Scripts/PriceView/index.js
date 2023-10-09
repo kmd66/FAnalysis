@@ -136,10 +136,11 @@ function initChartService() {
             itemStyle: _itemStyle,
             xAxisIndex: 0, yAxisIndex: 0,
         },
-        //movingAverages('M5'),
-        //movingAverages('M30'),
-        //movingAverages('H1'),
+       // movingAverages('M5'),
+        movingAverages('M30'),
+        movingAverages('H1'),
         movingAverages('D'),
+        zigZag(),
         //standardDeviation('R100'),
         //standardDeviation('R500'),
         standardDeviation('R1000'),
@@ -164,7 +165,7 @@ function initChartService() {
     }
 
     //addArea(10, 20, '#ff00a340', 'new york');
-    addArea(11, 21, '#00ff8b40', 'london');
+    //addArea(11, 21, '#00ff8b40', 'london');
     //addArea(12, 22, '#ffed0040', 'sydney');
 
     addbiggerThanSD(110, '#ff00a3', 'newYork');
@@ -419,6 +420,30 @@ function standardDeviation(t) {
         for (var i = 0; i < _obj.length; i += 1) {
             obj.push(_obj[i][type]);
         }
+        return obj;
+    }
+};
+
+function zigZag(t) {
+
+    return {
+        name: 'MA',
+        type: 'line',
+        data: getData(t),
+        showSymbol: false,
+        color: '#ff0000',
+        xAxisIndex: 0, yAxisIndex: 0
+
+    }
+
+    function getData(type) {
+        var obj = [];
+        for (var i = 0; i < _obj.length; i += 1) {
+            if (_obj[i].ZigZag != 0)
+                obj.push([getTimesByID(_obj[i].ID), _obj[i].Close]);
+        }
+
+
         return obj;
     }
 };

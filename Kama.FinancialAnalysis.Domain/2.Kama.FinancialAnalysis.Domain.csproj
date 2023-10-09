@@ -93,6 +93,7 @@
     <Compile Include="Helper\DataCollection\DataCollectionMinutely.cs" />
     <Compile Include="Helper\WorkingHours\AddWorkingHoursTimer.cs" />
     <Compile Include="LayerRegistrar.cs" />
+    <Compile Include="ML\Helper\ZigZagHelper.cs" />
     <Compile Include="ML\Helper\DistanceMeasurement.cs" />
     <Compile Include="ML\Helper\BiggerThanSDHelper.cs" />
     <Compile Include="ML\InitML.cs" />

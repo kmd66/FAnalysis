@@ -26,11 +26,13 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result> AddAsync()
+        public async Task<Result> AddAsync(SymbolType symbolType)
         {
             try
             {
-                var result = (await pbl.AddWorkingHoursAsync()).ToActionResult();
+                var result = (await pbl.AddWorkingHoursAsync(
+                    _type:(byte)symbolType
+                    )).ToActionResult();
 
                 return result;
             }

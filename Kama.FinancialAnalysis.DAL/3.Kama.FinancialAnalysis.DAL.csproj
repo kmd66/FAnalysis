@@ -88,6 +88,7 @@
     <Compile Include="DataSources\ML\DistanceMeasurementDataSource.cs" />
     <Compile Include="DataSources\ML\BiggerThanSdDataSource.cs" />
     <Compile Include="DataSources\MovingAverageDataSource.cs" />
+    <Compile Include="DataSources\ZigZagDataSource.cs" />
     <Compile Include="DataSources\PriceViewDataSource.cs" />
     <Compile Include="DataSources\StandardDeviationDataSource.cs" />
     <Compile Include="DataSources\WorkingHoursDataSource.cs" />
@@ -151,6 +152,9 @@
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\fnGetLastPricelastDayBefore.sql" />
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\spGetLastWorkingHourAsync.sql" />
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\spGeEmptyWorkingHours.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\ZigZag\spGetFromToZigZag.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\ZigZag\spAddZigZag.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\ZigZag\spAddListZigZag.sql" />
     <Content Include="LogDatabaseModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>LogDatabaseModel.cs</LastGenOutput>

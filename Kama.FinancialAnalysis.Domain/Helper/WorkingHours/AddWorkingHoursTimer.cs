@@ -35,6 +35,12 @@ namespace Kama.FinancialAnalysis.Domain
 
         public void Stop() => _timer.Stop();
         private void DoWork()
-            => new WorkingHoursDataSource().AddAsync();
+        {
+            new WorkingHoursDataSource().AddAsync(SymbolType.xauusd);
+            new WorkingHoursDataSource().AddAsync(SymbolType.usdchf);
+            new WorkingHoursDataSource().AddAsync(SymbolType.eurjpy);
+            new WorkingHoursDataSource().AddAsync(SymbolType.nq100m);
+            new WorkingHoursDataSource().AddAsync(SymbolType.DYX);
+        }
     }
 }

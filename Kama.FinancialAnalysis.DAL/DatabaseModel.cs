@@ -91,6 +91,46 @@ public ResultSet AddListFromIdsMovingAverage(string _json, int? timeout = null)
 
 #endregion
 
+#region GetBiggerThanSDBetweenID
+
+public System.Data.SqlClient.SqlCommand GetCommand_GetBiggerThanSDBetweenID(long? _fromID, long? _toID, byte? _type, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spGetBiggerThanSDBetweenID", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AFromID", IsOutput = false, Value = _fromID == null ? DBNull.Value : (object)_fromID }, 
+					new Parameter { Name = "@AToID", IsOutput = false, Value = _toID == null ? DBNull.Value : (object)_toID }, 
+					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> GetBiggerThanSDBetweenIDAsync(long? _fromID, long? _toID, byte? _type, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetBiggerThanSDBetweenID(_fromID, _toID, _type, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> GetBiggerThanSDBetweenIDDapperAsync<T>(long? _fromID, long? _toID, byte? _type, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spGetBiggerThanSDBetweenID",new {AFromID=_fromID,AToID=_toID,AType=_type} , timeout );
+}
+
+public ResultSet GetBiggerThanSDBetweenID(long? _fromID, long? _toID, byte? _type, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetBiggerThanSDBetweenID(_fromID, _toID, _type, timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
 #region GetBiggerThanSDs
 
 public System.Data.SqlClient.SqlCommand GetCommand_GetBiggerThanSDs(byte? _type, byte? _session, int? timeout = null)
@@ -168,46 +208,6 @@ public ResultSet AddBiggerThanSdOtherSymbols(string _json, int? timeout = null)
 
 #endregion
 
-#region GetBiggerThanSDBetweenID
-
-public System.Data.SqlClient.SqlCommand GetCommand_GetBiggerThanSDBetweenID(long? _fromID, long? _toID, byte? _type, int? timeout = null)
-{
-var cmd = base.CreateCommand("pbl.spGetBiggerThanSDBetweenID", 
-	System.Data.CommandType.StoredProcedure, 
-	new Parameter[]{
-					new Parameter { Name = "@AFromID", IsOutput = false, Value = _fromID == null ? DBNull.Value : (object)_fromID }, 
-					new Parameter { Name = "@AToID", IsOutput = false, Value = _toID == null ? DBNull.Value : (object)_toID }, 
-					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
-	});
-
-			if (timeout != null)
-				cmd.CommandTimeout = (int)timeout;
-			return cmd;
-}
-
-public async Task<ResultSet> GetBiggerThanSDBetweenIDAsync(long? _fromID, long? _toID, byte? _type, int? timeout = null)
-{
-	using(var cmd = GetCommand_GetBiggerThanSDBetweenID(_fromID, _toID, _type, timeout))
-{
-	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
-}
-}
-
-public async Task<AppCore.Result<IEnumerable<T>>> GetBiggerThanSDBetweenIDDapperAsync<T>(long? _fromID, long? _toID, byte? _type, int? timeout = null)
-{
-	return await  DapperQueryAsync<T>("pbl.spGetBiggerThanSDBetweenID",new {AFromID=_fromID,AToID=_toID,AType=_type} , timeout );
-}
-
-public ResultSet GetBiggerThanSDBetweenID(long? _fromID, long? _toID, byte? _type, int? timeout = null)
-{
-	using(var cmd = GetCommand_GetBiggerThanSDBetweenID(_fromID, _toID, _type, timeout))
-{
-	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
-}
-}
-
-#endregion
-
 #region AddListStandardDeviation
 
 public System.Data.SqlClient.SqlCommand GetCommand_AddListStandardDeviation(string _json, int? timeout = null)
@@ -246,6 +246,44 @@ public ResultSet AddListStandardDeviation(string _json, int? timeout = null)
 
 #endregion
 
+#region GeEmptyWorkingHours
+
+public System.Data.SqlClient.SqlCommand GetCommand_GeEmptyWorkingHours(byte? _type, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spGeEmptyWorkingHours", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> GeEmptyWorkingHoursAsync(byte? _type, int? timeout = null)
+{
+	using(var cmd = GetCommand_GeEmptyWorkingHours(_type, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> GeEmptyWorkingHoursDapperAsync<T>(byte? _type, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spGeEmptyWorkingHours",new {AType=_type} , timeout );
+}
+
+public ResultSet GeEmptyWorkingHours(byte? _type, int? timeout = null)
+{
+	using(var cmd = GetCommand_GeEmptyWorkingHours(_type, timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
 #region GetSessions
 
 public System.Data.SqlClient.SqlCommand GetCommand_GetSessions(int? timeout = null)
@@ -276,6 +314,44 @@ public async Task<AppCore.Result<IEnumerable<T>>> GetSessionsDapperAsync<T>(int?
 public ResultSet GetSessions(int? timeout = null)
 {
 	using(var cmd = GetCommand_GetSessions(timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
+#region AddListZigZag
+
+public System.Data.SqlClient.SqlCommand GetCommand_AddListZigZag(string _json, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spAddListZigZag", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AJson", IsOutput = false, Value = string.IsNullOrWhiteSpace(_json) ? DBNull.Value : (object)ReplaceArabicWithPersianChars(_json) }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> AddListZigZagAsync(string _json, int? timeout = null)
+{
+	using(var cmd = GetCommand_AddListZigZag(_json, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> AddListZigZagDapperAsync<T>(string _json, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spAddListZigZag",new {AJson=string.IsNullOrWhiteSpace(_json) ? _json : ReplaceArabicWithPersianChars(_json)} , timeout );
+}
+
+public ResultSet AddListZigZag(string _json, int? timeout = null)
+{
+	using(var cmd = GetCommand_AddListZigZag(_json, timeout))
 {
 	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
 }
@@ -404,6 +480,48 @@ public ResultSet AddPriceMinutely(long? _id, DateTime? _date, float? _open, floa
 
 #endregion
 
+#region AddZigZag
+
+public System.Data.SqlClient.SqlCommand GetCommand_AddZigZag(long? _id, DateTime? _date, long? _approved, bool? _up, byte? _type, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spAddZigZag", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AID", IsOutput = false, Value = _id == null ? DBNull.Value : (object)_id }, 
+					new Parameter { Name = "@ADate", IsOutput = false, Value = _date == null ? DBNull.Value : (object)_date }, 
+					new Parameter { Name = "@AApproved", IsOutput = false, Value = _approved == null ? DBNull.Value : (object)_approved }, 
+					new Parameter { Name = "@AUp", IsOutput = false, Value = _up == null ? DBNull.Value : (object)_up }, 
+					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> AddZigZagAsync(long? _id, DateTime? _date, long? _approved, bool? _up, byte? _type, int? timeout = null)
+{
+	using(var cmd = GetCommand_AddZigZag(_id, _date, _approved, _up, _type, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> AddZigZagDapperAsync<T>(long? _id, DateTime? _date, long? _approved, bool? _up, byte? _type, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spAddZigZag",new {AID=_id,ADate=_date,AApproved=_approved,AUp=_up,AType=_type} , timeout );
+}
+
+public ResultSet AddZigZag(long? _id, DateTime? _date, long? _approved, bool? _up, byte? _type, int? timeout = null)
+{
+	using(var cmd = GetCommand_AddZigZag(_id, _date, _approved, _up, _type, timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
 #region AddPriceMinutelys
 
 public System.Data.SqlClient.SqlCommand GetCommand_AddPriceMinutelys(string _json, byte? _type, int? timeout = null)
@@ -436,6 +554,46 @@ public async Task<AppCore.Result<IEnumerable<T>>> AddPriceMinutelysDapperAsync<T
 public ResultSet AddPriceMinutelys(string _json, byte? _type, int? timeout = null)
 {
 	using(var cmd = GetCommand_AddPriceMinutelys(_json, _type, timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
+#region GetFromToZigZag
+
+public System.Data.SqlClient.SqlCommand GetCommand_GetFromToZigZag(byte? _type, DateTime? _fromDate, DateTime? _toDate, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spGetFromToZigZag", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
+					new Parameter { Name = "@AFromDate", IsOutput = false, Value = _fromDate == null ? DBNull.Value : (object)_fromDate }, 
+					new Parameter { Name = "@AToDate", IsOutput = false, Value = _toDate == null ? DBNull.Value : (object)_toDate }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> GetFromToZigZagAsync(byte? _type, DateTime? _fromDate, DateTime? _toDate, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetFromToZigZag(_type, _fromDate, _toDate, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> GetFromToZigZagDapperAsync<T>(byte? _type, DateTime? _fromDate, DateTime? _toDate, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spGetFromToZigZag",new {AType=_type,AFromDate=_fromDate,AToDate=_toDate} , timeout );
+}
+
+public ResultSet GetFromToZigZag(byte? _type, DateTime? _fromDate, DateTime? _toDate, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetFromToZigZag(_type, _fromDate, _toDate, timeout))
 {
 	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
 }
@@ -597,50 +755,14 @@ public ResultSet GetPriceMinutelys(byte? _type, int? _pageSize, int? _pageIndex,
 
 #endregion
 
-#region GeEmptyWorkingHours
-
-public System.Data.SqlClient.SqlCommand GetCommand_GeEmptyWorkingHours(int? timeout = null)
-{
-var cmd = base.CreateCommand("pbl.spGeEmptyWorkingHours", 
-	System.Data.CommandType.StoredProcedure, 
-	new Parameter[]{
-	});
-
-			if (timeout != null)
-				cmd.CommandTimeout = (int)timeout;
-			return cmd;
-}
-
-public async Task<ResultSet> GeEmptyWorkingHoursAsync(int? timeout = null)
-{
-	using(var cmd = GetCommand_GeEmptyWorkingHours(timeout))
-{
-	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
-}
-}
-
-public async Task<AppCore.Result<IEnumerable<T>>> GeEmptyWorkingHoursDapperAsync<T>(int? timeout = null)
-{
-	return await  DapperQueryAsync<T>("pbl.spGeEmptyWorkingHours",new {} , timeout );
-}
-
-public ResultSet GeEmptyWorkingHours(int? timeout = null)
-{
-	using(var cmd = GetCommand_GeEmptyWorkingHours(timeout))
-{
-	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
-}
-}
-
-#endregion
-
 #region AddWorkingHours
 
-public System.Data.SqlClient.SqlCommand GetCommand_AddWorkingHours(int? timeout = null)
+public System.Data.SqlClient.SqlCommand GetCommand_AddWorkingHours(byte? _type, int? timeout = null)
 {
 var cmd = base.CreateCommand("pbl.spAddWorkingHours", 
 	System.Data.CommandType.StoredProcedure, 
 	new Parameter[]{
+					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
 	});
 
 			if (timeout != null)
@@ -648,22 +770,22 @@ var cmd = base.CreateCommand("pbl.spAddWorkingHours",
 			return cmd;
 }
 
-public async Task<ResultSet> AddWorkingHoursAsync(int? timeout = null)
+public async Task<ResultSet> AddWorkingHoursAsync(byte? _type, int? timeout = null)
 {
-	using(var cmd = GetCommand_AddWorkingHours(timeout))
+	using(var cmd = GetCommand_AddWorkingHours(_type, timeout))
 {
 	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
 }
 }
 
-public async Task<AppCore.Result<IEnumerable<T>>> AddWorkingHoursDapperAsync<T>(int? timeout = null)
+public async Task<AppCore.Result<IEnumerable<T>>> AddWorkingHoursDapperAsync<T>(byte? _type, int? timeout = null)
 {
-	return await  DapperQueryAsync<T>("pbl.spAddWorkingHours",new {} , timeout );
+	return await  DapperQueryAsync<T>("pbl.spAddWorkingHours",new {AType=_type} , timeout );
 }
 
-public ResultSet AddWorkingHours(int? timeout = null)
+public ResultSet AddWorkingHours(byte? _type, int? timeout = null)
 {
-	using(var cmd = GetCommand_AddWorkingHours(timeout))
+	using(var cmd = GetCommand_AddWorkingHours(_type, timeout))
 {
 	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
 }

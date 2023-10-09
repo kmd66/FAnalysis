@@ -5,6 +5,7 @@ namespace Kama.FinancialAnalysis.Domain
     {
         BiggerThanSDHelper _biggerThanSDHelper = new BiggerThanSDHelper();
         DistanceMeasurementHelper _distanceMeasurementHelper = new DistanceMeasurementHelper();
+        ZigZagHelper _zigZagHelper = new ZigZagHelper();
 
         public InitMLService()
         {
@@ -13,7 +14,8 @@ namespace Kama.FinancialAnalysis.Domain
         private async void Start()
         {
             //await _biggerThanSDHelper.Start();
-            await _distanceMeasurementHelper.Start();
+            //await _distanceMeasurementHelper.Start();
+            await _zigZagHelper.StartHistory();
         }
     }
 }

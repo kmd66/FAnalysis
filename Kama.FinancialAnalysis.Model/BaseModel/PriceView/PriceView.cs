@@ -24,6 +24,8 @@ namespace Kama.FinancialAnalysis.Model
         public double R500 { get; set; }
         public double R1000 { get; set; }
 
+        public double ZigZag { get; set; }
+
         public SessionOCType Session { get; set; }
 
         public BiggerThanSD BiggerThanSD { get; set; }

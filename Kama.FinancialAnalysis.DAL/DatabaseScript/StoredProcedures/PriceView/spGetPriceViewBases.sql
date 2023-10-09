@@ -31,9 +31,11 @@ BEGIN
 		SELECT
 			P.*,
 			M5, M30, H1, D
+			,z.[Value] ZigZag
 			--pbl.fnAscendingOrDescending(ID, @Type, [Close]) [Asc]
 		FROM [pbl].PriceMinutely p
 		INNER JOIN pbl.MovingAverage m on p.ID = m.ID
+		LEFT JOIN pbl.ZigZag z On z.ID = p.ID 
 		WHERE p.[Type] = @Type
 			AND p.[Date] >= @FromDate
 			AND p.[Date] <= @ToDate
