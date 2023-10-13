@@ -108,6 +108,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DatabaseModel.cs</LastGenOutput>
     </Content>
+    <Content Include="DatabaseScript\fnMl\fnApprovedUp.sql" />
+    <Content Include="DatabaseScript\fnMl\fnGetCci.sql" />
+    <Content Include="DatabaseScript\fnMl\fnGetRsi.sql" />
+    <Content Include="DatabaseScript\fnMl\fnTemp3GetBackPivote.sql" />
     <Content Include="DatabaseScript\Functions\fnTimeStamp.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spAddBiggerThanSdOtherSymbols.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spGetBiggerThanSDBetweenID.sql" />
@@ -138,6 +142,7 @@
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetStandardDeviations.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetMovingAverages.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetPriceViewBases.sql" />
+    <Content Include="DatabaseScript\fnMl\fnGetStandardDeviation3.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\fnGetStandardDeviation2.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\fnGetStandardDeviation.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spAddListStandardDeviation.sql" />

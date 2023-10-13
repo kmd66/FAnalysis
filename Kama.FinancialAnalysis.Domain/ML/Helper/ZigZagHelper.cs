@@ -14,7 +14,8 @@ namespace Kama.FinancialAnalysis.Domain
     public class ZigZagHelper
     {
         int _backStep = 5;
-        double _depth = 25;
+        int _depth = 2;
+        double _darsad = 25;
         
         ZigZagDataSource _dataSource = new ZigZagDataSource();
         
@@ -24,10 +25,10 @@ namespace Kama.FinancialAnalysis.Domain
         public async Task StartHistory()
         {
             await insertDbHistory(SymbolType.xauusd);
-            //Start(SymbolType.usdchf);
-            //Start(SymbolType.eurjpy);
-            //Start(SymbolType.nq100m);
-            //await Start(SymbolType.DYX);
+            insertDbHistory(SymbolType.usdchf);
+            insertDbHistory(SymbolType.eurjpy);
+            insertDbHistory(SymbolType.nq100m);
+            await insertDbHistory(SymbolType.DYX);
 
         }
 
@@ -89,10 +90,15 @@ namespace Kama.FinancialAnalysis.Domain
                             }
                         }
                         //else if (Math.abs(valueP * 5) < Math.abs(item.Close - lastP.Close)) {
-                        else if (Math.Abs(valueP * _backStep) < Math.Abs(item.Close - lastFavorableItem.Close))
+                        else //if (Math.Abs(valueP * _darsad) < Math.Abs(item.Close - lastFavorableItem.Close))
                         {
+                            var len = _darsad * 3;
+                            if (listInsert.Count == 1)
+                                len = _darsad;
                             var v = (Math.Abs(item.Close - lastFavorableItem.Close) * 100) / Math.Abs(lastFavorableValue);
-                            if (v >= _depth)
+                            var t1 = l.FindIndex(x => x.ID == item.ID);
+                            var t2 = l.FindIndex(x => x.ID == lastFavorableItem.ID);
+                            if (v >= _darsad && l.FindIndex(x => x.ID == item.ID) - l.FindIndex(x => x.ID == lastFavorableItem.ID) >= len)
                             {
                                 lastP = lastFavorableItem;
                                 listInsert.Add(new ZigZag
