@@ -31,11 +31,16 @@ BEGIN
 		SELECT
 			P.*,
 			M5, M30, H1, D
-			,z.[Value] ZigZag
+			,z.ID ZigZag
+			,z.Approved ZigZagID
+			,r.Value14 Rsi14
+			,c.Value14 Cci14
 			--pbl.fnAscendingOrDescending(ID, @Type, [Close]) [Asc]
 		FROM [pbl].PriceMinutely p
 		INNER JOIN pbl.MovingAverage m on p.ID = m.ID
 		LEFT JOIN pbl.ZigZag z On z.ID = p.ID 
+		LEFT JOIN pbl.Rsi r On r.ID = p.ID 
+		LEFT JOIN pbl.Cci c On c.ID = p.ID 
 		WHERE p.[Type] = @Type
 			AND p.[Date] >= @FromDate
 			AND p.[Date] <= @ToDate

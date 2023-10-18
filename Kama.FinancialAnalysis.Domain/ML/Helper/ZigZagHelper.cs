@@ -2,6 +2,7 @@
 using Kama.AppCore;
 using Kama.FinancialAnalysis.DAL;
 using Kama.FinancialAnalysis.Model;
+using Kama.Library.Helper.DynamicReport;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,8 @@ namespace Kama.FinancialAnalysis.Domain
 {
     public class ZigZagHelper
     {
-        int _backStep = 5;
-        int _depth = 2;
+        int _backStep = 7;
+        int _depth = 8;
         double _darsad = 25;
         
         ZigZagDataSource _dataSource = new ZigZagDataSource();
@@ -90,15 +91,10 @@ namespace Kama.FinancialAnalysis.Domain
                             }
                         }
                         //else if (Math.abs(valueP * 5) < Math.abs(item.Close - lastP.Close)) {
-                        else //if (Math.Abs(valueP * _darsad) < Math.Abs(item.Close - lastFavorableItem.Close))
+                        else if (Math.Abs(valueP * _backStep) < Math.Abs(item.Close - lastFavorableItem.Close) && upEnter(item, lastFavorableItem))
                         {
-                            var len = _darsad * 3;
-                            if (listInsert.Count == 1)
-                                len = _darsad;
                             var v = (Math.Abs(item.Close - lastFavorableItem.Close) * 100) / Math.Abs(lastFavorableValue);
-                            var t1 = l.FindIndex(x => x.ID == item.ID);
-                            var t2 = l.FindIndex(x => x.ID == lastFavorableItem.ID);
-                            if (v >= _darsad && l.FindIndex(x => x.ID == item.ID) - l.FindIndex(x => x.ID == lastFavorableItem.ID) >= len)
+                            if (v >= _darsad && l.FindIndex(x => x.ID == item.ID) - l.FindIndex(x => x.ID == lastFavorableItem.ID) > _depth)
                             {
                                 lastP = lastFavorableItem;
                                 listInsert.Add(new ZigZag
@@ -122,17 +118,15 @@ namespace Kama.FinancialAnalysis.Domain
 
                 await _dataSource.AddList(listInsert);
             }
-
         }
-        public static long[] MinMAax(List<PriceMinutely>list, long priceID, SymbolType type)
-        {
-            var l = list.Where(x => x.ID > priceID && x.Type == type).Take(240).ToList();
-            if (l.Count == 0)
-                return new long[2] { 0, 0 };
 
-            var itemMax = l.First(x => x.Close == l.Max(y => y.Close));
-            var itemMin = l.First(x => x.Close == l.Min(y => y.Close));
-            return new long[2] { itemMax.ID, itemMin.ID };
+
+        private bool upEnter(PriceMinutely item1, PriceMinutely item2)
+        {
+            var up = item2.Close > item2.Open;
+            if (up)
+                return item1.Close < item2.Close;
+            return item2.Close < item1.Close;
         }
     }
 }

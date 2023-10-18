@@ -87,6 +87,11 @@
     </Compile>
     <Compile Include="DataSources\ML\DistanceMeasurementDataSource.cs" />
     <Compile Include="DataSources\ML\BiggerThanSdDataSource.cs" />
+    <Compile Include="DataSources\CciDataSource.cs" />
+    <Compile Include="DataSources\BollingerBandsDataSource.cs" />
+    <Compile Include="DataSources\MacdDataSource.cs" />
+    <Compile Include="DataSources\IchimokuDataSource.cs" />
+    <Compile Include="DataSources\RsiDataSource.cs" />
     <Compile Include="DataSources\MovingAverageDataSource.cs" />
     <Compile Include="DataSources\ZigZagDataSource.cs" />
     <Compile Include="DataSources\PriceViewDataSource.cs" />
@@ -121,6 +126,9 @@
     <Content Include="DatabaseScript\StoredProcedures\1.ML\DistanceMeasurement\spAddDistanceMeasurements.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\DistanceMeasurement\spGetDistanceMeasurements.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\DistanceMeasurement\spListDistanceMeasurement.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\BollingerBands\spGetFromToBollingerBands.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Ichimoku\spGetFromToIchimoku.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Macd\spGetFromToMacd.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\fnGetSlope.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\fnGetMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\MovingAverage\fnAddMovingAverage.sql" />
@@ -143,6 +151,11 @@
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetMovingAverages.sql" />
     <Content Include="DatabaseScript\StoredProcedures\PriceView\spGetPriceViewBases.sql" />
     <Content Include="DatabaseScript\fnMl\fnGetStandardDeviation3.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Cci\spAddListCci.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Macd\spAddListMacd.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\BollingerBands\spAddListBollingerBands.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Ichimoku\spAddListIchimoku.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Rsi\spAddListRsi.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\fnGetStandardDeviation2.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\fnGetStandardDeviation.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\spAddListStandardDeviation.sql" />

@@ -54,7 +54,7 @@ async function initCahrt() {
 
     option = {
         legend: {
-            data: ['session', 'MA5', 'MA', 'SD']
+            data: ['session', 'MA5', 'Zig', 'Ich', 'BB', 'MA', 'SD']
         },
         grid: [{
             bottom: '23%',
@@ -139,11 +139,22 @@ function initChartService() {
        // movingAverages('M5'),
         //movingAverages('M30'),
         //movingAverages('H1'),
-        movingAverages('D'),
+        //movingAverages('D'),
+
+        //Ichimokuobj('SenkouA45', '#3dff00', 0.5),
+        //Ichimokuobj('SenkouB45', '#ff0000', 0.5),
+
+        BollingerBandsobj('A30'),
+        BollingerBandsobj('U30'),
+        BollingerBandsobj('L30'),
+
         zigZag(),
+
         //standardDeviation('R100'),
         //standardDeviation('R500'),
-        standardDeviation('R1000'),
+        //standardDeviation('R1000'),
+
+        calculateMacd(12, 26)
     ]
 
     var found1 = _obj.find((item) => item.Session == 1);
@@ -169,8 +180,8 @@ function initChartService() {
     //addArea(12, 22, '#ffed0040', 'sydney');
 
     addbiggerThanSD(110, '#ff00a3', 'newYork');
-    addbiggerThanSD(111, '#0064ff', 'london');
-    addbiggerThanSD(112, '#ffed00', 'london');
+    //addbiggerThanSD(111, '#0064ff', 'london');
+    //addbiggerThanSD(112, '#ffed00', 'london');
 
     //addMaxMin(110, '#ff00a3', 'newYork');
     //addMaxMin(111, '#0064ff', 'london');
@@ -180,30 +191,30 @@ function initChartService() {
     //00ff8b
 
     function addbiggerThanSD(type, color) {
-        if (_biggerThanSD) {
 
-            biggerThanSD = _biggerThanSD.filter((item) => item.BiggerThanSD.Session == type);
-            if (biggerThanSD.length>0) {
-
-                var objBiggerThanSD = [];
-                for (var i = 0; i < biggerThanSD.length; i += 1) {
-                    objBiggerThanSD.push([
-                        getTimesByID(biggerThanSD[i].ID),
-                        (biggerThanSD[i].Close + biggerThanSD[i].Open) / 2
-                    ]);
-                }
-                _series.push(
-                    {
-                        name: 'SD',
-                        symbolSize: 14,
-                        type: 'scatter',
-                        xAxisIndex: 0, yAxisIndex: 0,
-                        data: objBiggerThanSD,
-                        color: color
+            var objBiggerThanSD = [];
+            for (var i = 0; i < _obj.length; i += 1) {
+                if (_obj[i].ZigZag != 0) {
+                    var item = _obj.find((x) => x.ID == _obj[i].ZigZagID);
+                    if (item) {
+                        var d = getTimesByID(item.ID);
+                        objBiggerThanSD.push([
+                            getTimesByID(item.ID),
+                            (item.Close + item.Open) / 2
+                        ]);
                     }
-                );
+}
             }
-        }
+            _series.push(
+                {
+                    name: 'SD',
+                    symbolSize: 14,
+                    type: 'scatter',
+                    xAxisIndex: 0, yAxisIndex: 0,
+                    data: objBiggerThanSD,
+                    color: color
+                }
+            );
     }
 
     function addMaxMin(type, color) {
@@ -427,7 +438,7 @@ function standardDeviation(t) {
 function zigZag(t) {
 
     return {
-        name: 'MA',
+        name: 'Zig',
         type: 'line',
         data: getData(t),
         showSymbol: false,
@@ -457,6 +468,33 @@ function initSessionObj() {
 };
 
 
+function Ichimokuobj(l, c, o) {
+
+    return {
+        name: 'Ich',
+        type: 'line',
+        data: getDate_(l),
+        smooth: true,
+        showSymbol: false,
+        lineStyle: {
+            opacity: o
+        },
+        color: c,
+        xAxisIndex: 0, yAxisIndex: 0
+
+    };
+
+    function getDate_(l) {
+        var obj = [];
+        for (var i = 0; i < _obj.length; i += 1) {
+            if (_obj[i].Ichimoku)
+                obj.push(_obj[i].Ichimoku[l]);
+        }
+        return obj;
+    }
+
+};
+
 myChart.on('click', params => {
     if (params.seriesName === "SD" && params.seriesType == "scatter") {
         var d = params.data;
@@ -468,3 +506,57 @@ myChart.on('click', params => {
         alert(`max: ${getTimesByID(max.ID)} ${max.Close}  |  min: ${getTimesByID(min.ID)} ${min.Close}  `);
     }
 })
+
+function calculateMacd() {
+
+    return {
+
+        name: 'SD',
+        type: 'line',
+        data: getDate_(),
+        smooth: true,
+        showSymbol: false,
+        lineStyle: {
+            opacity: 0.5
+        },
+        color: '#0011ff',
+        xAxisIndex: 1, yAxisIndex: 1
+    }
+
+    function getDate_() {
+        var obj = [];
+        for (var i = 0; i < _obj.length; i += 1) {
+            if (_obj[i].Macd)
+                obj.push(_obj[i].Macd.M12);
+        }
+        return obj;
+    }
+}
+
+function BollingerBandsobj(l) {
+
+    return {
+        name: 'Ich',
+        type: 'line',
+        data: getDate_(l),
+        smooth: true,
+        showSymbol: false,
+        lineStyle: {
+            opacity: .5
+        },
+        color: '#0011ff',
+        xAxisIndex: 0, yAxisIndex: 0
+
+    };
+
+    function getDate_(l) {
+        var obj = [];
+        for (var i = 0; i < _obj.length; i += 1) {
+            if (_obj[i].BollingerBands)
+                obj.push(_obj[i].BollingerBands[l]);
+        }
+        return obj;
+    }
+
+};
+

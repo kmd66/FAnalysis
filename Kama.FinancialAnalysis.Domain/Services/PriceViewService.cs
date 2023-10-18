@@ -13,7 +13,9 @@ namespace Kama.FinancialAnalysis.Domain
     public class PriceViewService
     {
         PriceViewDataSource _dataSource = new PriceViewDataSource();
-        ZigZagDataSource _zigZagDataSource = new ZigZagDataSource();
+        MacdDataSource _macdDataSource = new MacdDataSource();
+        IchimokuDataSource _ichimokuDataSource = new IchimokuDataSource();
+        BollingerBandsDataSource _bollingerBandsDataSource = new BollingerBandsDataSource();
 
         public async Task<Result<IEnumerable<PriceView>>> ListViewAsync(PriceViewVM model)
         {
@@ -39,18 +41,44 @@ namespace Kama.FinancialAnalysis.Domain
                     p.BiggerThanSD = item;
             }
 
-            //var resultZigZag = await _zigZagDataSource.GetFromToAsync(new  ZigZagVM
-            //{
-            //    FromDate = model.FromDate,
-            //    ToDate = model.ToDate,
-            //    Type = model.Type
-            //});
-            //foreach (var item in resultZigZag.Data.ToList())
-            //{
-            //    var p = result.Data.FirstOrDefault(x => x.ID == item.ID);
-            //    if (p != null)
-            //        p.ZigZag = item.Value;
-            //}
+            var resultMacd = await _macdDataSource.GetFromToAsync(new MacdVM
+            {
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                Type = model.Type
+            });
+            foreach (var item in resultMacd.Data.ToList())
+            {
+                var p = result.Data.FirstOrDefault(x => x.ID == item.ID);
+                if (p != null)
+                    p.Macd = item;
+            }
+
+            var resultIchimoku = await _ichimokuDataSource.GetFromToAsync(new IchimokuVM
+            {
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                Type = model.Type
+            });
+            foreach (var item in resultIchimoku.Data.ToList())
+            {
+                var p = result.Data.FirstOrDefault(x => x.ID == item.ID);
+                if (p != null)
+                    p.Ichimoku = item;
+            }
+
+            var resultBollingerBands = await _bollingerBandsDataSource.GetFromToAsync(new BollingerBandsVM
+            {
+                FromDate = model.FromDate,
+                ToDate = model.ToDate,
+                Type = model.Type
+            });
+            foreach (var item in resultBollingerBands.Data.ToList())
+            {
+                var p = result.Data.FirstOrDefault(x => x.ID == item.ID);
+                if (p != null)
+                    p.BollingerBands = item;
+            }
 
             return result;
         }

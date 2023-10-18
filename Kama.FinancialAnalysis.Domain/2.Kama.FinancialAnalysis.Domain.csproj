@@ -99,6 +99,11 @@
     <Compile Include="ML\InitML.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />
+    <Compile Include="Services\CciService.cs" />
+    <Compile Include="Services\IchimokuService.cs" />
+    <Compile Include="Services\BollingerBandsService.cs" />
+    <Compile Include="Services\MacdService.cs" />
+    <Compile Include="Services\RsiService.cs" />
     <Compile Include="Services\MovingAverageService.cs" />
     <Compile Include="Services\StandardDeviationService.cs" />
     <Compile Include="Services\PriceMinutelyService.cs" />

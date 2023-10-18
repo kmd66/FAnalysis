@@ -26,6 +26,18 @@ namespace Kama.FinancialAnalysis.Model
 
         public double ZigZag { get; set; }
 
+        public long ZigZagID { get; set; }
+
+        public double Rsi14 { get; set; }
+
+        public double Cci14 { get; set; }
+
+        public BollingerBands BollingerBands { get; set; }
+
+        public Ichimoku Ichimoku { get; set; }
+
+        public Macd Macd { get; set; }
+
         public SessionOCType Session { get; set; }
 
         public BiggerThanSD BiggerThanSD { get; set; }
