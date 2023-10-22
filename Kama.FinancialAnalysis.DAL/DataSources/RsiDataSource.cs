@@ -31,7 +31,7 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result<IEnumerable<Rsi>>> GetListAsync(RsiVM model)
+        public async Task<Result<IEnumerable<Rsi>>> ListAsync(RsiVM model)
         {
             try
             {

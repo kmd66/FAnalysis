@@ -64,6 +64,11 @@
     <Compile Include="BaseModel\dbBase\Sessions.cs" />
     <Compile Include="DbIndex\DbIndexBiggerThanSD.cs" />
     <Compile Include="DbIndex\DbIndexMovingAverage.cs" />
+    <Compile Include="DbIndex\DbIndexCci.cs" />
+    <Compile Include="DbIndex\DbIndexRsi.cs" />
+    <Compile Include="DbIndex\DbIndexIchimoku.cs" />
+    <Compile Include="DbIndex\DbIndexBollingerBands.cs" />
+    <Compile Include="DbIndex\DbIndexMacd.cs" />
     <Compile Include="DbIndex\DbIndexStandardDeviation.cs" />
     <Compile Include="DbIndex\DbIndexPrice.cs" />
     <Compile Include="BaseModel\dbBase\StandardDeviation.cs" />

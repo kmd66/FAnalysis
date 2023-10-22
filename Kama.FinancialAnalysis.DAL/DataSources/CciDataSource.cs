@@ -30,7 +30,7 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result<IEnumerable<Cci>>> GetListAsync(CciVM model)
+        public async Task<Result<IEnumerable<Cci>>> ListAsync(CciVM model)
         {
             try
             {

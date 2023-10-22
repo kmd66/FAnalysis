@@ -50,7 +50,7 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result<IEnumerable<Macd>>> GetListAsync(MacdVM model)
+        public async Task<Result<IEnumerable<Macd>>> ListAsync(MacdVM model)
         {
             try
             {

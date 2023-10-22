@@ -49,7 +49,7 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result<IEnumerable<Ichimoku>>> GetListAsync(IchimokuVM model)
+        public async Task<Result<IEnumerable<Ichimoku>>> ListAsync(IchimokuVM model)
         {
             try
             {

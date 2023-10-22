@@ -49,7 +49,7 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
-        public async Task<Result<IEnumerable<BollingerBands>>> GetListAsync(BollingerBandsVM model)
+        public async Task<Result<IEnumerable<BollingerBands>>> ListAsync(BollingerBandsVM model)
         {
             try
             {
