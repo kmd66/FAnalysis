@@ -114,9 +114,16 @@
       <LastGenOutput>DatabaseModel.cs</LastGenOutput>
     </Content>
     <Content Include="DatabaseScript\fnMl\fnApprovedUp.sql" />
-    <Content Include="DatabaseScript\fnMl\fnGetCci.sql" />
-    <Content Include="DatabaseScript\fnMl\fnGetRsi.sql" />
-    <Content Include="DatabaseScript\fnMl\fnTemp3GetBackPivote.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\BollingerBands\spGetListBollingerBands.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Cci\fnGetCci.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Cci\spGetListCci.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Ichimoku\fnGetIchimoku.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Ichimoku\spGetListIchimoku.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Macd\fnGetMacd.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Macd\spGetListMacd.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Rsi\fnGetPrveCandleRsi.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Rsi\fnGetNextPivoiteRsi.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Rsi\fnGetRsi.sql" />
     <Content Include="DatabaseScript\Functions\fnTimeStamp.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spAddBiggerThanSdOtherSymbols.sql" />
     <Content Include="DatabaseScript\StoredProcedures\1.ML\BiggerThanSD\spGetBiggerThanSDBetweenID.sql" />
@@ -155,6 +162,7 @@
     <Content Include="DatabaseScript\StoredProcedures\Macd\spAddListMacd.sql" />
     <Content Include="DatabaseScript\StoredProcedures\BollingerBands\spAddListBollingerBands.sql" />
     <Content Include="DatabaseScript\StoredProcedures\Ichimoku\spAddListIchimoku.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Rsi\spGetListRsi.sql" />
     <Content Include="DatabaseScript\StoredProcedures\Rsi\spAddListRsi.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\fnGetStandardDeviation2.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\fnGetStandardDeviation.sql" />
@@ -170,6 +178,7 @@
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\fnGetLastPricelastDayBefore.sql" />
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\spGetLastWorkingHourAsync.sql" />
     <Content Include="DatabaseScript\StoredProcedures\WorkingHours\spGeEmptyWorkingHours.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\ZigZag\fnZigZagPrevPivote.sql" />
     <Content Include="DatabaseScript\StoredProcedures\ZigZag\spGetFromToZigZag.sql" />
     <Content Include="DatabaseScript\StoredProcedures\ZigZag\spAddZigZag.sql" />
     <Content Include="DatabaseScript\StoredProcedures\ZigZag\spAddListZigZag.sql" />
@@ -186,6 +195,7 @@
   <ItemGroup>
     <Folder Include="DatabaseScript\Synonyms\" />
     <Folder Include="DatabaseScript\Views\" />
+    <Folder Include="Simulate\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

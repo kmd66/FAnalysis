@@ -138,11 +138,11 @@ function initChartService() {
         },
        // movingAverages('M5'),
         //movingAverages('M30'),
-        //movingAverages('H1'),
-        //movingAverages('D'),
+        movingAverages('H1'),
+        movingAverages('D'),
 
-        //Ichimokuobj('SenkouA45', '#3dff00', 0.5),
-        //Ichimokuobj('SenkouB45', '#ff0000', 0.5),
+        Ichimokuobj('SenkouA45', '#3dff00', 0.5),
+        Ichimokuobj('SenkouB45', '#ff0000', 0.5),
 
         BollingerBandsobj('A30'),
         BollingerBandsobj('U30'),
@@ -154,7 +154,7 @@ function initChartService() {
         //standardDeviation('R500'),
         //standardDeviation('R1000'),
 
-        calculateMacd(12, 26)
+        calculateMacd('M12')
     ]
 
     var found1 = _obj.find((item) => item.Session == 1);
@@ -507,13 +507,13 @@ myChart.on('click', params => {
     }
 })
 
-function calculateMacd() {
+function calculateMacd(t) {
 
     return {
 
         name: 'SD',
         type: 'line',
-        data: getDate_(),
+        data: getDate_(t),
         smooth: true,
         showSymbol: false,
         lineStyle: {
@@ -523,11 +523,11 @@ function calculateMacd() {
         xAxisIndex: 1, yAxisIndex: 1
     }
 
-    function getDate_() {
+    function getDate_(t) {
         var obj = [];
         for (var i = 0; i < _obj.length; i += 1) {
             if (_obj[i].Macd)
-                obj.push(_obj[i].Macd.M12);
+                obj.push(_obj[i].Macd[t]);
         }
         return obj;
     }
@@ -536,7 +536,7 @@ function calculateMacd() {
 function BollingerBandsobj(l) {
 
     return {
-        name: 'Ich',
+        name: 'BB',
         type: 'line',
         data: getDate_(l),
         smooth: true,

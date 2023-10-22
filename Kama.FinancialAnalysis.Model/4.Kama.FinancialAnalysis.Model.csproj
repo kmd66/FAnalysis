@@ -49,14 +49,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseModel\Cci\CciVM.cs" />
     <Compile Include="BaseModel\Ichimoku\IchimokuVM.cs" />
     <Compile Include="BaseModel\Ichimoku\Ichimoku.cs" />
     <Compile Include="BaseModel\BollingerBands\BollingerBandsVM.cs" />
     <Compile Include="BaseModel\BollingerBands\BollingerBands.cs" />
     <Compile Include="BaseModel\Macd\MacdVM.cs" />
     <Compile Include="BaseModel\Macd\Macd.cs" />
-    <Compile Include="BaseModel\dbBase\Cci.cs" />
-    <Compile Include="BaseModel\dbBase\Rsi.cs" />
+    <Compile Include="BaseModel\Cci\Cci.cs" />
+    <Compile Include="BaseModel\Rsi\RsiVM.cs" />
+    <Compile Include="BaseModel\Rsi\Rsi.cs" />
     <Compile Include="BaseModel\ZigZag\ZigZagVM.cs" />
     <Compile Include="BaseModel\ZigZag\ZigZag.cs" />
     <Compile Include="BaseModel\dbBase\Sessions.cs" />

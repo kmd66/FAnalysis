@@ -49,5 +49,23 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
+        public async Task<Result<IEnumerable<BollingerBands>>> GetListAsync(BollingerBandsVM model)
+        {
+            try
+            {
+                var result = (await pbl.GetListBollingerBandsAsync(
+                    _pageIndex: model.PageIndex,
+                    _pageSize: model.PageSize,
+                    _type: (byte)model.Type
+                    )).ToListActionResult<BollingerBands>();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
     }
 }

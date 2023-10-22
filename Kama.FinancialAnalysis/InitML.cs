@@ -17,6 +17,13 @@ namespace Kama.FinancialAnalysis
         private async void Start()
         {
             await addDbIndex();
+            if (!Init.IsInit)
+            {
+                await addDbIndex();
+                //await addAllIndexs();
+                //await timer();
+                Init.IsInit = true;
+            }
             new Domain.InitMLService();
         }
         private async Task addDbIndex()
@@ -35,40 +42,40 @@ namespace Kama.FinancialAnalysis
             if (!XauUsd.Success) System.Environment.Exit(500);
             DbIndexPrice.XauUsd = XauUsd.Data.ToList();
 
-            var UsdChf = await priceMinutelyDataSource.ListAsync(new ListVM { PageIndex = 1, PageSize = 1000000000 }, SymbolType.usdchf);
-            if (!UsdChf.Success) System.Environment.Exit(500);
-            DbIndexPrice.UsdChf = UsdChf.Data.ToList();
+            //var UsdChf = await priceMinutelyDataSource.ListAsync(new ListVM { PageIndex = 1, PageSize = 1000000000 }, SymbolType.usdchf);
+            //if (!UsdChf.Success) System.Environment.Exit(500);
+            //DbIndexPrice.UsdChf = UsdChf.Data.ToList();
 
-            var EurJpy = await priceMinutelyDataSource.ListAsync(new ListVM { PageIndex = 1, PageSize = 1000000000 }, SymbolType.eurjpy);
-            if (!EurJpy.Success) System.Environment.Exit(500);
-            DbIndexPrice.EurJpy = EurJpy.Data.ToList();
+            //var EurJpy = await priceMinutelyDataSource.ListAsync(new ListVM { PageIndex = 1, PageSize = 1000000000 }, SymbolType.eurjpy);
+            //if (!EurJpy.Success) System.Environment.Exit(500);
+            //DbIndexPrice.EurJpy = EurJpy.Data.ToList();
 
-            //-----------------------
+            ////-----------------------
 
-            var Dyx = await priceMinutelyDataSource.ListAsync(new ListVM { PageIndex = 1, PageSize = 1000000000 }, SymbolType.DYX);
-            if (!Dyx.Success) System.Environment.Exit(500);
-            DbIndexPrice.Dyx = Dyx.Data.ToList();
+            //var Dyx = await priceMinutelyDataSource.ListAsync(new ListVM { PageIndex = 1, PageSize = 1000000000 }, SymbolType.DYX);
+            //if (!Dyx.Success) System.Environment.Exit(500);
+            //DbIndexPrice.Dyx = Dyx.Data.ToList();
 
-            var Nq100m = await priceMinutelyDataSource.ListAsync(new ListVM { PageIndex = 1, PageSize = 1000000000 }, SymbolType.nq100m);
-            if (!Nq100m.Success) System.Environment.Exit(500);
-            DbIndexPrice.Nq100m = Nq100m.Data.ToList();
+            //var Nq100m = await priceMinutelyDataSource.ListAsync(new ListVM { PageIndex = 1, PageSize = 1000000000 }, SymbolType.nq100m);
+            //if (!Nq100m.Success) System.Environment.Exit(500);
+            //DbIndexPrice.Nq100m = Nq100m.Data.ToList();
 
-            //-----------------------
+            ////-----------------------
 
-            //BiggerThanSdDataSource biggerThanSdDataSource = new BiggerThanSdDataSource();
-            //var biggerThanSDs = await biggerThanSdDataSource.ListAsync(new BiggerThanSDVM());
-            //if (!biggerThanSDs.Success) System.Environment.Exit(500);
-            //DbIndexBiggerThanSD.Index = biggerThanSDs.Data.ToList();
+            ////BiggerThanSdDataSource biggerThanSdDataSource = new BiggerThanSdDataSource();
+            ////var biggerThanSDs = await biggerThanSdDataSource.ListAsync(new BiggerThanSDVM());
+            ////if (!biggerThanSDs.Success) System.Environment.Exit(500);
+            ////DbIndexBiggerThanSD.Index = biggerThanSDs.Data.ToList();
 
-            MovingAverageDataSource movingAverageDataSource = new MovingAverageDataSource();
-            var movingAverage = await movingAverageDataSource.ListAsync(SymbolType.Unknown);
-            if (!movingAverage.Success) System.Environment.Exit(500);
-            DbIndexMovingAverage.Index = movingAverage.Data.ToList();
+            //MovingAverageDataSource movingAverageDataSource = new MovingAverageDataSource();
+            //var movingAverage = await movingAverageDataSource.ListAsync(SymbolType.Unknown);
+            //if (!movingAverage.Success) System.Environment.Exit(500);
+            //DbIndexMovingAverage.Index = movingAverage.Data.ToList();
 
-            StandardDeviationDataSource standardDeviationDataSource = new StandardDeviationDataSource();
-            var standardDeviation = await standardDeviationDataSource.ListAsync(SymbolType.Unknown);
-            if (!standardDeviation.Success) System.Environment.Exit(500);
-            DbIndexStandardDeviation.Index = standardDeviation.Data.ToList();
+            //StandardDeviationDataSource standardDeviationDataSource = new StandardDeviationDataSource();
+            //var standardDeviation = await standardDeviationDataSource.ListAsync(SymbolType.Unknown);
+            //if (!standardDeviation.Success) System.Environment.Exit(500);
+            //DbIndexStandardDeviation.Index = standardDeviation.Data.ToList();
 
         }
     }

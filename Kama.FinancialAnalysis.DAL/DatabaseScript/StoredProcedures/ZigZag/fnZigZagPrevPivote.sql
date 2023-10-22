@@ -1,10 +1,10 @@
 USE [Kama.FinancialAnalysis]
 GO
 
-IF OBJECT_ID('pbl.fnTemp3GetBackPivote') IS NOT NULL DROP FUNCTION pbl.fnTemp3GetBackPivote
+IF OBJECT_ID('pbl.fnZigZagPrevPivote') IS NOT NULL DROP FUNCTION pbl.fnZigZagPrevPivote
 GO
 
-CREATE FUNCTION pbl.fnTemp3GetBackPivote(@ID BIGINT, @type tinyint)
+CREATE FUNCTION pbl.fnZigZagPrevPivote(@ID BIGINT, @type tinyint)
 RETURNS BIGINT
 AS
 BEGIN

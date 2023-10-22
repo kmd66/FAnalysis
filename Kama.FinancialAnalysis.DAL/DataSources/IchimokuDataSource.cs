@@ -49,5 +49,23 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
+        public async Task<Result<IEnumerable<Ichimoku>>> GetListAsync(IchimokuVM model)
+        {
+            try
+            {
+                var result = (await pbl.GetListIchimokuAsync(
+                    _pageIndex: model.PageIndex,
+                    _pageSize: model.PageSize,
+                    _type: (byte)model.Type
+                    )).ToListActionResult<Ichimoku>();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
     }
 }

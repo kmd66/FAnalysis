@@ -1,11 +1,10 @@
 USE [Kama.FinancialAnalysis]
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pbl.spGetPriceMinutelys') AND type in (N'P', N'PC'))
-    DROP PROCEDURE pbl.spGetPriceMinutelys
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'pbl.spGetListCci') AND type in (N'P', N'PC'))
+    DROP PROCEDURE pbl.spGetListCci
 GO
-
-CREATE PROCEDURE pbl.spGetPriceMinutelys
+CREATE PROCEDURE pbl.spGetListCci
 	@AType TINYINT,
 	@APageSize INT,
 	@APageIndex INT
@@ -25,10 +24,9 @@ BEGIN
 		SET @PageIndex = 1
 	END
 	
-		SELECT * FROM [pbl].[PriceMinutely] 
+		SELECT * FROM [pbl].Cci 
 		WHERE [Type] = @Type
-			and date > '2023-09-07 00:01:00.000'
-			--and date > '2023-01-01 00:01:00.000'
+			and date > '2023-01-01 00:01:00.000'
 		ORDER BY ID DESC
 		OFFSET ((@PageIndex - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY;
 			

@@ -30,5 +30,23 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
+        public async Task<Result<IEnumerable<Cci>>> GetListAsync(CciVM model)
+        {
+            try
+            {
+                var result = (await pbl.GetListCciAsync(
+                    _pageIndex: model.PageIndex,
+                    _pageSize: model.PageSize,
+                    _type: (byte)model.Type
+                    )).ToListActionResult<Cci>();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
     }
 }

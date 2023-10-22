@@ -52,3 +52,19 @@ public enum SessionOCType : byte
     londonClose = 21,
     sydneyClose = 22,
 }
+
+public enum PriceType : byte
+{
+    Unknown = 0,
+
+    Highest = 1,
+    Lowest = 2,
+}
+
+public enum TransactionType : byte
+{
+    Unknown = 0,
+
+    sell = 1,
+    buy = 2,
+}

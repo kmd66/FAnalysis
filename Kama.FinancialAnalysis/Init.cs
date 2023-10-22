@@ -55,6 +55,7 @@ namespace Kama.FinancialAnalysis
             if (!XauUsd.Success) System.Environment.Exit(500);
             DbIndexPrice.XauUsd = XauUsd.Data.ToList();
 
+
             var UsdChf = await priceMinutelyDataSource.ListAsync(new ListVM { PageIndex = 1, PageSize = 10000 }, SymbolType.usdchf);
             if (!UsdChf.Success) System.Environment.Exit(500);
             DbIndexPrice.UsdChf = UsdChf.Data.ToList();
@@ -77,6 +78,12 @@ namespace Kama.FinancialAnalysis
 
         private async Task addAllIndexs()
         {
+
+            //await new RsiService().AddAll(SymbolType.xauusd)
+            //await new CciService().AddAll(SymbolType.xauusd);
+            //await new IchimokuService().AddAll(SymbolType.xauusd);
+            //await new BollingerBandsService().AddAll(SymbolType.xauusd);
+            //await new MacdService().AddAll(SymbolType.xauusd);
 
             new MovingAverageService().AddReng(DbIndexPrice.XauUsd);
             new MovingAverageService().AddReng(DbIndexPrice.UsdChf);

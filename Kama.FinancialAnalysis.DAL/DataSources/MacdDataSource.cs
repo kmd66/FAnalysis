@@ -50,5 +50,23 @@ namespace Kama.FinancialAnalysis.DAL
             }
         }
 
+        public async Task<Result<IEnumerable<Macd>>> GetListAsync(MacdVM model)
+        {
+            try
+            {
+                var result = (await pbl.GetListMacdAsync(
+                    _pageIndex: model.PageIndex,
+                    _pageSize: model.PageSize,
+                    _type: (byte)model.Type
+                    )).ToListActionResult<Macd>();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
     }
 }

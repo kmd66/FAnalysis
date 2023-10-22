@@ -16,7 +16,7 @@ namespace Kama.FinancialAnalysis.Domain
     {
         int _backStep = 7;
         int _depth = 8;
-        double _darsad = 25;
+        double _darsad = 14;
         
         ZigZagDataSource _dataSource = new ZigZagDataSource();
         

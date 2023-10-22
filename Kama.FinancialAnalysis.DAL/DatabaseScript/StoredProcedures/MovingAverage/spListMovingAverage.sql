@@ -14,5 +14,6 @@ BEGIN
 		
 	SELECT * FROM pbl.MovingAverage
 	WHERE @Type =0 OR [Type]= @Type
+			and date > '2023-01-01 00:01:00.000'
 	
 END 
