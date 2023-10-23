@@ -65,6 +65,6 @@ public enum TransactionType : byte
 {
     Unknown = 0,
 
-    sell = 1,
-    buy = 2,
+    Sell = 1,
+    Buy = 2,
 }

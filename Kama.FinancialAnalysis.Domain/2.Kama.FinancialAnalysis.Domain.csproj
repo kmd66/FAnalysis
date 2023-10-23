@@ -108,6 +108,11 @@
     <Compile Include="Services\StandardDeviationService.cs" />
     <Compile Include="Services\PriceMinutelyService.cs" />
     <Compile Include="Services\PriceViewService.cs" />
+    <Compile Include="Simulate\InitSimulateService.cs" />
+    <Compile Include="Simulate\Tr1\SignalDetectionModel.cs" />
+    <Compile Include="Simulate\Tr1\Enums.cs" />
+    <Compile Include="Simulate\Tr1\Tr2Helper.cs" />
+    <Compile Include="Simulate\Tr1\Tr1Helper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -118,9 +123,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Simulate\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

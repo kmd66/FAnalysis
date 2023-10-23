@@ -23,10 +23,10 @@ namespace Kama.FinancialAnalysis
 
             //---------------------
             AppProperty.SetInstance(System.Configuration.ConfigurationManager.AppSettings["AppPropertyPath"]);
-           //new Init();
-             new InitML();
+            //new Init();
+            //new InitML();
 
-//            new InitSimulate();
+            new InitSimulate();
 
         }
     }

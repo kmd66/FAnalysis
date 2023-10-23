@@ -246,46 +246,6 @@ public ResultSet AddListRsi(string _json, int? timeout = null)
 
 #endregion
 
-#region GetListRsi
-
-public System.Data.SqlClient.SqlCommand GetCommand_GetListRsi(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-var cmd = base.CreateCommand("pbl.spGetListRsi", 
-	System.Data.CommandType.StoredProcedure, 
-	new Parameter[]{
-					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
-					new Parameter { Name = "@APageSize", IsOutput = false, Value = _pageSize == null ? DBNull.Value : (object)_pageSize }, 
-					new Parameter { Name = "@APageIndex", IsOutput = false, Value = _pageIndex == null ? DBNull.Value : (object)_pageIndex }, 
-	});
-
-			if (timeout != null)
-				cmd.CommandTimeout = (int)timeout;
-			return cmd;
-}
-
-public async Task<ResultSet> GetListRsiAsync(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-	using(var cmd = GetCommand_GetListRsi(_type, _pageSize, _pageIndex, timeout))
-{
-	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
-}
-}
-
-public async Task<AppCore.Result<IEnumerable<T>>> GetListRsiDapperAsync<T>(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-	return await  DapperQueryAsync<T>("pbl.spGetListRsi",new {AType=_type,APageSize=_pageSize,APageIndex=_pageIndex} , timeout );
-}
-
-public ResultSet GetListRsi(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-	using(var cmd = GetCommand_GetListRsi(_type, _pageSize, _pageIndex, timeout))
-{
-	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
-}
-}
-
-#endregion
-
 #region GetListCci
 
 public System.Data.SqlClient.SqlCommand GetCommand_GetListCci(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
@@ -515,6 +475,46 @@ public async Task<AppCore.Result<IEnumerable<T>>> GetListMacdDapperAsync<T>(byte
 public ResultSet GetListMacd(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
 {
 	using(var cmd = GetCommand_GetListMacd(_type, _pageSize, _pageIndex, timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
+#region GetListRsi
+
+public System.Data.SqlClient.SqlCommand GetCommand_GetListRsi(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spGetListRsi", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
+					new Parameter { Name = "@APageSize", IsOutput = false, Value = _pageSize == null ? DBNull.Value : (object)_pageSize }, 
+					new Parameter { Name = "@APageIndex", IsOutput = false, Value = _pageIndex == null ? DBNull.Value : (object)_pageIndex }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> GetListRsiAsync(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetListRsi(_type, _pageSize, _pageIndex, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> GetListRsiDapperAsync<T>(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spGetListRsi",new {AType=_type,APageSize=_pageSize,APageIndex=_pageIndex} , timeout );
+}
+
+public ResultSet GetListRsi(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetListRsi(_type, _pageSize, _pageIndex, timeout))
 {
 	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
 }
@@ -1225,46 +1225,6 @@ public ResultSet GetEmptysStandardDeviation(string _json, int? timeout = null)
 
 #endregion
 
-#region GetPriceMinutelys
-
-public System.Data.SqlClient.SqlCommand GetCommand_GetPriceMinutelys(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-var cmd = base.CreateCommand("pbl.spGetPriceMinutelys", 
-	System.Data.CommandType.StoredProcedure, 
-	new Parameter[]{
-					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
-					new Parameter { Name = "@APageSize", IsOutput = false, Value = _pageSize == null ? DBNull.Value : (object)_pageSize }, 
-					new Parameter { Name = "@APageIndex", IsOutput = false, Value = _pageIndex == null ? DBNull.Value : (object)_pageIndex }, 
-	});
-
-			if (timeout != null)
-				cmd.CommandTimeout = (int)timeout;
-			return cmd;
-}
-
-public async Task<ResultSet> GetPriceMinutelysAsync(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-	using(var cmd = GetCommand_GetPriceMinutelys(_type, _pageSize, _pageIndex, timeout))
-{
-	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
-}
-}
-
-public async Task<AppCore.Result<IEnumerable<T>>> GetPriceMinutelysDapperAsync<T>(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-	return await  DapperQueryAsync<T>("pbl.spGetPriceMinutelys",new {AType=_type,APageSize=_pageSize,APageIndex=_pageIndex} , timeout );
-}
-
-public ResultSet GetPriceMinutelys(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
-{
-	using(var cmd = GetCommand_GetPriceMinutelys(_type, _pageSize, _pageIndex, timeout))
-{
-	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
-}
-}
-
-#endregion
-
 #region AddWorkingHours
 
 public System.Data.SqlClient.SqlCommand GetCommand_AddWorkingHours(byte? _type, int? timeout = null)
@@ -1334,6 +1294,46 @@ public async Task<AppCore.Result<IEnumerable<T>>> AddListZigZagDapperAsync<T>(st
 public ResultSet AddListZigZag(string _json, int? timeout = null)
 {
 	using(var cmd = GetCommand_AddListZigZag(_json, timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
+#region GetPriceMinutelys
+
+public System.Data.SqlClient.SqlCommand GetCommand_GetPriceMinutelys(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
+{
+var cmd = base.CreateCommand("pbl.spGetPriceMinutelys", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
+					new Parameter { Name = "@APageSize", IsOutput = false, Value = _pageSize == null ? DBNull.Value : (object)_pageSize }, 
+					new Parameter { Name = "@APageIndex", IsOutput = false, Value = _pageIndex == null ? DBNull.Value : (object)_pageIndex }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> GetPriceMinutelysAsync(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetPriceMinutelys(_type, _pageSize, _pageIndex, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> GetPriceMinutelysDapperAsync<T>(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("pbl.spGetPriceMinutelys",new {AType=_type,APageSize=_pageSize,APageIndex=_pageIndex} , timeout );
+}
+
+public ResultSet GetPriceMinutelys(byte? _type, int? _pageSize, int? _pageIndex, int? timeout = null)
+{
+	using(var cmd = GetCommand_GetPriceMinutelys(_type, _pageSize, _pageIndex, timeout))
 {
 	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
 }
@@ -1836,6 +1836,103 @@ public async Task<AppCore.Result<IEnumerable<T>>> AddStandardDeviationDapperAsyn
 public ResultSet AddStandardDeviation(string _json, int? timeout = null)
 {
 	using(var cmd = GetCommand_AddStandardDeviation(_json, timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
+}
+
+public class SIM: Database
+{
+#region Constructors
+public SIM(string connectionString)
+	:base(connectionString){}
+
+public SIM(string connectionString, IModelValueBinder modelValueBinder)
+	:base(connectionString, modelValueBinder){}
+#endregion
+
+#region AddBestPrice
+
+public System.Data.SqlClient.SqlCommand GetCommand_AddBestPrice(Guid? _id, Guid? _transavtion, long? _priceID, byte? _type, int? timeout = null)
+{
+var cmd = base.CreateCommand("sim.spAddBestPrice", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AID", IsOutput = false, Value = _id == null ? DBNull.Value : (object)_id }, 
+					new Parameter { Name = "@ATransavtion", IsOutput = false, Value = _transavtion == null ? DBNull.Value : (object)_transavtion }, 
+					new Parameter { Name = "@APriceID", IsOutput = false, Value = _priceID == null ? DBNull.Value : (object)_priceID }, 
+					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> AddBestPriceAsync(Guid? _id, Guid? _transavtion, long? _priceID, byte? _type, int? timeout = null)
+{
+	using(var cmd = GetCommand_AddBestPrice(_id, _transavtion, _priceID, _type, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> AddBestPriceDapperAsync<T>(Guid? _id, Guid? _transavtion, long? _priceID, byte? _type, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("sim.spAddBestPrice",new {AID=_id,ATransavtion=_transavtion,APriceID=_priceID,AType=_type} , timeout );
+}
+
+public ResultSet AddBestPrice(Guid? _id, Guid? _transavtion, long? _priceID, byte? _type, int? timeout = null)
+{
+	using(var cmd = GetCommand_AddBestPrice(_id, _transavtion, _priceID, _type, timeout))
+{
+	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
+}
+}
+
+#endregion
+
+#region AddTransaction
+
+public System.Data.SqlClient.SqlCommand GetCommand_AddTransaction(Guid? _id, long? _signalPriceID, long? _startPriceID, long? _endPriceID, float? _profit, byte? _type, bool? _returned, int? timeout = null)
+{
+var cmd = base.CreateCommand("sim.spAddTransaction", 
+	System.Data.CommandType.StoredProcedure, 
+	new Parameter[]{
+					new Parameter { Name = "@AID", IsOutput = false, Value = _id == null ? DBNull.Value : (object)_id }, 
+					new Parameter { Name = "@ASignalPriceID", IsOutput = false, Value = _signalPriceID == null ? DBNull.Value : (object)_signalPriceID }, 
+					new Parameter { Name = "@AStartPriceID", IsOutput = false, Value = _startPriceID == null ? DBNull.Value : (object)_startPriceID }, 
+					new Parameter { Name = "@AEndPriceID", IsOutput = false, Value = _endPriceID == null ? DBNull.Value : (object)_endPriceID }, 
+					new Parameter { Name = "@AProfit", IsOutput = false, Value = _profit == null ? DBNull.Value : (object)_profit }, 
+					new Parameter { Name = "@AType", IsOutput = false, Value = _type == null ? DBNull.Value : (object)_type }, 
+					new Parameter { Name = "@AReturned", IsOutput = false, Value = _returned == null ? DBNull.Value : (object)_returned }, 
+	});
+
+			if (timeout != null)
+				cmd.CommandTimeout = (int)timeout;
+			return cmd;
+}
+
+public async Task<ResultSet> AddTransactionAsync(Guid? _id, long? _signalPriceID, long? _startPriceID, long? _endPriceID, float? _profit, byte? _type, bool? _returned, int? timeout = null)
+{
+	using(var cmd = GetCommand_AddTransaction(_id, _signalPriceID, _startPriceID, _endPriceID, _profit, _type, _returned, timeout))
+{
+	return new ResultSet(cmd, await ExecuteAsync(cmd), _modelValueBinder);
+}
+}
+
+public async Task<AppCore.Result<IEnumerable<T>>> AddTransactionDapperAsync<T>(Guid? _id, long? _signalPriceID, long? _startPriceID, long? _endPriceID, float? _profit, byte? _type, bool? _returned, int? timeout = null)
+{
+	return await  DapperQueryAsync<T>("sim.spAddTransaction",new {AID=_id,ASignalPriceID=_signalPriceID,AStartPriceID=_startPriceID,AEndPriceID=_endPriceID,AProfit=_profit,AType=_type,AReturned=_returned} , timeout );
+}
+
+public ResultSet AddTransaction(Guid? _id, long? _signalPriceID, long? _startPriceID, long? _endPriceID, float? _profit, byte? _type, bool? _returned, int? timeout = null)
+{
+	using(var cmd = GetCommand_AddTransaction(_id, _signalPriceID, _startPriceID, _endPriceID, _profit, _type, _returned, timeout))
 {
 	return new ResultSet(cmd, Execute(cmd), _modelValueBinder);
 }

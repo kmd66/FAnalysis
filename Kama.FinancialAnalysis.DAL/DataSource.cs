@@ -10,9 +10,11 @@ namespace Kama.FinancialAnalysis.DAL
         public DataSource()
         {
             pbl = new PBL(AppProperty.Instance.ConnectionString);
+            sim = new SIM(AppProperty.Instance.ConnectionString);
         }
 
         public PBL pbl;
+        public SIM sim;
 
     }
 }

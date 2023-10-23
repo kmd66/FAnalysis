@@ -107,6 +107,7 @@
     <Compile Include="DbContextInfo.cs" />
     <Compile Include="LayerRegistrar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Simulate\TransactionDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DatabaseModel.tt">
@@ -188,6 +189,8 @@
     </Content>
     <Content Include="DatabaseScript\Functions\fnGetPersianDate.sql" />
     <Content Include="DatabaseScript\Updates\DB Updates.sql" />
+    <Content Include="Simulate\DatabaseScript\spAddTransaction.sql" />
+    <Content Include="Simulate\DatabaseScript\spAddBestPrice.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -195,7 +198,6 @@
   <ItemGroup>
     <Folder Include="DatabaseScript\Synonyms\" />
     <Folder Include="DatabaseScript\Views\" />
-    <Folder Include="Simulate\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
