@@ -34,7 +34,9 @@ BEGIN
 			,z.ID ZigZag
 			,z.Approved ZigZagID
 			,r.Value14 Rsi14
+			,r.Value32 Rsi32
 			,c.Value14 Cci14
+			,c.Value32 Cci32
 			--pbl.fnAscendingOrDescending(ID, @Type, [Close]) [Asc]
 		FROM [pbl].PriceMinutely p
 		INNER JOIN pbl.MovingAverage m on p.ID = m.ID

@@ -78,6 +78,8 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
                 {
                     _signalModel.TransactionItem = item;
                     _signalModel.MacdItem = macd;
+                    HighestMacd12 = macd.M12;
+                    LowestMacd12 = macd.M12;
                 }
                 else
                     await SellOrBuy(item);
@@ -88,6 +90,8 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
                 {
                     _signalModel.TransactionItem = item;
                     _signalModel.MacdItem = macd;
+                    HighestMacd12 = macd.M12;
+                    LowestMacd12 = macd.M12;
                 }
                 else
                     await SellOrBuy(item);
@@ -99,8 +103,6 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
             i_SellOrBuy++;
             _position = PositionType.Transaction;
             var macd = DbIndexMacd.XauUsd.FirstOrDefault(x => x.ID == item.ID);
-            HighestMacd12 = macd.M12;
-            LowestMacd12 = macd.M12;
 
             _transactionModel = new Transaction
             {
@@ -140,22 +142,22 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
             if (_position == PositionType.Transaction)
                 await CheckPriceItem(item);
 
-            if (_position == PositionType.WaitingForSignal)
-            {
-                if (macd.M12 > 1 || macd.M12 < -1)
-                {
-                    _signalModel.TransactionItem = item;
-                    _signalModel.MacdItem = macd;
-                    _position = PositionType.WaitingForTransaction;
+            //if (_position == PositionType.WaitingForSignal)
+            //{
+            //    if (macd.M12 > 1 || macd.M12 < -1)
+            //    {
+            //        _signalModel.TransactionItem = item;
+            //        _signalModel.MacdItem = macd;
+            //        _position = PositionType.WaitingForTransaction;
 
-                    if (macd.M12 < -1)
-                        _transactionType = TransactionType.Sell;
-                    else
-                        _transactionType = TransactionType.Buy;
-                    await SellOrBuy(item);
-                    _transactionModel.Returned = true;
-                }
-            }
+            //        if (macd.M12 < -1)
+            //            _transactionType = TransactionType.Sell;
+            //        else
+            //            _transactionType = TransactionType.Buy;
+            //        await SellOrBuy(item);
+            //        _transactionModel.Returned = true;
+            //    }
+            //}
         }
 
         public async Task CheckTransactionSell(PriceMinutely item)

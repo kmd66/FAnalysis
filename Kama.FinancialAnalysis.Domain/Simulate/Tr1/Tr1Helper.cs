@@ -31,6 +31,7 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
             var list = DbIndexPrice.XauUsd.OrderBy(x => x.ID);
             foreach (var item in list)
             {
+                
                 if (_position == PositionType.WaitingForSignal)
                     await SignalDetection(item);
 
@@ -44,7 +45,7 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
 
         public async Task SignalDetection(PriceMinutely item)
         {
-            if (item.Date.Hour < 2 || item.Date.Hour > 9)
+            if (item.Date.Hour < 2 || item.Date.Hour > 21)
                 return;
 
             var cci = DbIndexCci.XauUsd.FirstOrDefault(x => x.ID == item.ID);
@@ -65,15 +66,17 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
 
         public async Task TransactionDetection(PriceMinutely item)
         {
-            var cci = DbIndexCci.XauUsd.FirstOrDefault(x => x.ID == item.ID);
             var macd = DbIndexMacd.XauUsd.FirstOrDefault(x => x.ID == item.ID);
-            
-            if(_transactionType == TransactionType.Sell)
+
+            //_signalModel.TransactionItem = item;
+            _signalModel.MacdItem = macd;
+            HighestMacd12 = macd.M12;
+            LowestMacd12 = macd.M12;
+
+            if (_transactionType == TransactionType.Sell)
             {
                 if (_signalModel.MacdItem.M12 > macd.M12)
                 {
-                    _signalModel.TransactionItem = item;
-                    _signalModel.MacdItem = macd;
                 }
                 else
                     await SellOrBuy(item);
@@ -82,8 +85,6 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
             {
                 if (_signalModel.MacdItem.M12 < macd.M12)
                 {
-                    _signalModel.TransactionItem = item;
-                    _signalModel.MacdItem = macd;
                 }
                 else
                     await SellOrBuy(item);
@@ -94,8 +95,6 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
         {
             _position = PositionType.Transaction;
             var macd = DbIndexMacd.XauUsd.FirstOrDefault(x => x.ID == item.ID);
-            HighestMacd12 = macd.M12;
-            LowestMacd12 = macd.M12;
 
             _transactionModel = new Transaction
             {
@@ -108,7 +107,7 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
 
         public async Task CheckTransaction(PriceMinutely item)
         {
-            if (item.Date.Hour > 11 )
+            if (item.Date.Hour > 23)
             {
                 await CloseTransaction(item);
                 return;
@@ -127,7 +126,7 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
 
             }
 
-            if (_transactionType == TransactionType.Buy)
+            if (_transactionType == TransactionType.Sell)
                 await CheckTransactionSell(item);
             else
                 await CheckTransactionBuy(item);
@@ -137,26 +136,26 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
 
             if (_position == PositionType.WaitingForSignal)
             {
-                if (macd.M12 > 1 || macd.M12 < -1)
-                {
-                    _signalModel.TransactionItem = item;
-                    _signalModel.MacdItem = macd;
-                    _position = PositionType.WaitingForTransaction;
+                //if (macd.M12 > 1 || macd.M12 < -1)
+                //{
+                //    _signalModel.TransactionItem = item;
+                //    _signalModel.MacdItem = macd;
+                //    _position = PositionType.WaitingForTransaction;
 
-                    if (macd.M12 < -1)
-                        _transactionType = TransactionType.Sell;
-                    else
-                        _transactionType = TransactionType.Buy;
-                    await SellOrBuy(item);
-                    _transactionModel.Returned = true;
-                }
+                //    if (macd.M12 < -1)
+                //        _transactionType = TransactionType.Sell;
+                //    else
+                //        _transactionType = TransactionType.Buy;
+                //    await SellOrBuy(item);
+                //    _transactionModel.Returned = true;
+                //}
             }
         }
 
         public async Task CheckTransactionSell(PriceMinutely item)
         {
             //var start = DbIndexPrice.XauUsd.FirstOrDefault(x => x.ID == _transactionModel.StartPriceID);
-            //if (start.Close - item.Close > 2)
+            //if (item.Close - start.Close < -4)
             //{
             //    await CloseTransaction(item);
             //    return;
@@ -164,18 +163,21 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
 
             var macd = DbIndexMacd.XauUsd.FirstOrDefault(x => x.ID == item.ID);
 
-            if (macd.M12 - 0.39 < LowestMacd12)
+            if (macd.M12 > 0.2 )
             {
-                await CloseTransaction(item);
-                return;
-            }
-
-            if (HighestMacd12 > 1)
-            {
-                if (macd.M12 - 0.14 < LowestMacd12)
+                if (macd.M12 + 0.16 < HighestMacd12)
                 {
                     await CloseTransaction(item);
                     return;
+                }
+
+                if (HighestMacd12 > 0.99)
+                {
+                    if (macd.M12 + 0.14 < HighestMacd12)
+                    {
+                        await CloseTransaction(item);
+                        return;
+                    }
                 }
             }
 
@@ -184,7 +186,7 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
         public async Task CheckTransactionBuy(PriceMinutely item)
         {
             //var start = DbIndexPrice.XauUsd.FirstOrDefault(x => x.ID == _transactionModel.StartPriceID);
-            //if (start.Close - item.Close < -2)
+            //if (start.Close - item.Close < -4)
             //{
             //    await CloseTransaction(item);
             //    return;
@@ -192,18 +194,21 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
 
             var macd = DbIndexMacd.XauUsd.FirstOrDefault(x => x.ID == item.ID);
 
-            if (macd.M12 + 0.39 < HighestMacd12)
+            if (macd.M12 < -0.2)
             {
-                await CloseTransaction(item);
-                return;
-            }
-
-            if (LowestMacd12 < -1)
-            {
-                if (macd.M12 + 0.14 < HighestMacd12)
+                if (macd.M12 - 0.16 < LowestMacd12)
                 {
                     await CloseTransaction(item);
                     return;
+                }
+
+                if (LowestMacd12 < -0.99)
+                {
+                    if (macd.M12 - 0.14 < LowestMacd12)
+                    {
+                        await CloseTransaction(item);
+                        return;
+                    }
                 }
             }
 
@@ -223,7 +228,7 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
                 LowestPriceItem = item;
             }
 
-            if(type != PriceType.Unknown)
+            if (type != PriceType.Unknown)
                 await _dataSource.AddBestPriceAsync(new BestPrice
                 {
                     ID = Guid.NewGuid(),

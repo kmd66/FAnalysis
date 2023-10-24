@@ -29,8 +29,10 @@ namespace Kama.FinancialAnalysis.Model
         public long ZigZagID { get; set; }
 
         public double Rsi14 { get; set; }
+        public double Rsi32{ get; set; }
 
         public double Cci14 { get; set; }
+        public double Cci32 { get; set; }
 
         public BollingerBands BollingerBands { get; set; }
 
