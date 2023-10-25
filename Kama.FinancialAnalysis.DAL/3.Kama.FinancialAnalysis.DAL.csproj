@@ -120,6 +120,7 @@
     <Content Include="DatabaseScript\StoredProcedures\Cci\spGetListCci.sql" />
     <Content Include="DatabaseScript\StoredProcedures\Ichimoku\fnGetIchimoku.sql" />
     <Content Include="DatabaseScript\StoredProcedures\Ichimoku\spGetListIchimoku.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Macd\fnMacdMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\Macd\fnGetMacd.sql" />
     <Content Include="DatabaseScript\StoredProcedures\Macd\spGetListMacd.sql" />
     <Content Include="DatabaseScript\StoredProcedures\Rsi\fnGetPrveCandleRsi.sql" />
