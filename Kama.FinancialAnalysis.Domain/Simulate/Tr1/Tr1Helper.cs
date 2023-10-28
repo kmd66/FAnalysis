@@ -45,13 +45,13 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
 
         public async Task SignalDetection(PriceMinutely item)
         {
-            if (item.Date.Hour < 2 || item.Date.Hour > 21)
+            if ((item.Date.Hour < 2 && item.Date.Minute < 50) || (item.Date.Hour > 20 && item.Date.Minute > 50))
                 return;
 
             var cci = DbIndexCci.XauUsd.FirstOrDefault(x => x.ID == item.ID);
             var macd = DbIndexMacd.XauUsd.FirstOrDefault(x => x.ID == item.ID);
-            if ((cci.Value14 > 200 && macd.M12 > 0.9)
-                || (cci.Value14 < -200 && macd.M12 < -0.9))
+            if ((macd.M12 > 0.9)
+                || (macd.M12 < -0.9))
             {
                 _signalModel.TransactionItem = item;
                 _signalModel.MacdItem = macd;
@@ -107,7 +107,7 @@ namespace Kama.FinancialAnalysis.Domain.Tr1
 
         public async Task CheckTransaction(PriceMinutely item)
         {
-            if (item.Date.Hour > 23)
+            if (item.Date.Hour > 22 && item.Date.Minute > 30)
             {
                 await CloseTransaction(item);
                 return;

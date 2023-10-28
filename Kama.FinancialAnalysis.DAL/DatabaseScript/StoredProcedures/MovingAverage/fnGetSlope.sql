@@ -14,20 +14,32 @@ BEGIN
 	
 	
 	;WITH M AS(
-		SELECT TOP(@Top)  ID,[Close] FROM PBL.PriceMinutely WHERE ID <= @ID AND Type = @Type ORDER BY ID DESC
-	) ,M2 AS(
-		SELECT *,ROW_NUMBER() OVER(ORDER BY ID DESC) r from m
+		SELECT TOP(@Top)  ID,[Close],ROW_NUMBER() OVER(ORDER BY ID DESC) r FROM PBL.PriceMinutely WHERE ID <= @ID AND Type = @Type ORDER BY ID DESC
 	) ,F AS(
-		SELECT TOP 1 m2.*, D FROM M2 
-		inner join pbl.MovingAverage m on M2.ID = m.ID
+		SELECT TOP 1 [Close] FROM M 
 		ORDER BY r 
 	),L AS(
-		SELECT TOP 1 m2.*, D FROM M2 
-		inner join pbl.MovingAverage m on M2.ID = m.ID
+		SELECT TOP 1 [Close] FROM M 
 		ORDER BY r DESC
 	)
-	SELECT @Ma= ROUND(F.D- L.D, 8) FROM F 
+	SELECT @Ma= ROUND(F.[Close]- L.[Close], 8) FROM F 
 	INNER JOIN L ON 1=1
+	
+	--;WITH M AS(
+	--	SELECT TOP(@Top)  ID,[Close] FROM PBL.PriceMinutely WHERE ID <= @ID AND Type = @Type ORDER BY ID DESC
+	--) ,M2 AS(
+	--	SELECT *,ROW_NUMBER() OVER(ORDER BY ID DESC) r from m
+	--) ,F AS(
+	--	SELECT TOP 1 m2.*, D FROM M2 
+	--	inner join pbl.MovingAverage m on M2.ID = m.ID
+	--	ORDER BY r 
+	--),L AS(
+	--	SELECT TOP 1 m2.*, D FROM M2 
+	--	inner join pbl.MovingAverage m on M2.ID = m.ID
+	--	ORDER BY r DESC
+	--)
+	--SELECT @Ma= ROUND(F.D- L.D, 8) FROM F 
+	--INNER JOIN L ON 1=1
 
 	--;WITH M AS(
 	--	SELECT TOP(@Top)  ID,[Close] FROM PBL.PriceMinutely WHERE ID <= @ID AND Type = @Type ORDER BY ID DESC

@@ -117,6 +117,7 @@
     <Content Include="DatabaseScript\fnMl\fnApprovedUp.sql" />
     <Content Include="DatabaseScript\StoredProcedures\BollingerBands\spGetListBollingerBands.sql" />
     <Content Include="DatabaseScript\StoredProcedures\Cci\fnGetCci.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Cci\fnCciMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\Cci\spGetListCci.sql" />
     <Content Include="DatabaseScript\StoredProcedures\Ichimoku\fnGetIchimoku.sql" />
     <Content Include="DatabaseScript\StoredProcedures\Ichimoku\spGetListIchimoku.sql" />
@@ -164,6 +165,7 @@
     <Content Include="DatabaseScript\StoredProcedures\Macd\spAddListMacd.sql" />
     <Content Include="DatabaseScript\StoredProcedures\BollingerBands\spAddListBollingerBands.sql" />
     <Content Include="DatabaseScript\StoredProcedures\Ichimoku\spAddListIchimoku.sql" />
+    <Content Include="DatabaseScript\StoredProcedures\Rsi\fnRsiMovingAverage.sql" />
     <Content Include="DatabaseScript\StoredProcedures\Rsi\spGetListRsi.sql" />
     <Content Include="DatabaseScript\StoredProcedures\Rsi\spAddListRsi.sql" />
     <Content Include="DatabaseScript\StoredProcedures\StandardDeviation\fnGetStandardDeviation2.sql" />

@@ -5,7 +5,7 @@ IF OBJECT_ID('pbl.fnGetIchimoku') IS NOT NULL DROP FUNCTION pbl.fnGetIchimoku
 GO
 
 CREATE FUNCTION pbl.fnGetIchimoku(@ID BIGINT, @Close float, @Type tinyint)
-RETURNS bit
+RETURNS float
 AS
 BEGIN
 	
@@ -27,12 +27,13 @@ BEGIN
 	
     if @Type = 2
 	begin
-		if @Close > @sb-- >0
+		RETURN	@Close - @sb-- >0
 		RETURN 0
     
 		RETURN 1
 	END
-		if @Close > @sb-- >0
+		RETURN	@Close - @sa
+		if @Close > @sa-- >0
 		RETURN 0
     
 		RETURN 1

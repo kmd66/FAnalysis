@@ -111,6 +111,7 @@
     <Compile Include="Simulate\InitSimulateService.cs" />
     <Compile Include="Simulate\Tr1\SignalDetectionModel.cs" />
     <Compile Include="Simulate\Tr1\Enums.cs" />
+    <Compile Include="Simulate\Tr1\Tr3Helper.cs" />
     <Compile Include="Simulate\Tr1\Tr2Helper.cs" />
     <Compile Include="Simulate\Tr1\Tr1Helper.cs" />
   </ItemGroup>
